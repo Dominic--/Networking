@@ -64,7 +64,7 @@ directions for operating this demo network. One consider the min power consumpti
 it is obviously that we should close the larger power consuming links, such as the 5M and 3M links, and all the traffic 
 go through the 2M link. In this way, the min max utilization of network is 0.5 and the power consuming is 2 units 
 (means the power difference come from the link mainly). The other consider the power except for the utilization reversely,
-so we should split the 1M traffic to three parts, 0.2M accros 2M link, 0.3M accros 3M link and 0.5M accros 5M, consequently with 
+so we should split the 1M traffic to three parts, 0.2M across 2M link, 0.3M across 3M link and 0.5M across 5M, consequently with 
 a min max utilization of 0.1, but the power is 10 units however.
 
 Two directions mentioned above both are extremely single-consideration. Previous researchers solve the problem more considerable,
@@ -84,29 +84,30 @@ topology. We define $d_{ab}$ as the demand from $a$ to $b$, routing can be speci
 means the fraction demand from $a$ to $b$ routed on the link $(i,j)$. Obviously, the $d_{ab}$ contribute to the link $(i,j)$ is 
 $d_{ab}f_{ab}(i,j)$. We also defined $cap_{ij}$ as the capacity of the link $(i,j)$; 
 
-Formally, the max link utilization of a routing $r$ on traffic matrix $tm$ can be described as following:
+Formally, the max link utilization of a routing $r$ on traffic matrix $tm$ in network topology $T$ can be described as following:
 \begin{equation}
-U_{r,tm} = \max_{(i,j)\in links_of(tm)} \sum_{a,b} \frac{d_{ab}f_{ab}(i,j)}{cap_{ij}}
+U_{r,tm, T} = \max_{(i,j)\in linksof(T)} \sum_{a,b\in tm} \frac{d_{ab}f_{ab}(i,j)}{cap_{ij}}
 \end{equation}
 
-The routing which own the min max link utilization is the optimal one in the possible routing set $R$, it can be represented by :
+The routing which own the min max link utilization is the optimal one in the possible routing set $R$ of network topology $T$,
+it can be represented by :
 \begin{equation}
-OptU_{tm} = \min_{r\in R} U_{r,tm}
+OptU_{tm, T} = \min_{r\in R} U_{r,tm, T}
 \end{equation}
 
 Now we define what is ``robust'', before this we introdunce the ``distance'' between the current routing $r$ and the optimal routing
-in the some traffic matrix $tm$, as following :
+in the some traffic matrix $tm$ of network topology $T$, as following :
 \begin{equation}
-Perf(r,\{ tm \}) = \frac{\max_{(i,j)\in links_of(tm)} \sum_{a,b} d_{ab}f_{ab}(i,j)/cap_{ij}}{OptU_{tm}}
+Perf(\{ r \},\{ tm \}, T) = \frac{U_{r,tm,T}}{OptU_{tm, T}}
 \end{equation}
 
-and the ``robust'' routing satisfied the min max distance for all possible traffic matrix which represent $TM$, 
+and the ``robust'' routing satisfied the min max distance for all possible traffic matrix, 
 \begin{equation}
-Perf(r, TM) = \max_{tm\in TM} Perf(r, \{ tm \})
+Perf(\{ r \}, T) = \max_{tm\in TM} Perf(\{ r \}, \{ tm \}, T)
 \end{equation}
 
 \begin{equation}
-Perf(R, TM) = \min_{r\in R} Perf(r, TM)
+Perf(R, TM, T) = \min_{r\in R} Perf(\{ r \}, T)
 \end{equation}
 
 i.e. the routing $r$ achive the $Perf(R,TM)$ represent the most ``robust'' routing for the traffic matrix set ``TM''. Back to our
@@ -114,13 +115,42 @@ origin question, we change another formulation : Is there exist a robust routing
 and if does, how to obtain it?
 
 Definition for the ``robust'' will failed in our power and utilization model. Let us take a cycle network topology as an simple example,
-in which we should choose one link to close. Before link cutting, the $Perf(R, TM)$ will approximate to 2, but no matter which 
-link is chosen to close, the $Perf(R, TM)$ will change to 1. The reason for the ``fake robust'' is that the route in the 
+in which we should choose one link to close. Before link cutting, the $Perf(R, TM, CYCLE)$ is approximate to 2, but no matter which 
+link is chosen to close, the $Perf(R, TM, LINE)$ will change to 1. The reason for the ``fake robust'' is that the route in the 
 after-link-cutting topology become unique, the current route always equal the optimal route. More generally, when taking the green in
 consideration, with the link cutting process proceeding, the previous definition of ``robust'' always go down because the network become
 more and more monotonous.
 
-So we make a little modification for the $Perf(r,\{ tm \})$, in our situation 
+So we make a little modification for the $Perf$, in our situation we will change the status of link frequently, which means
+the topology of network also changed all the time, so the $Perf$ is related to the difference network topology, 
+let $T_{ori}$ be the origin network, and the $T_{new}$ be the nre network after closing some link, we redefine the $Perf$ as:
+\begin{equation}
+Perf(\{ tm\}, T_{ori}, T_{new}) = \min_{r \in routeof(T_{new})} \frac{U_{r,tm,T_{new}}}{OptU_{tm,T_{ori}}}
+\end{equation}
+
+When close the some link, we choose the min max $Perf$ :
+\begin{equation}
+PerfGreen(T) = \min_{T_{new}\in from(T)} \max_{tm \in TM} Perf(\{ tm \}, T_{ori}, T_{new})
+\end{equation}
+
+The new network topology whose $Perf_Green$ value equal the min max one, we say that this new topology is the ``most robust'' for
+all the possible traffic matrix.
+
+As well, we will take an example to explain how to choose the link to close in our experiment. Figure shown as following, Three 
+hostes: A, B, C, Three links repectively capacity of 3M, 4M and 2M. For simpleness, we suppose there are two traffic matrix: one 
+trace 2M from A to B, and 1M from A to C; the other trace 1M from A to B, and 1M from A to C. For each traffic matrix, the 
+optimal route is obvious, we will trace 2M from A to B across the lower link and trace the 1M from A to C across the upper one 
+for the first traffic matrix, whose link utilization is 0.5. we will trace all the traffic acorss the lower link for the second 
+traffic matrix, whose link utilization is 0.5 as well.
+
+Now for some reason, we will choose one link to shut down for power saving without lose connection of the network. So two choice 
+put before us, cut the upper link or the lower link. Let us take a little caluclation: when close the upper one, we should 
+trace all the traffic acorss the lower link, as a result, in the first traffic matrix the link utilization is 0.75 and the other
+is 0.5; when close the lower link, we should trace all the traffic acorss the upper link, in the first traffic matrix the link 
+utilization is 1 and the other is 0.667. So according to our theory, the $PerfGreen(T)$ should be 1.5 and the new network 
+topology will be the one which 3M link is closed.
+
+
 
 \section{Conclusion}
 The conclusion goes here.
