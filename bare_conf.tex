@@ -54,8 +54,8 @@ We aim to find the ``robust'' route for all possible traffic matrix, not only co
 consumption in network.
 
 \section{Motivation}
-Things seem to be not so obviously simple. Suppose two hosts named host A and host B, and there are three links between 
-them, respectively, capacity with 2M, 3M and 5M. Now traffic matrix comes, with 1M from A to B. we regard the capacity 
+Suppose two hosts named host A and host B, and there are three links between 
+them, respectively, capacity with 2M, 3M and 5M. Now demands come, with 1M from A to B. we regard the capacity 
 as the power of the link, and the minimum maximum utilization of network links as a metric of the network performance. 
 There are two directions for operating this example. One consider the min power consumption except for the 
 utilization, it is obviously that we should close the larger power consuming links, such as the 5M and 3M links, and 
@@ -176,21 +176,20 @@ where $M$ is the TM set, and $R^*$ is routing set.
 If the scope of $M$ is large engouh, the optimal successor network graph is alwo independent from specific TM. 
 
 \subsection{Model Example}
-As well, we will take an example to explain how to choose the link to close in our experiment. Figure shown as 
-following, Three hostes: A, B, C, Three links repectively capacity of 3M, 4M and 2M. For simpleness, we suppose 
-there are two traffic matrix: one trace 2M from A to B, and 1M from A to C; the other trace 1M from A to B, 
-and 1M from A to C. For each traffic matrix, the optimal route is obvious, we will trace 2M from A to B across 
-the lower link and trace the 1M from A to C across the upper one for the first traffic matrix, whose link 
-utilization is 0.5. we will trace all the traffic acorss the lower link for the second traffic matrix, whose 
-link utilization is 0.5 as well.
+We will take an example to explain how to choose the link to close in our experiment.
+Three hostes include : A, B, C, Three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose 
+there are two TM : ${(A,B,2M), (A,C,1M)}, {(A,B,1M), (A,C,1M)}$.For each traffic matrix, the optimal route is 
+obvious, we will trace 2M from A to B across the lower link and trace the 1M from A to C across the upper one 
+for the first traffic matrix, whose maximum link utilization is 0.5. we will trace all the traffic acorss the
+lower link for the second traffic matrix, whose maximum link utilization is 0.5 as well.
 
 Now for some reason, we will choose one link to shut down for power saving without lose connection of the network. 
-So two choice put before us, cut the upper link or the lower link. Let us take a little caluclation: when 
-close the upper one, we should trace all the traffic acorss the lower link, as a result, in the first traffic 
-matrix the link utilization is 0.75 and the other is 0.5; when close the lower link, we should trace all the 
-traffic acorss the upper link, in the first traffic matrix the link utilization is 1 and the other is 0.667. 
-So according to our theory, the $PerfGreen(T)$ should be 1.5 and the new network topology will be the one which 3M 
-link is closed.
+There are two choice, remove either the upper link or the lower link. Let us take a little calculation: when 
+remove the upper one, we should change all the traffic acorss the lower link, as a result, in the first  
+TM the maximum link utilization is 0.75 and the second is 0.5; when close the lower link, we should trace all the 
+traffic acorss the upper link, in the first TM the link utilization is 1 and the other is 0.667. 
+So according to our theory, the $P^{*}(M, G)$ should be 1.5 and the optimal successor network topology will be
+the one which 3M link is closed.
 
 
 \section{Conclusion}
