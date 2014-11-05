@@ -86,7 +86,7 @@ every pair of vertices in the graph is connected.
 
 Let $\theta(G) = \{ (V, E - \{ e \}) | e \in E \}$ denote the network set after closing/removing the link $e$ from
 $G$. Then, choosing the connected graph from $\theta(G)$ to consist a new set, denoted by 
-$\Theta(G) = \{G | G \in \theta(G) && G is connected\}$. We call $\Theta(G)$ as successor of $G$.
+$\Theta(G) = \{G | G \in \theta(G) \& \& G is connected\}$. We call $\Theta(G)$ as successor of $G$.
 
 A $traffic matrix$ (abbreviation as TM below) is the set of traffic of each Origin-Destination(OD) pair in 
 network $G$, and a $routing$ specifies how traffic of each OD pair is routed across the network. Usually, there are 
@@ -155,9 +155,9 @@ Let $G$ be the origin network, and the $G^* \in \Theta(G)$ be the successor netw
 some link, we define $performance ratio between different graphs$ as the performance ratio of successor graph divide 
 the optimal performance ratio of father graph, like :
 \begin{equation}
-	P(R^*, \{ m\}, G, G^*) = \min_{r \in R^*} \frac{U_{r,m,G^*}{OptU_{m,G}
+	P(R^*, \{ m\}, G, G^*) = \min_{r \in R^*} \frac{U_{r,m,G^*}}{OptU_{m,G}}
 \end{equation}
-where $R^*$ is the routing set on network $G^*$
+where $R^*$ is the routing set on network $G^*$.
 
 And question is that how to meaure a successor network topology is ``robust'' enough for the TM set $M$ when 
 pruning is proceeding. We consider the worst situation, namely the successor network topology has its maximum
