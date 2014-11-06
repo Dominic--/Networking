@@ -11,27 +11,6 @@ double vectorNorm(double *x, int n){
   return sqrt(ans);
 }
 
-void printMatrix(double* const a, int h, int l){
-  int point=0;
-  for (int j=0; j<2*l; j++){
-    printf(" _");
-  }
-  printf("\n ");
-  for (int i=0; i<h; i++){
-    printf("|");
-    for(int j=0; j<l; j++){
-      printf("%8.4lf", a[point]);
-      point++;
-    }
-    printf("|\n ");
-  }
-  for (int j=0; j<2*l; j++){
-    printf("_ ");
-  }
-  printf("\n");
-  //return 0;
-}
-
 double traceMatrix(double *a, int n){
   double ans=0.;
   for (int i=0; i<n; i++){
@@ -80,7 +59,7 @@ double lInfMatrixNorm(double *a, int n){
   return ans;
 }
 
-int qrAlmostUpperTriangle(double *a, int n){//приведение к почти треугольному виду методом отражений
+int qrAlmostUpperTriangle(double *a, int n) {
   int i, j1, j2, k1, k2, j, k;
   double s_k, temp;
   double eps = 1e-6;
@@ -109,7 +88,7 @@ int qrAlmostUpperTriangle(double *a, int n){//приведение к почти
     for (j=0; j<dim_x; j++){
       tempVector[j]*=s_k;
     }
-    //теперь по tempVector строится матрица отражений
+    
     for (j=0; j<dim_x*dim_x; ++j){
       rotMatrix[j]=0.;
     }
@@ -127,7 +106,6 @@ int qrAlmostUpperTriangle(double *a, int n){//приведение к почти
       }
     }
     
-    //надо написать умножение как-нибудь
     for (j1=i+1, j2=0; j1<n; ++j1, ++j2){
       for (k1=i, k2=0; k1<n; ++k1, ++k2){
 	tempMatrix_i[j2*(dim_x+1)+k2]=a[j1*n+k1];
@@ -136,13 +114,11 @@ int qrAlmostUpperTriangle(double *a, int n){//приведение к почти
     
     simpleMatrixMultiply(rotMatrix, tempMatrix_i, tempMatrix_ii, dim_x, dim_x, dim_x+1);
     
-    //теперь в tempMatrix_ii хранится результат первого умножения
     for (j1=i+1, j2=0; j1<n; ++j2, ++j1){
       for (k1=i, k2=0; k1<n; ++k1, ++k2){
 	a[j1*n + k1]=tempMatrix_ii[j2*(dim_x+1) + k2];
       }
     }
-    //домножаем второй раз
     
     for (j1=0; j1<n; ++j1){
       for (k1=i+1, k2=0; k1<n; ++k1, ++k2){
