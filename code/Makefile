@@ -4,6 +4,6 @@ CARG = -Wall -O3
 all: main
 
 main:
-	$(CC) $(CARG) main.cpp qr_uptriangle.cpp multiplication.cpp matrix_init.cpp
+	$(CC) $(CARG) main.cpp eigenvalue.cpp utils.cpp
 clean:
 	rm *.out
