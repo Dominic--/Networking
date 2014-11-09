@@ -12,7 +12,7 @@ int init_matrix_with_file(double **matrix, int *node) {
 	int n = *node;
 
 	// check array which store the matrix if exist
-	double *m = *matrix = new double[n * n];
+	double *m = *matrix = (double *) malloc(n * n * sizeof(double));
   	if (m == NULL) {
     	printf("No matrix\n");
     	return -2;

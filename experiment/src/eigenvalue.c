@@ -1,4 +1,4 @@
-#include <cmath>
+#include <math.h>
 #include "tools.h"
 
 double get_second(double *a, int n) {
@@ -178,11 +178,11 @@ int qr_upper_triangle(double *a, int n) {
 	double s_k, temp;
 	double eps = 1e-6;
 	int dim_x;
-	double *rotMatrix = new double[n * n];
-	double *tempMatrix = new double[n * n];
-	double *tempVector = new double[n];
-	double *tempMatrix_i = new double[n * n];
-	double *tempMatrix_ii = new double[n * n];
+	double *rotMatrix = (double *) malloc(n * n * sizeof(double));
+	double *tempMatrix = (double *) malloc(n * n * sizeof(double));
+	double *tempVector = (double *) malloc(n * n * sizeof(double));
+	double *tempMatrix_i = (double *) malloc(n * n * sizeof(double));
+	double *tempMatrix_ii = (double *) malloc(n * n * sizeof(double));
 
 	for (int i = 0; i < (n - 2); ++i) {
 		dim_x = n-i-1;
@@ -247,11 +247,11 @@ int qr_upper_triangle(double *a, int n) {
 		}
 	}
 
-	delete[] tempMatrix;
-	delete[] tempMatrix_i;
-	delete[] tempMatrix_ii;
-	delete[] tempVector;
-	delete[] rotMatrix;
+	free(tempMatrix);
+	free(tempMatrix_i);
+	free(tempMatrix_ii);
+	free(tempVector);
+	free(rotMatrix);
 	return 0;
 }
 
@@ -259,9 +259,9 @@ int qr_upper_triangle(double *a, int n) {
 double get_eigenvalue(double *a, int n){
 	qr_upper_triangle(a, n);
 
-	double *out = new double[n];
-	double *sins = new double[n - 1];
-	double *coss = new double[n - 1];
+	double *out = (double *) malloc(n * sizeof(double));
+	double *sins = (double *) malloc((n - 1) * sizeof(double));
+	double *coss = (double *) malloc((n - 1) * sizeof(double));
 	double shift;
 	double norm = 0.;
 	double eps = 1e-10;
@@ -306,8 +306,8 @@ double get_eigenvalue(double *a, int n){
 	}
 	out[0] = a[0];
 	out[1] = a[n + 1];
-	delete[] sins;
-	delete[] coss;
+	free(sins);
+	free(coss);
 
 	return get_second(out, n);
 }

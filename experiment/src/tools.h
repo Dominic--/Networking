@@ -1,4 +1,5 @@
-#include <cstdio>
+#include <stdio.h>
+#include <stdlib.h>
 
 /*
  * Init matrix from file :

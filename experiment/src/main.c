@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
 	double second = get_eigenvalue(matrix, node);
 	printf("%.4lf\n", second);
 
-	delete[] matrix;
+	free(matrix);
 	return 0;
 }
 
