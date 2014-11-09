@@ -26,7 +26,7 @@ for ls in root.iter('links'):
             links[(int(nodes[sd[1]]), int(nodes[sd[0]]))] = capacity
 
 
-f = open("../topology/geant-topology", "w")
+f = open("../topology/temp/geant-topology", "w")
 f.write('%d %d\n' % (len(nodes), len(links)))
 for s,d in links:
     f.write('%d %d %d\n' % (s, d, links[(s,d)]))

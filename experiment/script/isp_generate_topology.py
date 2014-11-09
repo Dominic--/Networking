@@ -32,7 +32,7 @@ for name in files:
             links.add((d, s, c))
 
 
-    f = open("../topology/isp/%s-topology" % name, 'w');
+    f = open("../topology/temp/%s-topology" % name, 'w');
     f.write('%d %d\n' % (len(nodes), len(links)));
     for s, d, c in links:
         f.write('%d %d %.2f\n' % (s, d, c))

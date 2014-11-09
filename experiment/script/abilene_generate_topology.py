@@ -20,7 +20,7 @@ for line in f:
             links.add((int(nodes[tokens[0]]), int(nodes[tokens[1]]), capacity))
 
 
-f = open("../topology/abilene-topology", 'w');
+f = open("../topology/temp/abilene-topology", 'w');
 f.write('%d %d\n' % (len(nodes), len(links)));
 for s, d, c in links:
     f.write('%d %d %s\n' % (s, d, c))
