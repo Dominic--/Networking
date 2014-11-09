@@ -34,10 +34,19 @@ for name in files:
             if links[s][d] != 0 and s in nodes:
                 num = num + 1
 
-    f = open('../topology/connected/%s-conntected-topology' % name, 'w')
+    f = open('../topology/connected/%s-connected-topology' % name, 'w')
     f.write('%d %d\n' % (len(nodes), num))
+
+    new_nodes = sorted(nodes)
+    old_map_new = {}
+    num = 0
+    for n in range(0, nodes_n):
+        if n in nodes:
+            old_map_new[n] = num
+            num = num + 1
+
     for s in range(nodes_n):
         for d in range(s, nodes_n):
             if links[s][d] != 0 and s in nodes:
-                f.write('%d %d %.2f\n' % (s, d, links[s][d]))
+                f.write('%d %d %.2f\n' % (old_map_new[s], old_map_new[d], links[s][d]))
     f.close()

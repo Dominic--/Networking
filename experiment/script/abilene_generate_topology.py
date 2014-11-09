@@ -23,6 +23,6 @@ for line in f:
 f = open("../topology/temp/abilene-topology", 'w');
 f.write('%d %d\n' % (len(nodes), len(links)));
 for s, d, c in links:
-    f.write('%d %d %s\n' % (s, d, c))
+    f.write('%d %d %f\n' % (s, d, float(c)/1000))
 
 
