@@ -34,7 +34,7 @@ for name in files:
             if links[s][d] != 0 and s in nodes:
                 num = num + 1
 
-    f = open('../topology/%s-conntected-topology' % name, 'w')
+    f = open('../topology/connected/%s-conntected-topology' % name, 'w')
     f.write('%d %d\n' % (len(nodes), num))
     for s in range(nodes_n):
         for d in range(s, nodes_n):
