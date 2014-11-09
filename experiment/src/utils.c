@@ -1,6 +1,6 @@
 #include "tools.h"
 
-int init_matrix_with_file(char *filename, double **matrix, link_t **links, int *node, int *links_n, bool if_weight) {
+int init_matrix_with_file(char *filename, double **matrix, link_t **links, int *nodes_n, int *links_n, bool with_weight) {
 	// check file if exist
 	FILE *in = fopen(filename, "r");
   	if (!in) {
@@ -8,8 +8,8 @@ int init_matrix_with_file(char *filename, double **matrix, link_t **links, int *
     	return -1;
   	}
 
-  	int res = fscanf(in, "%d %d", node, links_n);
-	int n = *node, ln = *links_n;
+  	int res = fscanf(in, "%d %d", nodes_n, links_n);
+	int n = *nodes_n, ln = *links_n;
 
 	// check array which store the matrix if exist
 	double *m = *matrix = (double *) malloc(n * n * sizeof(double));
@@ -28,10 +28,11 @@ int init_matrix_with_file(char *filename, double **matrix, link_t **links, int *
 			printf("Failed to read from file!\n");
 			return -1;
 		} else {
-			m[s * n + d] = if_weight ? c : 1;
-			m[d * n + s] = if_weight ? c : 1;
+			m[s * n + d] = with_weight ? -c : -1;
+			m[d * n + s] = with_weight ? -c : -1;
 			l[i].s = s;
 			l[i].d = d;
+			l[i].c = c;
 			l[i].impact = 0;
 		}
 	}
