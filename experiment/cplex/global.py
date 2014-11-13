@@ -1,13 +1,12 @@
 import os
-import parseXML as xml
-import low as opt_no_w
-import now as opt_with_w
-import generate as gen
-import utilization as util
-import best
+import parse_xml as xml
+import generate_no_tm_cplex_input as opt_no_w
+#import now as opt_with_w
+#import generate as gen
+#import utilization as util
+#import best
 
-#topology = "weights.intra.new"
-topology = "weights.intra.new"
+topology = "../topology/final/abilene-final-topology"
 
 # Init
 remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
@@ -30,6 +29,9 @@ global_opt_routes = xml.get_variables(global_opt_cplex_output)
 
 print(global_opt_upper_bound)
 
+
+
+'''
 p_w = dict()
 o_w = dict()
 for i in range(2, 11):
@@ -106,4 +108,4 @@ for o in range(1):
 	for i in range(2, 11):
 		print(o_w[i/2])
 
-
+'''

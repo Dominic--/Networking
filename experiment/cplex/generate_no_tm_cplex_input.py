@@ -4,7 +4,7 @@ def global_opt(topology, output):
 	f = open(topology)
 
 	# Node
-	node = (int)(f.readline().rstrip())
+	node = (int)(f.readline().rstrip()[0])
 
 	# Capacity Matrix
 	# Link Set
