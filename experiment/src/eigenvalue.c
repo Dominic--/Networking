@@ -264,7 +264,7 @@ double get_eigenvalue(double *a, int n){
 	double *coss = (double *) malloc((n - 1) * sizeof(double));
 	double shift;
 	double norm = 0.;
-	double eps = 1e-10;
+	double eps = 1e-6;
 	double temp1, temp2;
 	double x,y;
   

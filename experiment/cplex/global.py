@@ -1,10 +1,10 @@
 import os
 import parse_xml as xml
-import generate_no_tm_cplex_input as opt_no_w
+import paper_cplex_input_without_tm as opt_no_w
 #import now as opt_with_w
 #import generate as gen
-#import utilization as util
-#import best
+import utilization as util
+import min_cplex_input_with_tm as best
 
 topology = "../topology/final/abilene-final-topology"
 
@@ -26,9 +26,25 @@ os.system(global_opt_cplex_cmd)
 
 global_opt_upper_bound = xml.get_object(global_opt_cplex_output)
 global_opt_routes = xml.get_variables(global_opt_cplex_output)
+link_u_global_opt = util.get_link_utilization(topology, demand_file, global_opt_routes)
 
 print(global_opt_upper_bound)
+print(link_u_global_opt)
 
+
+# Get the min route for the specific topology
+min_cplex_input = "min_cplex_input.lp"
+min_cplex_output = "min_cplex_output.sol"
+best.min_route(topology, demand_file, min_cplex_input)
+
+min_cplex_cmd = 'cplex -c "read %s" "optimize" "write %s" >> log' % \
+    (min_cplex_input, min_cplex_output)	
+os.system(min_cplex_cmd)
+
+min_routes = xml.get_variables(min_cplex_output)
+link_u_min = xml.get_object(min_cplex_output)
+
+print(link_u_min)
 
 
 '''
