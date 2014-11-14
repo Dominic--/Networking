@@ -1,6 +1,4 @@
-# Create the cplex input data file
-def global_opt(topology, output):
-
+def generate_cplex_lp_file(topology, output):
 	f = open(topology)
 
 	# Node

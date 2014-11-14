@@ -1,10 +1,6 @@
 import random
-import os
-import parse_xml as xml
-import min_cplex_input_with_tm as best
-from dfs import *
 
-def get_utilization(topology, min_routes, loop):
+def get_utilization(topology, routes, loop):
     # init cm and dd
     f = open(topology)
     node = (int)(f.readline().rstrip())
@@ -14,34 +10,16 @@ def get_utilization(topology, min_routes, loop):
     line = f.readline()
     while line:
         s = line.rstrip().split(' ')
-        cm[int(s[0])][int(s[1])] = float(s[3])
-        cm[int(s[1])][int(s[0])] = float(s[3])
+        cm[int(s[0])][int(s[1])] = float(s[2])
+        cm[int(s[1])][int(s[0])] = float(s[2])
         line = f.readline()
     f.close()
 
-    print('-------begin dfs-----------')
-    st_paths = {}
-    for key in min_routes.keys():
-        value = min_routes[key]
-        #print(key)
-        g = Graph()
-        s,t = key
-        g.add_node(s)
-        g.add_node(t)
-        for v in value:
-            g.add_node(v[0])
-            g.add_node(v[1])
-            g.add_edge((v[0], v[1], v[2]))
-        st_paths[key] = g.find_path(s, t)
-
-    print('----------begin random path------------')
-    min_dd = [([0] * node) for i in range(node)]
     min_loop = 10000
-
     for l in range(loop):
         st_path = {}
-        for key in st_paths.keys():
-            value = st_paths[key]
+        for key in routes.keys():
+            value = routes[key]
             random_sum = 0
             for v in value:
                 random_sum += v[1]
@@ -52,7 +30,6 @@ def get_utilization(topology, min_routes, loop):
                 else:
                     random_num -= v[1]
 
-        #print(st_path)
         dd = [([0] * node) for i in range(node)]
 
         for key in st_path.keys():
@@ -71,9 +48,6 @@ def get_utilization(topology, min_routes, loop):
 
         if link_u < min_loop:
             min_loop = link_u
-            for i in range(node):
-                for j in range(node):
-                    min_dd[i][j] = dd[i][j]
 
         print('New Utilization For %d: %f\n' % (l, link_u))
 

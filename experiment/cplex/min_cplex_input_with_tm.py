@@ -1,6 +1,6 @@
 import random
 
-def min_route(topology, demand, outfile):
+def generate_cplex_lp_file(topology, demand, outfile):
 	f = open(topology)
 
 	# Node
