@@ -21,9 +21,9 @@ global_routes = common.global_routes(final_topology)
 
 #TODO Change Route
 print("Begin adjust route")
-new_global_routes = adjust.adjust_route(remove_links, global_routes)
+#new_global_routes = adjust.adjust_route(remove_links, global_routes)
 
 print("Begin calculate utilization")
-global_utilization = common.global_utilization(final_topology, new_global_routes, demand_file)
+global_utilization = common.global_utilization(final_topology, global_routes, demand_file)
 
 print("Diff is %f \n" % global_utilization / optimal_utilization)
