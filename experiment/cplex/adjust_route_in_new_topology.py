@@ -26,7 +26,6 @@ def adjust_route(topology, remove_file, routes):
 
         g.add_nodes([int(s[0]), int(s[1])])
         g.add_edge((int(s[0]), int(s[1]), float(s[2])))
-        g.add_edge((int(s[1]), int(s[0]), float(s[2])))
 
         line = f.readline()
     f.close()
@@ -35,6 +34,7 @@ def adjust_route(topology, remove_file, routes):
     for ls,ld in links:
         path_replace[ls,ld] = g.dfs_path(ls,ld)
 
+    #print(path_replace)
 
     for ls,ld in links:
         #print(ls,ld)
@@ -51,5 +51,6 @@ def adjust_route(topology, remove_file, routes):
                                 index = k
                                 weight = routes[ls,ld][k][1]
                         routes[s,d][i] = [routes[s,d][i][0][0:j] + path_replace[ls, ld] + routes[s,d][0][j+2:], routes[s,d][i][1]]
+                        break
 
     return routes

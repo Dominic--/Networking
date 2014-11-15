@@ -20,7 +20,7 @@ def optimal_utilization(topology, demand_file, loop):
 
     min_cplex_cmd = 'cplex -c "read %s" "optimize" "write %s" >> log' % \
         (min_cplex_input, min_cplex_output)	
-    #os.system(min_cplex_cmd)
+    os.system(min_cplex_cmd)
 
     #link_u_min = xml.get_object(min_cplex_output)
     #print("Old Utilization is %f \n" % link_u_min)

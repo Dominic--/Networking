@@ -127,4 +127,6 @@ if __name__ == '__main__':
 
 	#paths = g.find_path(0, 3)
 	path = g.dfs_path(0, 3)
+	path = g.dfs_path(1, 3)
+	path = g.dfs_path(2, 0)
 	print(path)

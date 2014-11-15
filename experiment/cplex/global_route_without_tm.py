@@ -34,7 +34,7 @@ def global_routes(topology):
 
     global_opt_cplex_cmd = 'cplex -c "read %s" "optimize" "write %s" >> log' % \
             (global_opt_cplex_input, global_opt_cplex_output)	
-    #os.system(global_opt_cplex_cmd)
+    os.system(global_opt_cplex_cmd)
 
     global_opt_upper_bound = xml.get_object(global_opt_cplex_output)
     print("Upper Bound is %f" % global_opt_upper_bound)
