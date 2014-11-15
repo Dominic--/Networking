@@ -23,7 +23,7 @@ def global_routes(topology):
     # Init
     remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
     remove_all_lp_or_sol = "del *.lp *.sol >> log"
-    os.system(remove_all_lp_or_sol_or_txt)
+    #os.system(remove_all_lp_or_sol_or_txt)
 
     # Get the upper bound of performance ratio for specific topology
     # Only be run once

@@ -176,7 +176,7 @@ double inf_matrix_norm(double *a, int n) {
 
 int qr_upper_triangle(double *a, int n) {
 	double s_k, temp;
-	double eps = 1e-6;
+	double eps = 1e-4;
 	int dim_x;
 	double *rotMatrix = (double *) malloc(n * n * sizeof(double));
 	double *tempMatrix = (double *) malloc(n * n * sizeof(double));
@@ -264,7 +264,7 @@ double get_eigenvalue(double *a, int n){
 	double *coss = (double *) malloc((n - 1) * sizeof(double));
 	double shift;
 	double norm = 0.;
-	double eps = 1e-6;
+	double eps = 1e-5;
 	double temp1, temp2;
 	double x,y;
   

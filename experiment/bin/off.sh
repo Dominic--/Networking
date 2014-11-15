@@ -1,8 +1,8 @@
-./off 0.9 ../topology/connected/abilene-connected-topology ../topology/final/abilene-final-topology
-./off 0.9 ../topology/connected/geant-connected-topology ../topology/final/geant-final-topology
-./off 0.98 ../topology/connected/1221-connected-topology ../topology/final/1221-final-topology
-./off 0.98 ../topology/connected/1239-connected-topology ../topology/final/1239-final-topology
-./off 0.98 ../topology/connected/1755-connected-topology ../topology/final/1755-final-topology
-./off 0.98 ../topology/connected/3257-connected-topology ../topology/final/3257-final-topology 
-./off 0.98 ../topology/connected/3967-connected-topology ../topology/final/3967-final-topology
-./off 0.98 ../topology/connected/6461-connected-topology ../topology/final/6461-final-topology
+for with_weigth in 0 1; do
+	for topo in abilene geant 1221 1239 1755 3257 3967 6461; do
+		./off ${with_weigth} 0.8 \
+			../topology/connected/${topo}-connected-topology \
+			../topology/final/${topo}-final-${with_weigth}-topology \
+			../topology/remove/${topo}-remove-${with_weigth}-links 
+	done
+done

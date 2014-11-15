@@ -3,7 +3,7 @@
 
 //
 //
-// ./off threshold input_topology output_topology
+// ./off with_weight threshold input_topology output_topology remove_topology
 //
 //
 int main(int argc, char **argv) {
@@ -11,8 +11,8 @@ int main(int argc, char **argv) {
 	int nodes_n = 0, links_n = 0;
 	double * matrix = NULL;
 	link_t * links = NULL;
-	bool with_weight = false;
-	init_matrix_with_file(argv[2], &matrix, &links, &nodes_n, &links_n, with_weight);
+	bool with_weight = atoi(argv[1]) == 0 ? false : true;
+	init_matrix_with_file(argv[3], &matrix, &links, &nodes_n, &links_n, with_weight);
 
 	// 
 	double * copy_matrix = (double *) malloc(nodes_n * nodes_n * sizeof(double));
@@ -65,8 +65,9 @@ int main(int argc, char **argv) {
 	}
 	*/
 
-	double threshold = atof(argv[1]);
+	double threshold = atof(argv[2]);
 	int remove_link_n = 0;
+	FILE *remove = fopen(argv[5], "w");
 	for (int i = 0; i < links_n; i++) {
 		double backup = matrix[links[i].s * nodes_n + links[i].d];
 
@@ -86,13 +87,16 @@ int main(int argc, char **argv) {
 			matrix[links[i].s * nodes_n + links[i].s] -= backup;
 			matrix[links[i].d * nodes_n + links[i].d] -= backup;
 		} else {
+			remove_link_n++;
+			fprintf(remove, "%d %d\n", links[i].s, links[i].d);
 			//printf("Threshold : %lf\n", temp_connected_value / origin);
 			//printf("Remove Links %d : (%d, %d)\n", remove_link_n++, links[i].s, links[i].d);
 		}
 	}
+	fclose(remove);
 
 	//print_matrix(matrix, nodes_n);
-	FILE *out = fopen(argv[3], "w");
+	FILE *out = fopen(argv[4], "w");
 	fprintf(out, "%d %d\n", nodes_n, links_n - remove_link_n);
 	for (int i = 0; i < links_n; i++) {
 		if (matrix[links[i].s * nodes_n + links[i].d] != 0) {

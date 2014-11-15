@@ -12,7 +12,7 @@ def optimal_utilization(topology, demand_file, loop):
     # Get lowest link utilizaiton among all posible routes
     remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
     remove_all_lp_or_sol = "del *.lp *.sol >> log"
-    os.system(remove_all_lp_or_sol_or_txt)
+    #os.system(remove_all_lp_or_sol_or_txt)
 
     min_cplex_input = "min_cplex_input.lp"
     min_cplex_output = "min_cplex_output.sol"
