@@ -30,6 +30,11 @@ f = open("../topology/temp/geant-topology", "w")
 f.write('%d %d\n' % (len(nodes), len(links)))
 for s,d in links:
     f.write('%d %d %d\n' % (s, d, links[(s,d)]))
+f.close()
 
-
+f = open("../topology/final/geant-map-number", "w")
+f.write("%d\n" % len(nodes))
+for n in nodes:
+    f.write("%s %d\n" % (n, nodes[n]))
+f.close()
 
