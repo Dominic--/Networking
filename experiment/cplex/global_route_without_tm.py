@@ -9,10 +9,9 @@ def global_utilization(topology, routes, demand_file, loop):
     line = f.readline()
     while line:
         s = line.rstrip().split(' ')
-        s = [int(i) for i in s]
-        for route in routes[s[0],s[1]]:
+        for route in routes[int(s[0]),int(s[1])]:
             route[1] = route[1] * (float)(s[2])
-            line = f.readline()
+        line = f.readline()
     f.close()
 
     link_u_global_opt = utils.get_utilization(topology, routes, loop)

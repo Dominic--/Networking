@@ -12,7 +12,7 @@ loop = 20
 diff = 1000
 
 for num in range(2016):
-    f = open("result","aw")
+    f = open("result","a")
 
     demand_file = "../demand/abilene/XX02/%d.txt" % num
 
