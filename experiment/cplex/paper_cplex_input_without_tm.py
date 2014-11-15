@@ -11,8 +11,8 @@ def generate_cplex_lp_file(topology, output):
 	line = f.readline()
 	while line:
 		s = line.rstrip().split(" ")
-		cm[int(s[0])][int(s[1])] = 1 / (float)(s[2])
-		cm[int(s[1])][int(s[0])] = 1 / (float)(s[2])
+		cm[int(s[0])][int(s[1])] = (float)(s[2])
+		cm[int(s[1])][int(s[0])] = (float)(s[2])
 		link.append([int(s[0]), int(s[1])])
 		line = f.readline()
 	f.close()
