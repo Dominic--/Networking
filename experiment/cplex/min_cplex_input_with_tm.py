@@ -4,7 +4,7 @@ def generate_cplex_lp_file(topology, demand, outfile):
 	f = open(topology)
 
 	# Node
-	node = (int)(f.readline().rstrip())
+	node = (int)(f.readline().rstrip().split(' ')[0])
 
 	# Capacity Matrix
 	# Link Set
@@ -23,7 +23,7 @@ def generate_cplex_lp_file(topology, demand, outfile):
 	d = [([0] * node) for i in range(node)]
 	f = open(demand)
 	line = f.readline()
-        line = f.readline()
+	line = f.readline()
 	while line:
 		s = line.rstrip().split(" ")
 		d[int(s[0])][int(s[1])] = float(s[2])

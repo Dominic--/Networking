@@ -1,4 +1,5 @@
 import xml.dom.minidom
+from deep_first_search_path import *
 import re
 
 # objective value of cplex

@@ -3,8 +3,9 @@ import random
 def get_utilization(topology, routes, loop):
     # init cm and dd
     f = open(topology)
-    node = (int)(f.readline().rstrip())
-    links = (int)(f.readline().rstrip())
+    line = f.readline().rstrip().split(' ')
+    node = (int)(line[0])
+    links = (int)(line[1])
     cm = [([0] * node) for i in range(node)]
 
     line = f.readline()
