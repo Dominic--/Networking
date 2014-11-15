@@ -50,6 +50,6 @@ def get_utilization(topology, routes, loop):
         if link_u < min_loop:
             min_loop = link_u
 
-        print('New Utilization For %d: %f\n' % (l, link_u))
+        #print('New Utilization For %d: %f' % (l, link_u))
 
     return link_u
