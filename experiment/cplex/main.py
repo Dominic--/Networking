@@ -7,8 +7,8 @@ import adjust_route_in_new_topology as adjust
 demand_file = "../demand/abilene.txt"
 
 connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/final/abilene-final-0-topology"
-remove_links = "../topology/remove/abilene-remove-0-links"
+final_topology = "../topology/final/abilene-final-1-topology"
+remove_links = "../topology/remove/abilene-remove-1-links"
 
 loop = 20
 
