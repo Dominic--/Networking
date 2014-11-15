@@ -27,6 +27,6 @@ def optimal_utilization(topology, demand_file, loop):
 
     min_routes = xml.get_route_with_demand(min_cplex_output, demand_file)
     link_u = utils.get_utilization(topology, min_routes, loop)
-    print('Optimal Utilization is %f' % link_u)
+    #print('Optimal Utilization is %f' % link_u)
 
     return link_u

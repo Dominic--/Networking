@@ -14,6 +14,7 @@ loop = 20
 
 # Calculate the optimal maximum utilization for specific traffic matrix
 optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
+print('Optimal Utilization is %f\n' % optimal_utilization)
 
 # Generate the global routes for traffic sets 
 # Calculate the global maximum utilization for specific traffic matrix 
@@ -21,9 +22,9 @@ global_routes = common.global_routes(final_topology)
 
 #TODO Change Route
 print("Begin adjust route")
-#new_global_routes = adjust.adjust_route(remove_links, global_routes)
+new_global_routes = adjust.adjust_route(remove_links, global_routes)
 
 print("Begin calculate utilization")
-global_utilization = common.global_utilization(final_topology, global_routes, demand_file)
+global_utilization = common.global_utilization(final_topology, global_routes, demand_file, loop)
 
-print("Diff is %f \n" % global_utilization / optimal_utilization)
+print("Diff is %f" % (global_utilization / optimal_utilization))

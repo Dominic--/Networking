@@ -3,19 +3,20 @@ import paper_cplex_input_without_tm as cplex
 import utilization_from_route as utils
 import parse_xml as xml
 
-def global_utilization(topology, routes, demand_file):
+def global_utilization(topology, routes, demand_file, loop):
     f = open(demand_file)
     node = (int)(f.readline().rstrip())
     line = f.readline()
     while line:
         s = line.rstrip().split(' ')
+        s = [int(i) for i in s]
         for route in routes[s[0],s[1]]:
             route[1] = route[1] * (float)(s[2])
             line = f.readline()
     f.close()
 
     link_u_global_opt = utils.get_utilization(topology, routes, loop)
-    print("New Utilization is %f \n" % link_u_global_opt)
+    print("Global Utilization is %f \n" % link_u_global_opt)
 
     return link_u_global_opt
 
@@ -36,8 +37,9 @@ def global_routes(topology):
     os.system(global_opt_cplex_cmd)
 
     global_opt_upper_bound = xml.get_object(global_opt_cplex_output)
-    print("Upper Bound is %f \n" % global_opt_upper_bound)
+    print("Upper Bound is %f" % global_opt_upper_bound)
 
     global_opt_routes = xml.get_route(global_opt_cplex_output)
+    #print(global_opt_routes)
 
     return global_opt_routes
