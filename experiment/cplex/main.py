@@ -11,7 +11,14 @@ loop = 20
 
 diff = 1000
 
+# Generate the global routes for traffic sets 
+# Calculate the global maximum utilization for specific traffic matrix sets
+global_routes = common.global_routes(connected_topology)
+
+
 for num in range(11460):
+    print("Round %d\n" % num)
+
     demand_file = "../demand/geant/%d.txt" % num
     f = open(demand_file, "r")
     line = f.readline()
@@ -21,13 +28,9 @@ for num in range(11460):
 
     f = open("result-geant","a")
     # Calculate the optimal maximum utilization for specific traffic matrix
-    optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
+    optimal_utilization = optimal.optimal_utilization(final_topology, demand_file, loop)
     print('Optimal Utilization is %f\n' % optimal_utilization)
     f.write('Optimal Utilization is %f\n' % optimal_utilization)
-
-    # Generate the global routes for traffic sets 
-    # Calculate the global maximum utilization for specific traffic matrix 
-    global_routes = common.global_routes(final_topology)
 
     #TODO Change Route
     print("Begin adjust route")
