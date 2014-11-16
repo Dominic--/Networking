@@ -4,18 +4,22 @@ import adjust_route_in_new_topology as adjust
 
 # Generate performance 
 
-connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/final/abilene-final-1-topology"
-remove_links = "../topology/remove/abilene-remove-1-links"
+connected_topology = "../topology/connected/geant-connected-topology"
+final_topology = "../topology/final/geant-final-1-topology"
+remove_links = "../topology/remove/geant-remove-1-links"
 loop = 20
 
 diff = 1000
 
-for num in range(2016):
-    f = open("result","a")
+for num in range(11460):
+    demand_file = "../demand/geant/%d.txt" % num
+    f = open(demand_file, "r")
+    line = f.readline()
+    f.close()
+    if int(line.strip()) == 0:
+        continue
 
-    demand_file = "../demand/abilene/XX02/%d.txt" % num
-
+    f = open("result-geant","a")
     # Calculate the optimal maximum utilization for specific traffic matrix
     optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
     print('Optimal Utilization is %f\n' % optimal_utilization)
