@@ -28,6 +28,7 @@ def get_utilization(topology, routes, loop):
             for v in value:
                 if random_num < v[1]:
                     st_path[key] = [v[0], random_sum]
+                    break
                 else:
                     random_num -= v[1]
 
