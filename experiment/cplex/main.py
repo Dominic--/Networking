@@ -9,6 +9,7 @@ connected_topology = "../topology/connected/geant-connected-topology"
 final_topology = "../topology/final/geant-final-1-topology"
 remove_links = "../topology/remove/geant-remove-1-links"
 demand_file_template = "../demand/geant/%d.txt"
+result_file = "result-geant"
 files = 11460
 '''
 
@@ -16,6 +17,7 @@ connected_topology = "../topology/connected/abilene-connected-topology"
 final_topology = "../topology/final/abilene-final-0-topology"
 remove_links = "../topology/remove/abilene-remove-0-links"
 demand_file_template = "../demand/abilene/%d.txt"
+result_file = "result-abilene"
 files = 2016
 
 loop = 20
@@ -37,7 +39,7 @@ for num in range(files):
     if int(line.strip()) == 0:
         continue
 
-    f = open("result-geant","a")
+    f = open(result_file,"a")
     # Calculate the optimal maximum utilization for specific traffic matrix
     optimal_utilization = optimal.optimal_utilization(final_topology, demand_file, loop)
     print('Optimal Utilization is %f\n' % optimal_utilization)
