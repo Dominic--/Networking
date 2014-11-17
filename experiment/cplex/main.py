@@ -47,11 +47,11 @@ for num in range(files):
 
     #TODO Change Route
     print("Begin adjust route")
-    global_routes_copy = global_routes
+    global_routes_copy = global_routes.copy()
     new_global_routes = adjust.adjust_route(final_topology, remove_links, global_routes_copy)
 
     print("Begin calculate utilization")
-    global_utilization = common.global_utilization(final_topology, global_routes_copy, demand_file, loop)
+    global_utilization = common.global_utilization(final_topology, new_global_routes, demand_file, loop)
 
     if diff > global_utilization / optimal_utilization:
         diff = global_utilization / optimal_utilization
