@@ -14,9 +14,9 @@ files = 11460
 '''
 
 connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/final/abilene-final-0-topology"
-remove_links = "../topology/remove/abilene-remove-0-links"
-demand_file_template = "../demand/abilene/%d.txt"
+final_topology = "../topology/connected/abilene-connected-topology"
+remove_links = "../topology/remove/abilene-no-remove"
+demand_file_template = "../demand/abilene/XX02/%d.txt"
 result_file = "result-abilene"
 files = 2016
 
@@ -47,16 +47,17 @@ for num in range(files):
 
     #TODO Change Route
     print("Begin adjust route")
-    new_global_routes = adjust.adjust_route(final_topology, remove_links, global_routes)
+    global_routes_copy = global_routes
+    new_global_routes = adjust.adjust_route(final_topology, remove_links, global_routes_copy)
 
     print("Begin calculate utilization")
-    global_utilization = common.global_utilization(final_topology, global_routes, demand_file, loop)
+    global_utilization = common.global_utilization(final_topology, global_routes_copy, demand_file, loop)
 
     if diff > global_utilization / optimal_utilization:
         diff = global_utilization / optimal_utilization
     print("Now Diff is %f" % (global_utilization / optimal_utilization))
-    f.write("Now Diff is %f" % (global_utilization / optimal_utilization))
     print("Diff is %f" % diff)
+    f.write("Now Diff is %f" % (global_utilization / optimal_utilization))
     f.write("Diff is %f" % diff)
 
     f.close()
