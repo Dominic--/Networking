@@ -15,8 +15,8 @@ files = 11460
 '''
 
 connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/connected/abilene-connected-topology"
-remove_links = "../topology/remove/abilene-no-remove"
+final_topology = "../topology/connected/abilene-final-0-90-topology"
+remove_links = "../topology/remove/abilene-remove-0-90-links"
 demand_file_template = "../demand/abilene/XX02/%d.txt"
 result_file = "result-abilene"
 files = 2016
@@ -42,7 +42,7 @@ for num in range(files):
 
     f = open(result_file,"a")
     # Calculate the optimal maximum utilization for specific traffic matrix
-    optimal_utilization = optimal.optimal_utilization(final_topology, demand_file, loop)
+    optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
     print('Optimal Utilization is %f\n' % optimal_utilization)
     f.write('Optimal Utilization is %f\n' % optimal_utilization)
 

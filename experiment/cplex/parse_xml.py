@@ -74,6 +74,7 @@ def get_route_with_demand(file_name, demand):
 	f.close()
 
 	f = open(demand)
+        dd = dict()
         line = f.readline()
 	line = f.readline()
 	while line:
