@@ -1,3 +1,4 @@
+from copy import deepcopy
 import optimal_route_with_tm as optimal
 import global_route_without_tm as common
 import adjust_route_in_new_topology as adjust
@@ -47,7 +48,7 @@ for num in range(files):
 
     #TODO Change Route
     print("Begin adjust route")
-    global_routes_copy = global_routes.copy()
+    global_routes_copy = deepcopy(global_routes)
     new_global_routes = adjust.adjust_route(final_topology, remove_links, global_routes_copy)
 
     print("Begin calculate utilization")
