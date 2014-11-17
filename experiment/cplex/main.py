@@ -4,22 +4,33 @@ import adjust_route_in_new_topology as adjust
 
 # Generate performance 
 
+'''
 connected_topology = "../topology/connected/geant-connected-topology"
 final_topology = "../topology/final/geant-final-1-topology"
 remove_links = "../topology/remove/geant-remove-1-links"
-loop = 20
+demand_file_template = "../demand/geant/%d.txt"
+files = 11460
+'''
 
+connected_topology = "../topology/connected/abilene-connected-topology"
+final_topology = "../topology/final/abilene-final-0-topology"
+remove_links = "../topology/remove/abilene-remove-0-links"
+demand_file_template = "../demand/abilene/%d.txt"
+files = 2016
+
+loop = 20
 diff = 1000
+
 
 # Generate the global routes for traffic sets 
 # Calculate the global maximum utilization for specific traffic matrix sets
 global_routes = common.global_routes(connected_topology)
 
 
-for num in range(11460):
+for num in range(files):
     print("Round %d\n" % num)
 
-    demand_file = "../demand/geant/%d.txt" % num
+    demand_file = demand_file_template % num
     f = open(demand_file, "r")
     line = f.readline()
     f.close()
