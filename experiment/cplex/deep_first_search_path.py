@@ -86,7 +86,7 @@ class Graph(object):
             path.append(node)
 
             if node == v:
-                min_weight = 10000
+                min_weight = 1000000000
                 for i in range(len(path) - 1):
                     for n in self.node_neighbors[path[i]]:
                         if n[0] == path[i+1] and min_weight > n[1]:

@@ -74,12 +74,11 @@ def get_route_with_demand(file_name, demand):
 	f.close()
 
 	f = open(demand)
-	node = (int)(f.readline().rstrip())
-	dd = [([0] * node) for i in range(node)]
+        line = f.readline()
 	line = f.readline()
 	while line:
 		s = line.rstrip().split(' ')
-		dd[int(s[0])][int(s[1])] = (float)(s[2])
+		dd[int(s[0]), int(s[1])] = (float)(s[2])
 		line = f.readline()
 	f.close()
 
@@ -99,7 +98,10 @@ def get_route_with_demand(file_name, demand):
 				variables[(s[2], s[3])] = []
 			
 			if float(node.getAttribute("value")) != 0:
-				variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value")) * dd[s[2]][s[3]]])
+                                if (s[2],s[3]) not in dd.keys():
+			                variables[(s[2], s[3])].append([s[0], s[1], 0])
+                                else:
+				        variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value")) * dd[s[2], s[3]]])
 
 	return route_from_variables(variables)
 	

@@ -5,7 +5,7 @@ import parse_xml as xml
 
 def global_utilization(topology, routes, demand_file, loop):
     f = open(demand_file)
-    node = (int)(f.readline().rstrip())
+    line = f.readline()
     line = f.readline()
     while line:
         s = line.rstrip().split(' ')

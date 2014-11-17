@@ -4,10 +4,6 @@ import utilization_from_route as utils
 import parse_xml as xml
 
 def optimal_utilization(topology, demand_file, loop):
-    # init cm and dd
-    f = open(topology)
-    node = (int)(f.readline().rstrip().split(' ')[0])
-    f.close()
 
     # Get lowest link utilizaiton among all posible routes
     remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
