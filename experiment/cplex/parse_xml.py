@@ -22,7 +22,7 @@ def get_variables(file_name):
     variables = dict() 
     for node in dom.getElementsByTagName("variable"): 
         if node.getAttribute("name").startswith("f"):
-	    variables[node.getAttribute("name")] = float(node.getAttribute("value"))
+            variables[node.getAttribute("name")] = float(node.getAttribute("value"))
 
     return variables
 

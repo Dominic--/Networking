@@ -15,7 +15,7 @@ files = 11460
 '''
 
 connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/connected/abilene-final-0-90-topology"
+final_topology = "../topology/final/abilene-final-0-90-topology"
 remove_links = "../topology/remove/abilene-remove-0-90-links"
 demand_file_template = "../demand/abilene/XX02/%d.txt"
 result_file = "result-abilene-0-90"
