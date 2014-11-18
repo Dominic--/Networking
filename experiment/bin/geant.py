@@ -31,6 +31,8 @@ for month in range(5, 9):
                 demands = {}
                 for src in root.iter('src'):
                     for dst in src.findall('dst'):
+                        if nodes[src.get('id')] == nodes[dst.get('id')]:
+                            continue
                         demands[nodes[src.get('id')],nodes[dst.get('id')]] = dst.text
 
                 f = open("../demand/geant/%d.txt" % n, "w")
