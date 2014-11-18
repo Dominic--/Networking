@@ -8,7 +8,7 @@ import adjust_route_in_new_topology as adjust
 connected_topology = "../topology/connected/geant-connected-topology"
 final_topology = "../topology/final/geant-final-0-topology"
 remove_links = "../topology/remove/geant-remove-0-links"
-demand_file_template = "../demand/geant/%d.txt"
+demand_file_template = "../demand/real-geant/%d.txt"
 result_file = "result-geant-0"
 begin = 36
 files = 131
@@ -17,7 +17,7 @@ files = 131
 connected_topology = "../topology/connected/abilene-connected-topology"
 final_topology = "../topology/final/abilene-final-0-90-topology"
 remove_links = "../topology/remove/abilene-remove-0-90-links"
-demand_file_template = "../demand/abilene/XX02/%d.txt"
+demand_file_template = "../demand/real-abilene/XX02/%d.txt"
 result_file = "result-abilene-0-90"
 files = 288
 '''

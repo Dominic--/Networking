@@ -6,5 +6,5 @@
 #done
 
 for file in {0..2015}; do
-	./abilene ../data/abilene/XX02/${file}.txt ../demand/abilene/XX02/${file}.txt
+	../bin/abilene ../data/abilene/XX02/${file}.txt ../demand/abilene/XX02/${file}.txt
 done
