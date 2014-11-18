@@ -3,30 +3,28 @@ from deep_first_search_path import *
 import re
 
 # objective value of cplex
-def get_object(file_name):
-	f = open(file_name)
-	xml_string = f.read().replace('\n', '')
-	f.close()
+def get_object(file_name): 
+    f = open(file_name) 
+    xml_string = f.read().replace('\n', '') 
+    f.close()
+    
+    dom = xml.dom.minidom.parseString(xml_string) 
+    header = dom.getElementsByTagName("header")[0] 
+    
+    return float(header.getAttribute("objectiveValue"))
 
-	dom = xml.dom.minidom.parseString(xml_string)
-	header = dom.getElementsByTagName("header")[0]
+def get_variables(file_name): 
+    f = open(file_name) 
+    xml_string = f.read().replace('\n', '') 
+    f.close()
+    
+    dom = xml.dom.minidom.parseString(xml_string)
+    variables = dict() 
+    for node in dom.getElementsByTagName("variable"): 
+        if node.getAttribute("name").startswith("f"):
+	    variables[node.getAttribute("name")] = float(node.getAttribute("value"))
 
-	return float(header.getAttribute("objectiveValue"))
-
-def get_variables(file_name):
-	f = open(file_name)
-	xml_string = f.read().replace('\n', '')
-	f.close()
-
-	dom = xml.dom.minidom.parseString(xml_string)
-
-	variables = dict()
-	for node in dom.getElementsByTagName("variable"):
-		if node.getAttribute("name").startswith("f"):
-			variables[node.getAttribute("name")] = \
-					float(node.getAttribute("value"))
-
-	return variables
+    return variables
 
 def route_from_variables(variables):
     st_paths = {}
@@ -43,66 +41,62 @@ def route_from_variables(variables):
         st_paths[key] = g.find_path(s, t)
 
     return st_paths
-	
+
 def get_route(file_name):
-	f = open(file_name)
-	xml_string = f.read().replace('\n', '')
-	f.close()
+    f = open(file_name)
+    xml_string = f.read().replace('\n', '')
+    f.close()
 
-	dom = xml.dom.minidom.parseString(xml_string)
-	
-	p = re.compile('\d+')
+    dom = xml.dom.minidom.parseString(xml_string)
 
-	variables = dict()
-	for node in dom.getElementsByTagName("variable"):
-		if node.getAttribute("name").startswith("f"):
-			
-			name = node.getAttribute("name")
-			s = p.findall(name)
-			s = [int(i) for i in s]
-			if not (s[2], s[3]) in variables:
-				variables[(s[2], s[3])] = []
-			
-			if float(node.getAttribute("value")) != 0:
-				variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value"))])
+    p = re.compile('\d+')
 
-	return route_from_variables(variables)
+    variables = dict()
+    for node in dom.getElementsByTagName("variable"):
+        if node.getAttribute("name").startswith("f"):
+            name = node.getAttribute("name")
+            s = p.findall(name)
+            s = [int(i) for i in s]
+            if not (s[2], s[3]) in variables:
+                variables[(s[2], s[3])] = []	
+            if float(node.getAttribute("value")) != 0:
+                variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value"))])
+
+    return route_from_variables(variables)
 
 def get_route_with_demand(file_name, demand):
-	f = open(file_name)
-	xml_string = f.read().replace('\n', '')
-	f.close()
+    f = open(file_name)
+    xml_string = f.read().replace('\n', '')
+    f.close()
 
-	f = open(demand)
-        dd = dict()
+    f = open(demand)
+    dd = dict()
+    line = f.readline()
+    line = f.readline()
+    while line:
+        s = line.rstrip().split(' ')
+        dd[int(s[0]), int(s[1])] = (float)(s[2])
         line = f.readline()
-	line = f.readline()
-	while line:
-		s = line.rstrip().split(' ')
-		dd[int(s[0]), int(s[1])] = (float)(s[2])
-		line = f.readline()
-	f.close()
+    f.close()
 
+    dom = xml.dom.minidom.parseString(xml_string)	
+    
+    p = re.compile('\d+')
 
-	dom = xml.dom.minidom.parseString(xml_string)
-	
-	p = re.compile('\d+')
+    variables = dict()
+    for node in dom.getElementsByTagName("variable"):
+        if node.getAttribute("name").startswith("f"):		
+            name = node.getAttribute("name")
+            s = p.findall(name)
+            s = [int(i) for i in s]
+            if not (s[2], s[3]) in variables:
+                variables[(s[2], s[3])] = []
 
-	variables = dict()
-	for node in dom.getElementsByTagName("variable"):
-		if node.getAttribute("name").startswith("f"):
-			
-			name = node.getAttribute("name")
-			s = p.findall(name)
-			s = [int(i) for i in s]
-			if not (s[2], s[3]) in variables:
-				variables[(s[2], s[3])] = []
-			
-			if float(node.getAttribute("value")) != 0:
-                                if (s[2],s[3]) not in dd.keys():
-			                variables[(s[2], s[3])].append([s[0], s[1], 0])
-                                else:
-				        variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value")) * dd[s[2], s[3]]])
+            if float(node.getAttribute("value")) != 0:
+                if (s[2],s[3]) not in dd.keys():
+                    variables[(s[2], s[3])].append([s[0], s[1], 0])
+                else:
+                    variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value")) * dd[s[2], s[3]]])
 
-	return route_from_variables(variables)
+    return route_from_variables(variables)
 	

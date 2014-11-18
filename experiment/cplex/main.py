@@ -18,8 +18,8 @@ connected_topology = "../topology/connected/abilene-connected-topology"
 final_topology = "../topology/connected/abilene-final-0-90-topology"
 remove_links = "../topology/remove/abilene-remove-0-90-links"
 demand_file_template = "../demand/abilene/XX02/%d.txt"
-result_file = "result-abilene"
-files = 2016
+result_file = "result-abilene-0-90"
+files = 288
 
 loop = 20
 diff = 1000
@@ -44,7 +44,7 @@ for num in range(files):
     # Calculate the optimal maximum utilization for specific traffic matrix
     optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
     print('Optimal Utilization is %f\n' % optimal_utilization)
-    f.write('Optimal Utilization is %f\n' % optimal_utilization)
+    f.write('%10.4f\t' % optimal_utilization)
 
     #TODO Change Route
     print("Begin adjust route")
@@ -53,12 +53,14 @@ for num in range(files):
 
     print("Begin calculate utilization")
     global_utilization = common.global_utilization(final_topology, new_global_routes, demand_file, loop)
+    print('Global Utilization is %f\n' % global_utilization)
+    f.write('%10.4f\t' % global_utilization)
 
     if diff > global_utilization / optimal_utilization:
         diff = global_utilization / optimal_utilization
     print("Now Diff is %f" % (global_utilization / optimal_utilization))
     print("Diff is %f" % diff)
-    f.write("Now Diff is %f" % (global_utilization / optimal_utilization))
-    f.write("Diff is %f" % diff)
+    f.write("%6.4f\t" % (global_utilization / optimal_utilization))
+    f.write("%6.4f\n" % diff)
 
     f.close()

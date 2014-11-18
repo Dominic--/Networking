@@ -15,7 +15,7 @@ def global_utilization(topology, routes, demand_file, loop):
     f.close()
 
     link_u_global_opt = utils.get_utilization(topology, routes, loop)
-    print("Global Utilization is %f \n" % link_u_global_opt)
+    #print("Global Utilization is %f \n" % link_u_global_opt)
 
     return link_u_global_opt
 
