@@ -1,10 +1,11 @@
 import random
 
-def opt(topology, origin, w, outfile):
+def generate_cplex_lp_file(topology, outfile, bound, is_gravity):
 	f = open(topology)
 
 	# Node
-	node = (int)(f.readline().rstrip())
+	node = (int)(f.readline().rstrip().split(' ')[0])
+        nodes = [0 for i in range(node)]
 
 	# Capacity Matrix
 	# Link Set
@@ -15,6 +16,10 @@ def opt(topology, origin, w, outfile):
 		s = line.rstrip().split(" ")
 		cm[int(s[0])][int(s[1])] = (float)(s[2])
 		cm[int(s[1])][int(s[0])] = (float)(s[2])
+
+                nodes[int(s[0])] += float(s[2])
+                nodes[int(s[1])] += float(s[2])
+
 		link.append([int(s[0]), int(s[1])])
 		line = f.readline()
 	f.close()
@@ -23,16 +28,14 @@ def opt(topology, origin, w, outfile):
 	a = [([0] * node) for i in range(node)]
 	b = [([0] * node) for i in range(node)]
 
-	f = open(origin)
-	line = f.readline()
-	line = f.readline()
-	while line:
-		s = line.rstrip().split(" ")
-		a[int(s[0])][int(s[1])] = float(s[2]) / w
-		b[int(s[0])][int(s[1])] = float(s[2]) * w
-
-		line = f.readline()
-	f.close()
+        for s in range(node):
+            for d in range(node):
+                if s != d:
+                    if is_gravity:
+                        b[s][d] = nodes[s] * nodes[d] * bound[1]
+                    else:
+                        a[s][d] = bound[0]
+                        b[s][d] = bound[1]
 
 	# Begin
 	f = open(outfile, 'w')

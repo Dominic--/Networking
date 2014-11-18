@@ -1,0 +1,44 @@
+import os
+import paper_cplex_input_with_tm_bound as cplex
+import utilization_from_route as utils
+import parse_xml as xml
+
+def global_utilization(topology, routes, demand_file, loop):
+    f = open(demand_file)
+    line = f.readline()
+    line = f.readline()
+    while line:
+        s = line.rstrip().split(' ')
+        for route in routes[int(s[0]),int(s[1])]:
+            route[1] = route[1] * (float)(s[2])
+        line = f.readline()
+    f.close()
+
+    link_u_global_opt = utils.get_utilization(topology, routes, loop)
+    #print("Global Utilization is %f \n" % link_u_global_opt)
+
+    return link_u_global_opt
+
+def global_routes(topology, bound, is_gravity):
+    # Init
+    remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
+    remove_all_lp_or_sol = "del *.lp *.sol >> log"
+    os.system(remove_all_lp_or_sol_or_txt)
+
+    # Get the upper bound of performance ratio for specific topology
+    # Only be run once
+    global_opt_cplex_input = "global_opt_cplex_input.lp"
+    global_opt_cplex_output = "global_opt_cplex_output.sol"
+    cplex.generate_cplex_lp_file(topology, global_opt_cplex_input, bound, is_gravity)
+
+    global_opt_cplex_cmd = 'cplex -c "read %s" "optimize" "write %s" >> log' % \
+            (global_opt_cplex_input, global_opt_cplex_output)	
+    os.system(global_opt_cplex_cmd)
+
+    global_opt_upper_bound = xml.get_object(global_opt_cplex_output)
+    print("Upper Bound is %f" % global_opt_upper_bound)
+
+    global_opt_routes = xml.get_route(global_opt_cplex_output)
+    #print(global_opt_routes)
+
+    return global_opt_routes

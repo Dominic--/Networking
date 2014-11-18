@@ -1,45 +1,57 @@
-import xml.etree.ElementTree as ET
+import random
 
+topology_template = '../topology/connected/%s-connected-topology'
+demand_template = '../demand/bimodal-%s/%d.txt'
+files = 1000
+topology_name = ['abilene', 'geant']
 
-nodes = {}
-f = open("../topology/final/geant-map-number", "r")
-line = f.readline()
-line = f.readline()
-while line:
-    s = line.strip().split(' ')
-    nodes[s[0]] = int(s[1])
+for t in topology_name:
+    topology = topology_template % t
 
+    f = open(topology, "r")
+    token = f.readline().strip().split(' ')
+    node_n = int(token[0])
+    link_n = int(token[1])
+
+    random_range = 0
     line = f.readline()
-f.close()
+    while line:
+        token = line.strip().split(' ')
+        random_range += float(token[2])
 
-n = 0
-for month in range(5, 9):
-    for day in range(1, 32):
-        if month == 5 and day < 4:
-            continue
-        if month == 6 and day == 31:
-            continue
+        line = f.readline()
+    f.close()
 
-        for hour in range(0, 24):
-            if month == 5 and day == 4 and hour < 15:
+    random_range = random_range / link_n
+    print random_range
+    for n in range(files):
+        demands = dict()
+
+        od_sum = int(random.uniform(1, node_n * node_n - node_n + 1))
+        od_num = 0
+        #print n, od_num, od_sum
+        while True:
+            src = int(random.uniform(0, node_n))
+            dst = int(random.uniform(0, node_n))
+            
+            if src == dst:
                 continue
 
-            for minute in range(0, 60, 15):
-                dom = ET.parse(open("../data/geant/demands/geant-IntraTM-2005-%02d-%02d-%02d-%02d.xml" % (month, day, hour, minute), "r"))
-                root = dom.getroot()
+            if (src, dst) in demands:
+                continue
 
-                demands = {}
-                for src in root.iter('src'):
-                    for dst in src.findall('dst'):
-                        if nodes[src.get('id')] == nodes[dst.get('id')]:
-                            continue
-                        demands[nodes[src.get('id')],nodes[dst.get('id')]] = dst.text
+            if (src,dst) not in demands:
+                demands[src, dst] = random.uniform(0, random_range)
+            
+            od_num += 1
+            if od_num == od_sum:
+                break
+        
+        demand = demand_template % (t, n)
+        f = open(demand, "w")
+        f.write("%d\n" % len(demands))
+        for s,d in demands:
+            f.write("%d %d %0.2f\n" % (s, d, demands[s,d]))
 
-                f = open("../demand/geant/%d.txt" % n, "w")
-                f.write("%d\n" % len(demands))
-                for s,d in demands:
-                    f.write("%d %d %s\n" % (s, d, demands[s,d]))
-                f.close()
-
-                n = n + 1
+        f.close()
 

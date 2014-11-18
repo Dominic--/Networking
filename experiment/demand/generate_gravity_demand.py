@@ -1,45 +1,56 @@
-import xml.etree.ElementTree as ET
+import random
 
+topology_template = '../topology/connected/%s-connected-topology'
+demand_template = '../demand/gravity-%s/%d.txt'
+files = 1000
+topology_name = ['abilene', 'geant']
 
-nodes = {}
-f = open("../topology/final/geant-map-number", "r")
-line = f.readline()
-line = f.readline()
-while line:
-    s = line.strip().split(' ')
-    nodes[s[0]] = int(s[1])
+for t in topology_name:
+    topology = topology_template % t
 
+    f = open(topology, "r")
+    token = f.readline().strip().split(' ')
+    node_n = int(token[0])
+    link_n = int(token[1])
+
+    random_range = 0
+    nodes = [0 for i in range(node_n)]
     line = f.readline()
-f.close()
+    while line:
+        token = line.strip().split(' ')
+        nodes[int(token[0])] += float(token[2])
+        nodes[int(token[1])] += float(token[2])
+        random_range += float(token[2])
 
-n = 0
-for month in range(5, 9):
-    for day in range(1, 32):
-        if month == 5 and day < 4:
-            continue
-        if month == 6 and day == 31:
-            continue
+        line = f.readline()
+    f.close()
 
-        for hour in range(0, 24):
-            if month == 5 and day == 4 and hour < 15:
-                continue
+    first_value = 0
+    second_value = 0
+    for i in range(node_n):
+        if first_value < nodes[i]:
+            second_value = first_value
 
-            for minute in range(0, 60, 15):
-                dom = ET.parse(open("../data/geant/demands/geant-IntraTM-2005-%02d-%02d-%02d-%02d.xml" % (month, day, hour, minute), "r"))
-                root = dom.getroot()
+            first_value = nodes[i]
+        elif second_value < nodes[i]:
+            second_value = nodes[i]
 
-                demands = {}
-                for src in root.iter('src'):
-                    for dst in src.findall('dst'):
-                        if nodes[src.get('id')] == nodes[dst.get('id')]:
-                            continue
-                        demands[nodes[src.get('id')],nodes[dst.get('id')]] = dst.text
+    random_range = random_range / link_n
+    random_base = random_range / first_value / second_value
 
-                f = open("../demand/geant/%d.txt" % n, "w")
-                f.write("%d\n" % len(demands))
-                for s,d in demands:
-                    f.write("%d %d %s\n" % (s, d, demands[s,d]))
-                f.close()
+    random_base = 0.001
 
-                n = n + 1
+    for n in range(files):
+        demand = demand_template % (t, n)
+        f = open(demand, "w")
+        f.write("%d\n" % (node_n * node_n - node_n))
+
+        for s in range(node_n):
+            for d in range(node_n):
+                if s == d:
+                    continue
+
+                f.write("%d %d %0.3f\n" % (s, d, random.uniform(0, nodes[s] * nodes[d] * random_base)))
+
+        f.close()
 
