@@ -11,7 +11,7 @@ type_random = "bimodal"
 connected_topology_template = "../topology/connected/%s-connected-topology"
 final_topology_template = "../topology/final/%s-final-0-%s-topology"
 remove_links_template = "../topology/remove/%s-remove-0-%s-links"
-demand_file_template = "../demand/%s-geant/%d.txt"
+demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-%s-0-%s"
 files = 1000
 
