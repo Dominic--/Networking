@@ -6,6 +6,7 @@ import adjust_route_in_new_topology as adjust
 # Generate performance 
 
 is_gravity = False
+type_random = "bimodal"
 
 connected_topology_template = "../topology/connected/%s-connected-topology"
 final_topology_template = "../topology/final/%s-final-0-%s-topology"
@@ -27,6 +28,7 @@ for t in ['abilene', 'geant']:
         upper = 0
         if is_gravity:
             upper = 0.001
+            type_random = "gravity"
         else:
             if t == 'abilene':
                 upper = 9424.0
@@ -42,7 +44,7 @@ for t in ['abilene', 'geant']:
         for num in range(files):
             print("Round %d\n" % num)
 
-            demand_file = demand_file_template % (t, num)
+            demand_file = demand_file_template % (type_random, t, num)
             f = open(demand_file, "r")
             line = f.readline()
             f.close()
