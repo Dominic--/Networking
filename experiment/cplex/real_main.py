@@ -5,6 +5,7 @@ import adjust_route_in_new_topology as adjust
 
 # Generate performance 
 
+'''
 connected_topology = "../topology/connected/geant-connected-topology"
 final_topology = "../topology/final/geant-final-1-topology-power"
 remove_links = "../topology/remove/geant-remove-1-links-power"
@@ -12,15 +13,15 @@ demand_file_template = "../demand/real-geant/%d.txt"
 result_file = "result-geant-1-80-power"
 begin = 36
 files = 131
+'''
 
-'''
 connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/final/abilene-final-0-90-topology"
-remove_links = "../topology/remove/abilene-remove-0-90-links"
+final_topology = "../topology/final/abilene-final-1-90-topology-power"
+remove_links = "../topology/remove/abilene-remove-1-90-links-power"
 demand_file_template = "../demand/real-abilene/XX02/%d.txt"
-result_file = "result-abilene-0-90"
+result_file = "result-abilene-1-90-power"
 files = 288
-'''
+
 
 loop = 20
 diff = 1000
@@ -31,7 +32,7 @@ diff = 1000
 global_routes = common.global_routes(connected_topology)
 
 
-for num in range(begin, files):
+for num in range(files):
     print("Round %d\n" % num)
 
     demand_file = demand_file_template % num
