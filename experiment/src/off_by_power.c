@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 		double temp_connected_value = get_eigenvalue(copy_matrix, nodes_n);
 		free(copy_matrix);
 
-		if (temp_connected_value <= 0 || temp_power / origin_power < threshold) {
+		if (temp_connected_value <= 0.1 || temp_power / origin_power < threshold) {
 			matrix[links[i].s * nodes_n + links[i].d] = backup;
 			matrix[links[i].d * nodes_n + links[i].s] = backup;
 			matrix[links[i].s * nodes_n + links[i].s] -= backup;
