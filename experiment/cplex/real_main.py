@@ -6,10 +6,10 @@ import adjust_route_in_new_topology as adjust
 # Generate performance 
 
 connected_topology = "../topology/connected/geant-connected-topology"
-final_topology = "../topology/final/geant-final-0-topology"
-remove_links = "../topology/remove/geant-remove-0-links"
+final_topology = "../topology/final/geant-final-1-topology-power"
+remove_links = "../topology/remove/geant-remove-1-links-power"
 demand_file_template = "../demand/real-geant/%d.txt"
-result_file = "result-geant-0"
+result_file = "result-geant-1-80-power"
 begin = 36
 files = 131
 
