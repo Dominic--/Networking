@@ -243,7 +243,8 @@ and it is a metric of average distance between any two vertices of graph $G$.
 As far as we know, 
 algebraic connectivity regard every link the same, without considering the capacity of each one, but it is 
 ridiculous in network. It is easy to see, link with greater capacity is more important than the same one
-with lower capacity. and in graph theory So we extend the algebraic connectivity definition by following ways:
+with lower capacity. and in graph theory, algebraic connectivity value monotonically increased when we
+increase the weight of link between vertices. So we extend the algebraic connectivity definition by following ways:
 
 \begin{enumerate}
 	\item We change the Adjacency Matrix from binary-matrix to float-matrix, i.e. if $(i,j) \in E$ we set the $a_{ij}$
