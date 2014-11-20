@@ -43,7 +43,7 @@ def adjust_route(topology, remove_file, routes):
                 for j in range(len(routes[s,d][i][0]) - 1):
                     #print("ls, ld : %d %d" % (ls, ld))
                     #print("len : %d, j : %d" % (len(routes[s,d][i][0]), j))
-                    if routes[s,d][i][0][j] == ls and routes[s,d][i][0][j+1] == ld:
+                    if path_replace[ls, ld] != None and routes[s,d][i][0][j] == ls and routes[s,d][i][0][j+1] == ld:
                         weight = 0
                         index = 0
                         for k in range(len(routes[ls,ld])):
@@ -52,5 +52,7 @@ def adjust_route(topology, remove_file, routes):
                                 weight = routes[ls,ld][k][1]
                         routes[s,d][i] = [routes[s,d][i][0][0:j] + path_replace[ls, ld] + routes[s,d][0][j+2:], routes[s,d][i][1]]
                         break
+                    else:
+                        routes[s,d][i] = [g.dfs_path(s, d), routes[s][d][i][1]]
 
     return routes

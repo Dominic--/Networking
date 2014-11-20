@@ -233,15 +233,17 @@ Then we define Laplacian Matrix $L(G)$ of graph $G$ as the difference between De
 where $D(G)$ is the Degree Matrix and $A(G)$ is the Adjacency Matrix.
 
 
-In the mathematical field of graph theory, the algebraic connectivity of a graph $G$ is the second-smallest
-eigenvalue of the Laplacian Matrix. This eigenvalue is greater than 0 if and only if $G$ is connected, and 
-it measures the connectivity of graph, the greater of which, the more connective of graph. 
+In the mathematical field of graph theory, the number of eigenvalues equal to 0 is the number of connected 
+componements of $G$, so the smallest eigenvalue always be 0. And we call the second smallest one as
+algebraic connectivity, which is greater than 0 if and only if graph $G$ is connected. Further more,  
+it measures the connectivity and stability of graph, the greater of which, the more connective of graph;
+and it is a metric of average distance between any two vertices of graph $G$.
 
 
 As far as we know, 
 algebraic connectivity regard every link the same, without considering the capacity of each one, but it is 
 ridiculous in network. It is easy to see, link with greater capacity is more important than the same one
-with lower capacity. So we extend the algebraic connectivity definition by following ways:
+with lower capacity. and in graph theory So we extend the algebraic connectivity definition by following ways:
 
 \begin{enumerate}
 	\item We change the Adjacency Matrix from binary-matrix to float-matrix, i.e. if $(i,j) \in E$ we set the $a_{ij}$
