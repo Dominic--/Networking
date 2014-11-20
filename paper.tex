@@ -217,21 +217,25 @@ routing by demand-oblivious routing algorithm.
 
 \subsubsection{Extend Algebraic Connectivity}
 Network topology is represented by $G = (V, E)$ as mentioned in Model section, where $V$ is the set of vertices
-and $E$ is the set of links. We say $A(G)$ is the adjacency matrix of $G$, which include information for which
+and $E$ is the set of links. We say $A(G)$ is the Adjacency Matrix of graph $G$, that include information for which
 vertices of the graph are adjacent to which other vertices. $A(G)$ is a $N \times N$ matrix, where
-$N = |V|$ and non-diagonal entry $a_{ij}$ is the number of edges from vertex $i$ to vertex $j$, in this paper,
-$a_{ij}$ always be 1 if $(i,j) /in E$ otherwise 0. And we stipulate the diagonal element $a_{ii}$ be 0.
-We say $D(G)$ is the degree matrix of $G$, which is a diagonal matrix and diagonal entry $d_{ii}$ denote 
+$N = |V|$ and non-diagonal entry $a_{ij}$ equal to the number of edges from vertex $i$ to vertex $j$, in this paper,
+$a_{ij}$ always be 1 if $(i,j) \in E$ otherwise 0. And we stipulate the diagonal element $a_{ii}$ be 0.
+
+
+We say $D(G)$ is the Degree Matrix of graph $G$, which is a diagonal matrix and diagonal entry $d_{ii}$ denote 
 the degree of node $i$. It is obvious that there is $d_{ii} == \sum_{j} a_{ij}$.
-We define Laplacian matrix, denoted by $L(G)$ of $G$ as :
+
+
+Then we define Laplacian Matrix $L(G)$ of graph $G$ as the difference between Degree Matrix and Adjacency Matrix :
 \begin{equation}
 	L(G) = D(G) - A(G)
 \end{equation}
-where $D(G)$ is the degree matrix and $A(G)$ is the adjacency matrix.
+where $D(G)$ is the Degree Matrix and $A(G)$ is the Adjacency Matrix.
 
 
 In the mathematical field of graph theory, the algebraic connectivity of a graph $G$ is the second-smallest
-eigenvalue of the Laplacian matrix. This eigenvalue is greater than 0 if and only if $G$ is connected, and 
+eigenvalue of the Laplacian Matrix. This eigenvalue is greater than 0 if and only if $G$ is connected, and 
 it measures the connectivity of graph, the greater of which, the more connective of graph. 
 
 
@@ -240,52 +244,57 @@ algebraic connectivity regard every link the same, without considering the capac
 ridiculous in network. It is easy to see, link with greater capacity is more important than the same one
 with lower capacity. So we extend the algebraic connectivity definition by following ways:
 
-
-1) We change the adjacency matrix from binary-matrix to float-matrix, i.e. if $(i,j) \in E$ we set the $a_{ij}$
-with the capacity of link $l_{ij}$ instead of value 1.
-2) Degree matrix is not ever the denotation for the degree of nodes, but the in-out flows of nodes, we still
-use the equation: $d_{ij} == \sum_{j} a_{ij}$
-3) No modification for Definition of Laplacian matrix
+\begin{enumerate}
+	\item We change the Adjacency Matrix from binary-matrix to float-matrix, i.e. if $(i,j) \in E$ we set the $a_{ij}$
+with the capacity of link $l_{ij}$ instead of binary value 1.
+	\item Degree Matrix is not ever the denotation for the degree of nodes, but the conbined capacity of all the links
+adjacent to the node, there is still exist the equation: $d_{ij} == \sum_{j} a_{ij}$
+	\item No modification for definition of Laplacian Matrix
+\end{enumerate}
 
 
 We calculate new extend algebraic connectivity from the new Laplacian matrix, denoted by $\lambda_2(G)$.
 
 
-Topology always have different algebraic connectivity values for their difference in connectivity property.
-When we remove/sleep one link $l$ from graph $G$, new graph is described as $G^*$, we defined the difference of 
-algebraic connectivity as :
+Topology always have different extend algebraic connectivity values, it is clear that when one link is added or 
+removed from the graph, the extend algebraic connectivity value changes accordingly. And we say the changed value
+is the impact of this link on the graph. Supposed we sleep link $l$ from graph $G$, new graph is described as $G^*$, 
+we defined the impact of link $l$ as :
 \begin{equation}
 	\Delta_l = \lambda_2(G) - \lambda_2(G^*)
 \end{equation}
-where $\lambda_2(G)$ and $\lambda_2(G^*)$ is algebraic connectivity of $G$ and $G^*$ respectly.
+where $\lambda_2(G)$ and $\lambda_2(G^*)$ is extend algebraic connectivity of $G$ and $G^*$ respectly.
 
 
 Clearly, $\Delta_l$ is always greater than 0, because graph will always lose connectivity when link is removed.
 Further more, some link will play a more important role in the connectivity of graph, such as the backbone link 
-of network topology. And we say a link $l$ have more impact on algebraic connectivity if $\Delta_l$ is greater.
+of network topology. And we say a link $l$ affect more if $\Delta_l$ is greater.
 
 
 \subsection{First Phase Description}
-REAR remove/sleep as many links as possible with not losing much connectivity of graph. Originly,  we should
-calculate impact of all the links and sleep the lowest one on the graph, then repeat calculate and remove
-process until arrive some specific threhold. Obviously, it is NP-Hard, so there is a heuristic algorithm.
+REAR sleep as many links as possible without losing much connectivity of graph. Originly,  we should
+calculate impact of all the links and sleep the lowest one from the graph, then repeat calculate and remove
+process until arrive some specific threhold. Obviously, it is NP-Hard, following is a heuristic algorithm.
 
 
 For the origin graph, we calculate the impact of every link as $\Delta_{l_i}$ , and then sort these values
-from small to big, output ordered list denoted as $\Gamma$, $\Gamma$ may looks like : 
+from small to big, output ordered list denoted as $\Gamma$: 
 \begin{equation}
-	..., l_i, ..., l_j, ...
+	\Gamma = {..., l_i, ..., l_j, ...}
 \end{equation}
 where $\Delta_{l_i} < \Delta_{l_j}$.
 
 
-Pay attention we only fetch the link impact once at the begining of algorihtm, and the ordered list $\Gamma$ show 
-the `importantance` of link in the connectivity of the graph. Now we begin selecting which links should be sleep.
-We denote the set of the sleeping links as $S$, and the output of this phase is $G^* = (V, E-S)$. We set 
-$S = \emptyset$, and iterate our selecting process, each iteration we select one link and put it into $S$. 
-In iteration $i$, scan links as the order of $\Gamma$ and choose one which is still not in the $S$, we try to
-remove it from the graph, if some metric of the current graph do not arrive the threhold we put the link into
-$S$ and  begin next iteration, or choose the next link from the $\Gamma$ for try to remove otherwise. Algorithm
+Pay attention we only compute the link impact once at the begining of algorihtm, and the ordered list $\Gamma$ show 
+the order of `importantance` among links in the connectivity of the graph. 
+
+
+Now we begin selecting which links should be sleep.
+We denote the set of the sleeping links as $S$, and the output of this phase is final graph $G^* = (V, E-S)$. We set 
+$S = \emptyset$, and repeat our selecting process, each iteration we select one link and put it into $S$. 
+In iteration $i$, algorithm scan links as the order of $\Gamma$ and choose one which is still not in the $S$, we try to
+remove this link from the graph, if some metric of the current graph do not arrive the threhold we put the link into
+$S$ then go next iteration, or choose the next link from the $\Gamma$ for trying to remove otherwise. Algorithm
 stop until all the links in $\Gamma$ is tried but there is no one to satisfy the threhold.
 
 
@@ -297,12 +306,12 @@ two graphs as:
 	diff_c = \lambda_2(G_{S, l}^o) / \lambda_2(G^o) * 100
 \end{equation}
 where $\lambda_2(G_{S, l}^o)$ is the extend algebraic connectivity of the final graph, when the links set $S$ and 
-link $l$ is removed from the origin graph $G^o$, and the $\lambda_2(G^o)$ is the extend algebraic connectivity of 
+link $l$ are both removed from the origin graph $G^o$, and the $\lambda_2(G^o)$ is the extend algebraic connectivity of 
 the origin graph.
 
 
 If we set $diff_c$ valued 90\%, it means that whenever we try to remove the link $l$ from the origin graph in 
-iteration, the extend algebraic connectivity should never lower than the 90\% of origin. For power consumption
+iteration, the extend algebraic connectivity should never lower than the 90\% of origin one. For power consumption
 consideration, we simply take an power model from `Green TE` showed in Table xx, and defined the difference of 
 power consumption between two graphs as:
 \begin{equation}
@@ -310,6 +319,8 @@ power consumption between two graphs as:
 \end{equation}
 where $\rho(G^o)$ is the power consumption of the origin graph, and $\rho(G_{S, l}^o)$ is similar with the 
 definition above.
+
+
 
 
 Experiment shows that...
