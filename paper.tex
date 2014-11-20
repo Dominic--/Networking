@@ -213,9 +213,8 @@ In our paper, Robust Energy-Aware Routing (REAR) algorithm works in two phases. 
 should be sleeping from the origin topology based on extended algebraic connectivity, then compute the robust 
 routing by demand-oblivious routing algorithm.
 
-\subsection{First Phase}
 
-\subsubsection{Extend Algebraic Connectivity}
+\subsection{Extend Algebraic Connectivity}
 Network topology is represented by $G = (V, E)$ as mentioned in Model section, where $V$ is the set of vertices
 and $E$ is the set of links. We say $A(G)$ is the Adjacency Matrix of graph $G$, that include information for which
 vertices of the graph are adjacent to which other vertices. $A(G)$ is a $N \times N$ matrix, where
@@ -280,7 +279,7 @@ process until arrive some specific threhold. Obviously, it is NP-Hard, following
 For the origin graph, we calculate the impact of every link as $\Delta_{l_i}$ , and then sort these values
 from small to big, output ordered list denoted as $\Gamma$: 
 \begin{equation}
-	\Gamma = {..., l_i, ..., l_j, ...}
+	\Gamma = \{..., l_i, ..., l_j, ...\}
 \end{equation}
 where $\Delta_{l_i} < \Delta_{l_j}$.
 
