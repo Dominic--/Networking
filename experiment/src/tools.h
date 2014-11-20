@@ -37,3 +37,9 @@ void print_matrix(double *, int);
  */
 double get_eigenvalue(double *, int);
 
+
+/*
+ * Get the power 
+ */
+double get_power(double *, int);
+
