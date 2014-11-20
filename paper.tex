@@ -298,28 +298,20 @@ stop until all the links in $\Gamma$ is tried but there is no one to satisfy the
 
 
 So before going ahead our algorithm, there is another thing we should done, what is the threhold for the graph.
-It does matter for what we concern most of the graph, in our graph, we choose two threholds, one is connectivity and
-another is power consumption. For considering connectivity , we defined the difference of connectivity between 
-two graphs as:
+It does matter for what we concern most of the graph, in our graph, we choose the power consumption. 
+We simple take an power model from `Green TE` showed in Table xx, and defined the difference of power consumption 
+between two graphs as:
 \begin{equation}
-	diff_c = \lambda_2(G_{S, l}^o) / \lambda_2(G^o) * 100
+	diff_p = \rho(G_{S, l}^o) / \rho(G^o) * 100
 \end{equation}
-where $\lambda_2(G_{S, l}^o)$ is the extend algebraic connectivity of the final graph, when the links set $S$ and 
-link $l$ are both removed from the origin graph $G^o$, and the $\lambda_2(G^o)$ is the extend algebraic connectivity of 
+where $\rho(G_{S, l}^o)$ is the power consumption of the final graph, when the links set $S$ and 
+link $l$ are both removed from the origin graph $G^o$, and the $\rho(G^o)$ is the power consumption of 
 the origin graph.
 
 
 If we set $diff_c$ valued 90\%, it means that whenever we try to remove the link $l$ from the origin graph in 
-iteration, the extend algebraic connectivity should never lower than the 90\% of origin one. For power consumption
-consideration, we simply take an power model from `Green TE` showed in Table xx, and defined the difference of 
-power consumption between two graphs as:
-\begin{equation}
-	diff_p = \rho(G_{S, l}^o) / \rho(G^o) * 100
-\end{equation}
-where $\rho(G^o)$ is the power consumption of the origin graph, and $\rho(G_{S, l}^o)$ is similar with the 
-definition above.
-
-
+iteration, the power consumption should never lower than the 90\% of origin one. In another words, the output 
+of this phase protect as much connectivity as possible 
 
 
 Experiment shows that...
