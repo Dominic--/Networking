@@ -31,7 +31,10 @@ class Graph(object):
                 if q[i] > m:
                     m = q[i]
                     key = i
-            return key
+            if m > 0:
+                return key
+            else:
+                return None
         
         path = []
         def get_path(v, p):
@@ -50,8 +53,11 @@ class Graph(object):
         queue[s] = 100000
         parents = {}
         parents[s] = None
-        while len(queue) != 0:
+        while True:
             node = find_max(queue)
+
+            if node == None:
+                return None
             #print("when %d" % node)
             w = queue[node]
 
@@ -77,7 +83,6 @@ class Graph(object):
                 queue.pop(node)
 
             self.visited[node] = True
-        return None
 		
     def find_path(self, s, v):
         paths = []
