@@ -44,8 +44,24 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Energy conservation has become a major challenge to the Internet. In existing approaches, a part of line cards are switched into sleep mode for energy conservation, and the routing is configured carefully to balance energy saving and traffic engineering golas, such as the maximum link utilization ratio (MLUR). Typically, traffic demands are used as inputs, and routing is computed accordingly. However, accurate traffic matrices are difficult to obtain and are changing frequently. This makes the approaches difficult to implement. Further, the routing may shift frequently, and is not robust to sudden traffic changes.
-In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic matrices, in particular, to arbitrary traffic demands. Such a routing without energy consideration is known as the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance ratio with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve the problem in two phases. REAR select sleeping links based on extended algebraic connectivity, and compute the routing based on a classical demand-oblivious routing algorithm. We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save XX\% of line card power while the performance ratio is less than XX.
+Energy conservation has become a major challenge to the Internet. In existing approaches, a part of line cards 
+are switched into sleep mode for energy conservation, and the routing is configured carefully to balance energy saving 
+and traffic engineering goals, such as the maximum link utilization ratio (MLUR). Typically, traffic demands are 
+used as inputs, and routing is computed accordingly. However, accurate traffic matrices are difficult to obtain and 
+are changing frequently. This makes the approaches difficult to implement. Further, the routing may shift 
+frequently, and is not robust to sudden traffic changes.
+
+In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic 
+matrices, in particular, to arbitrary traffic demands. Such a routing without energy consideration is known as 
+the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy 
+conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance 
+ratio with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
+certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
+and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve 
+the problem in two phases. REAR select sleeping links based on extended algebraic connectivity, and compute the 
+routing based on a classical demand-oblivious routing algorithm. We evaluate our algorithms on real and 
+synthetic topologies. The simulation results show that REAR can save XX\% of line card power while the performance 
+ratio is less than XX.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -192,6 +208,118 @@ traffic acorss the upper link, in the first TM the link utilization is 1 and the
 So according to our theory, the $P^{*}(M, G)$ should be 1.5 and the optimal successor network topology will be
 the one which 3M link is closed.
 
+\section{Algorithm}
+In our paper, Robust Energy-Aware Routing (REAR) algorithm works in two phases. Firstly, REAR select links 
+should be sleeping from the origin topology based on extended algebraic connectivity, then compute the robust 
+routing by demand-oblivious routing algorithm.
+
+\subsection{First Phase}
+
+\subsubsection{Extend Algebraic Connectivity}
+Network topology is represented by $G = (V, E)$ as mentioned in Model section, where $V$ is the set of vertices
+and $E$ is the set of links. We say $A(G)$ is the adjacency matrix of $G$, which include information for which
+vertices of the graph are adjacent to which other vertices. $A(G)$ is a $N \times N$ matrix, where
+$N = |V|$ and non-diagonal entry $a_{ij}$ is the number of edges from vertex $i$ to vertex $j$, in this paper,
+$a_{ij}$ always be 1 if $(i,j) /in E$ otherwise 0. And we stipulate the diagonal element $a_{ii}$ be 0.
+We say $D(G)$ is the degree matrix of $G$, which is a diagonal matrix and diagonal entry $d_{ii}$ denote 
+the degree of node $i$. It is obvious that there is $d_{ii} == \sum_{j} a_{ij}$.
+We define Laplacian matrix, denoted by $L(G)$ of $G$ as :
+\begin{equation}
+	L(G) = D(G) - A(G)
+\end{equation}
+where $D(G)$ is the degree matrix and $A(G)$ is the adjacency matrix.
+
+
+In the mathematical field of graph theory, the algebraic connectivity of a graph $G$ is the second-smallest
+eigenvalue of the Laplacian matrix. This eigenvalue is greater than 0 if and only if $G$ is connected, and 
+it measures the connectivity of graph, the greater of which, the more connective of graph. 
+
+
+As far as we know, 
+algebraic connectivity regard every link the same, without considering the capacity of each one, but it is 
+ridiculous in network. It is easy to see, link with greater capacity is more important than the same one
+with lower capacity. So we extend the algebraic connectivity definition by following ways:
+
+
+1) We change the adjacency matrix from binary-matrix to float-matrix, i.e. if $(i,j) \in E$ we set the $a_{ij}$
+with the capacity of link $l_{ij}$ instead of value 1.
+2) Degree matrix is not ever the denotation for the degree of nodes, but the in-out flows of nodes, we still
+use the equation: $d_{ij} == \sum_{j} a_{ij}$
+3) No modification for Definition of Laplacian matrix
+
+
+We calculate new extend algebraic connectivity from the new Laplacian matrix, denoted by $\lambda_2(G)$.
+
+
+Topology always have different algebraic connectivity values for their difference in connectivity property.
+When we remove/sleep one link $l$ from graph $G$, new graph is described as $G^*$, we defined the difference of 
+algebraic connectivity as :
+\begin{equation}
+	\Delta_l = \lambda_2(G) - \lambda_2(G^*)
+\end{equation}
+where $\lambda_2(G)$ and $\lambda_2(G^*)$ is algebraic connectivity of $G$ and $G^*$ respectly.
+
+
+Clearly, $\Delta_l$ is always greater than 0, because graph will always lose connectivity when link is removed.
+Further more, some link will play a more important role in the connectivity of graph, such as the backbone link 
+of network topology. And we say a link $l$ have more impact on algebraic connectivity if $\Delta_l$ is greater.
+
+
+\subsection{First Phase Description}
+REAR remove/sleep as many links as possible with not losing much connectivity of graph. Originly,  we should
+calculate impact of all the links and sleep the lowest one on the graph, then repeat calculate and remove
+process until arrive some specific threhold. Obviously, it is NP-Hard, so there is a heuristic algorithm.
+
+
+For the origin graph, we calculate the impact of every link as $\Delta_{l_i}$ , and then sort these values
+from small to big, output ordered list denoted as $\Gamma$, $\Gamma$ may looks like : 
+\begin{equation}
+	..., l_i, ..., l_j, ...
+\end{equation}
+where $\Delta_{l_i} < \Delta_{l_j}$.
+
+
+Pay attention we only fetch the link impact once at the begining of algorihtm, and the ordered list $\Gamma$ show 
+the `importantance` of link in the connectivity of the graph. Now we begin selecting which links should be sleep.
+We denote the set of the sleeping links as $S$, and the output of this phase is $G^* = (V, E-S)$. We set 
+$S = \emptyset$, and iterate our selecting process, each iteration we select one link and put it into $S$. 
+In iteration $i$, scan links as the order of $\Gamma$ and choose one which is still not in the $S$, we try to
+remove it from the graph, if some metric of the current graph do not arrive the threhold we put the link into
+$S$ and  begin next iteration, or choose the next link from the $\Gamma$ for try to remove otherwise. Algorithm
+stop until all the links in $\Gamma$ is tried but there is no one to satisfy the threhold.
+
+
+So before going ahead our algorithm, there is another thing we should done, what is the threhold for the graph.
+It does matter for what we concern most of the graph, in our graph, we choose two threholds, one is connectivity and
+another is power consumption. For considering connectivity , we defined the difference of connectivity between 
+two graphs as:
+\begin{equation}
+	diff_c = \lambda_2(G_{S, l}^o) / \lambda_2(G^o) * 100
+\end{equation}
+where $\lambda_2(G_{S, l}^o)$ is the extend algebraic connectivity of the final graph, when the links set $S$ and 
+link $l$ is removed from the origin graph $G^o$, and the $\lambda_2(G^o)$ is the extend algebraic connectivity of 
+the origin graph.
+
+
+If we set $diff_c$ valued 90\%, it means that whenever we try to remove the link $l$ from the origin graph in 
+iteration, the extend algebraic connectivity should never lower than the 90\% of origin. For power consumption
+consideration, we simply take an power model from `Green TE` showed in Table xx, and defined the difference of 
+power consumption between two graphs as:
+\begin{equation}
+	diff_p = \rho(G_{S, l}^o) / \rho(G^o) * 100
+\end{equation}
+where $\rho(G^o)$ is the power consumption of the origin graph, and $\rho(G_{S, l}^o)$ is similar with the 
+definition above.
+
+
+Experiment shows that...
+
+
+\subsection{Second Phase}
+When we get the output graph from the first phase based on extend algebraic connectivity, it is time to compute
+the robust routing.
+ 
+
 
 \section{Conclusion}
 The conclusion goes here.
@@ -206,5 +334,24 @@ H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 
 % that's all folks
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
