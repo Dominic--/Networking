@@ -22,6 +22,7 @@ class Graph(object):
     def nodes(self):
         return self.node_neighbors.keys()
 
+    #dijkstra path
     def dfs_path(self, s, v):
         self.visited = {}
         def find_max(q):
