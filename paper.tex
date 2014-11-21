@@ -317,6 +317,32 @@ iteration, the power consumption should never lower than the 90\% of origin one.
 of this phase protect as much connectivity as possible. Following is our implementation: 
 
 
+\begin{table}[!th]
+\begin{tabular}{ll}
+\hline
+\textbf{Algorithm REAR : Phase One}\\
+\hline
+$\:\:$\textbf{Input:} $G(V, E)$, $threhold$;\\
+$\:\:$\textbf{Output:} $S$ in which links should be switched off;\\
+$\quad\qquad\quad$ $G(V, E-S)$ which is the final network topology;\\
+$\:\:$1:\ \textbf{for} {each link $l$ in $E$}\\
+$\:\:$2:\quad\ $G^* \leftarrow G(V, E-\{l\})$;\\
+$\:\:$3:\quad\ $\Gamma[l] \leftarrow \Delta_l \leftarrow \lambda_2(G) - \lambda_2(G^*)$;\\
+$\:\:$4:\ Resort $\Gamma$ in increasing order based on $\Delta_l$;\\
+$\:\:$5:\ $S \leftarrow \emptyset$, $goon \leftarrow true$;\\
+$\:\:$6:\ \textbf{while} {$goon$}\\
+$\:\:$7:\quad\  $goon \leftarrow false$;\\
+$\:\:$8:\quad\ \textbf{for} {each link $l$ in $\Gamma - S$}\\
+$\:\:$9:\quad\ \quad\ \textbf{if} $G_{S,l}$ is connected and $\rho(G_{S,l})/\rho(G)<threhold$\\
+$\:\:$10:\quad\ \quad\ \quad\ $S \leftarrow S \cup \{l\}$;\\
+$\:\:$11:\quad\ \quad\ \quad\ $goon \leftarrow true$;\\
+$\:\:$12:\quad\ \quad\ \quad\ \textbf{break};\\
+$\:\:$13:\ \textbf{return} $S, G(V, E-S)$;\\
+\hline
+\end{tabular}
+\end{table}
+
+
 
 \subsection{Second Phase}
 When we get the output graph from the first phase based on extend algebraic connectivity, it is time to compute
