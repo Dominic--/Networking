@@ -26,6 +26,39 @@ def get_variables(file_name):
 
     return variables
 
+def print_cap(result, topology):
+    f = open(topology);
+
+    node = (int)(f.readline().strip().split(" ")[0])
+
+    cm = [([0] * node) for i in range(node)]
+    link = list()
+    line = f.readline()
+    while line:
+        s = line.rstrip().split(" ")
+        cm[int(s[0])][int(s[1])] = (float)(s[2])
+        cm[int(s[1])][int(s[0])] = (float)(s[2])
+        link.append([int(s[0]),int(s[1])])
+        line = f.readline()
+    f.close()
+    ll = len(link)
+
+    f = open(result)
+    xml_string = f.read().replace('\n', '')
+    f.close()
+
+    value = dict()
+    dom = xml.dom.minidom.parseString(xml_string)
+    for node in dom.getElementsByTagName("variable"):
+        value[node.getAttribute("name")] = float(node.getAttribute("value"))
+
+    for i in range(ll):
+        tmp = 0
+        for j in range(ll):
+            #print "%s %f" % ('pai%da%d' % (i, j), value['pai%da%d' % (i, j)])
+            tmp += (cm[link[j][0]][link[j][1]] * value['pai%da%d' % (i, j)])
+        print "%d : %f" % (i, tmp)
+
 def route_from_variables(variables):
     st_paths = {}
     for key in variables.keys():
@@ -99,4 +132,8 @@ def get_route_with_demand(file_name, demand):
                     variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value")) * dd[s[2], s[3]]])
 
     return route_from_variables(variables)
+
+
+if __name__ == '__main__':
+    print_cap('test2.xml', '../topology/connected/geant-connected-topology')
 	
