@@ -175,18 +175,11 @@ def get_route_with_demand(file_name, demand):
 
     return route_from_variables(variables)
 
-
-
-if __name__ == '__main__':
-    #print_cap('test2.xml', '../topology/connected/geant-connected-topology')
-    #topology = '../topology/connected/geant-connected-topology'
-    #st_paths = get_route('test2.xml')
-
-    topology = '../topology/connected/abilene-connected-topology'
-    st_paths = get_route('test.xml')
+def get_link_order(solution, topology):
+    st_paths = get_route(solution)
 
     links = {}
-    for i in range(3000):
+    for i in range(300):
         filter(st_paths, links)
 
     f = open(topology, "r")
@@ -203,8 +196,38 @@ if __name__ == '__main__':
         cm[(ls,ld)] = lc
 
         line = f.readline()
+    f.close()
+
+    link_order = []
     for key in cm:
         s,d = key
-        print "%d,%d : %f, %d, -> %f" % (s, d, cm[(s,d)], links[(s,d)], cm[(s,d)] / links[(s,d)])
-    #print links
+        link_order.append([(s, d), cm[(s,d)] / links[(s,d)]])
+    
+    for i in range(len(link_order) - 1):
+        for j in range(i+1, len(link_order)):
+            if link_order[i][1] < link_order[j][1]:
+                temp_s, temp_d = link_order[i][0]
+                temp_c = link_order[i][1]
+
+                link_order[i][0] = link_order[j][0]
+                link_order[i][1] = link_order[j][1]
+
+                link_order[j][0] = (temp_s, temp_d)
+                link_order[j][1] = temp_c
+    
+
+    lo = []
+    for l in link_order:
+        lo.append(l[0])
+
+    return lo
+
+if __name__ == '__main__':
+    #print_cap('test2.xml', '../topology/connected/geant-connected-topology')
+    #topology = '../topology/connected/geant-connected-topology'
+    #st_paths = get_route('test2.xml')
+
+    topology = '../topology/connected/abilene-connected-topology'
+
 	
+    get_link_order('abilene-connected-cplex.sol', topology)
