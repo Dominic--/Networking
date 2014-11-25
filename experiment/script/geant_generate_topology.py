@@ -35,6 +35,7 @@ while line:
         if int(token[i]) != 0:
             assert(links[(line_n, i)] != 0)
             links[(line_n, i)] = int(token[i]) / 1000000
+    line_n += 1
     line = f.readline()
 f.close()
 
