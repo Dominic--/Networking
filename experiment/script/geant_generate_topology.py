@@ -25,6 +25,19 @@ for ls in root.iter('links'):
         else:
             links[(int(nodes[sd[1]]), int(nodes[sd[0]]))] = capacity
 
+f = open("../data/geant/geantCap.txt", "r")
+line = f.readline()
+line = f.readline()
+line_n = 0;
+while line:
+    token = line.strip().split(" ")
+    for i in range(line_n, len(token)):
+        if int(token[i]) != 0:
+            assert(links[(line_n, i)] != 0)
+            links[(line_n, i)] = int(token[i]) / 1000000
+    line = f.readline()
+f.close()
+
 
 f = open("../topology/temp/geant-topology", "w")
 f.write('%d %d\n' % (len(nodes), len(links)))
