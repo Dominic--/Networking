@@ -1,4 +1,5 @@
 import xml.dom.minidom
+import random
 from deep_first_search_path import *
 import re
 
@@ -59,6 +60,43 @@ def print_cap(result, topology):
             tmp += (cm[link[j][0]][link[j][1]] * value['pai%da%d' % (i, j)])
         print "%d : %f" % (i, tmp)
 
+def filter(st_paths, links):
+    routes = {}
+    num = 0
+    for key in st_paths.keys():
+        value = st_paths[key]
+        random_sum = 0
+        for v in value:
+            random_sum += v[1]
+        #print "%d : %f" % (num, random_sum)
+        num += 1
+        random_num = random.uniform(0, random_sum)
+        for v in value:
+            if random_num < v[1]:
+                routes[key] = [v[0], random_sum]
+                break
+            else:
+                random_num -= v[1]
+    #print routes
+
+    for r in routes:
+        v = routes[r]
+        for i in range(len(v[0]) - 1):
+            a = 0
+            b = 0
+            if v[0][i] > v[0][i+1]:
+                a = v[0][i+1]
+                b = v[0][i]
+            else:
+                a = v[0][i]
+                b = v[0][i+1]
+            if (a,b) not in links:
+                links[(a,b)] = 1
+            else :
+                links[(a,b)] += 1
+
+    #print links
+
 def route_from_variables(variables):
     st_paths = {}
     for key in variables.keys():
@@ -73,6 +111,7 @@ def route_from_variables(variables):
             g.add_edge((v[0], v[1], v[2]))
         st_paths[key] = g.find_path(s, t)
 
+    #print st_paths[(9,5)]
     return st_paths
 
 def get_route(file_name):
@@ -95,6 +134,9 @@ def get_route(file_name):
             if float(node.getAttribute("value")) != 0:
                 variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value"))])
 
+    #print "-------------------------------------"
+    #print variables[(9,5)]
+    #print "-------------------------------------"
     return route_from_variables(variables)
 
 def get_route_with_demand(file_name, demand):
@@ -134,6 +176,35 @@ def get_route_with_demand(file_name, demand):
     return route_from_variables(variables)
 
 
+
 if __name__ == '__main__':
-    print_cap('test2.xml', '../topology/connected/geant-connected-topology')
+    #print_cap('test2.xml', '../topology/connected/geant-connected-topology')
+    #topology = '../topology/connected/geant-connected-topology'
+    #st_paths = get_route('test2.xml')
+
+    topology = '../topology/connected/abilene-connected-topology'
+    st_paths = get_route('test.xml')
+
+    links = {}
+    for i in range(3000):
+        filter(st_paths, links)
+
+    f = open(topology, "r")
+    line = f.readline()
+    line = f.readline()
+
+    cm = {}
+    while line:
+        token = line.strip().split(" ")
+        ls = int(token[0])
+        ld = int(token[1])
+        lc = float(token[2])
+
+        cm[(ls,ld)] = lc
+
+        line = f.readline()
+    for key in cm:
+        s,d = key
+        print "%d,%d : %f, %d, -> %f" % (s, d, cm[(s,d)], links[(s,d)], cm[(s,d)] / links[(s,d)])
+    #print links
 	

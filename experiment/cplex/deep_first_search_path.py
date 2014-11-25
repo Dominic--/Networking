@@ -16,8 +16,9 @@ class Graph(object):
         u,v,w = edge
         if(v not in self.node_neighbors[u]):
             self.node_neighbors[u].append([v, w])
-        if(u not in self.node_neighbors[v]):
-            self.node_neighbors[v].append([u, w])
+        # debug for the random sum is not always equal to 0
+        #if(u not in self.node_neighbors[v]):
+        #    self.node_neighbors[v].append([u, w])
 
     def nodes(self):
         return self.node_neighbors.keys()
@@ -103,6 +104,12 @@ class Graph(object):
                     for n in self.node_neighbors[path[i]]:
                         if n[0] == path[i+1]:
                             n[1] -= min_weight
+
+                for i in range(1, len(path)):
+                    for n in self.node_neighbors[path[i]]:
+                        if n[0] == path[i-1]:
+                            n[1] -= min_weight
+                
                 
                 paths.append([[i for i in path], min_weight])
                 path.remove(node)
@@ -111,12 +118,14 @@ class Graph(object):
                 return
 
             for n in self.node_neighbors[node]:
-                if not n[0] in self.visited and n[1] > 0:
+                if not n[0] in self.visited and n[1] > 0.0001:
                     dfs(n[0])
 
             self.visited.pop(node, None)
             path.remove(node)
                         
+        #for i in range(2):
+            #self.visited = {}
         dfs(s)
 
         return paths
