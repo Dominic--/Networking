@@ -3,6 +3,7 @@ import random
 topology_template = '../topology/connected/%s-connected-topology'
 demand_template = '../demand/gravity-%s/%d.txt'
 files = 1000
+w = 1.5
 topology_name = ['abilene', 'geant']
 
 for t in topology_name:
@@ -25,6 +26,7 @@ for t in topology_name:
         line = f.readline()
     f.close()
 
+    '''
     first_value = 0
     second_value = 0
     for i in range(node_n):
@@ -37,8 +39,8 @@ for t in topology_name:
 
     random_range = random_range / link_n
     random_base = random_range / first_value / second_value
-
     random_base = 0.001
+    '''
 
     for n in range(files):
         demand = demand_template % (t, n)
@@ -50,7 +52,7 @@ for t in topology_name:
                 if s == d:
                     continue
 
-                f.write("%d %d %0.3f\n" % (s, d, random.uniform(0, nodes[s] * nodes[d] * random_base)))
+                f.write("%d %d %0.3f\n" % (s, d, random.uniform(nodes[s] * nodes[d] / w, nodes[s] * nodes[d] * w)))
 
         f.close()
 

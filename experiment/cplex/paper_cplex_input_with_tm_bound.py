@@ -33,6 +33,7 @@ def generate_cplex_lp_file(topology, outfile, bound, is_gravity):
             if s != d:
                 if is_gravity:
                     b[s][d] = nodes[s] * nodes[d] * bound[1]
+                    a[s][d] = nodes[s] * nodes[d] / bound[1]
                 else:
                     a[s][d] = bound[0]
                     b[s][d] = bound[1]

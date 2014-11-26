@@ -15,7 +15,7 @@ final_topology_base_template = "../topology/final/%s-final-topology-%d-base"
 remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
 demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-compare-%s"
-files = 1000
+files = 100
 
 loop = 20
 diff = 1000
@@ -31,7 +31,7 @@ for t in ['abilene', 'geant']:
 
         upper = 0
         if is_gravity:
-            upper = 0.001
+            upper = 1.5
             type_random = "gravity"
         else:
             if t == 'abilene':
@@ -39,7 +39,7 @@ for t in ['abilene', 'geant']:
             elif t == 'geant':
                 upper = 1956.0
 
-        bound = [0, upper]
+        bound = [0, 1.5]
 
         # Generate the global routes for traffic sets 
         # Calculate the global maximum utilization for specific traffic matrix sets
