@@ -65,7 +65,9 @@ int main(int argc, char **argv) {
 	}
 	*/
 
-	double threshold = atof(argv[2]);
+	//double threshold = atof(argv[2]);
+	double threshold = 0.1;
+	int target_n = atoi(argv[2]);
 	int remove_link_n = 0;
 	FILE *remove = fopen(argv[5], "w");
 	for (int i = 0; i < links_n; i++) {
@@ -92,6 +94,8 @@ int main(int argc, char **argv) {
 			//printf("Threshold : %lf\n", temp_connected_value / origin);
 			//printf("Remove Links %d : (%d, %d)\n", remove_link_n++, links[i].s, links[i].d);
 		}
+		if (remove_link_n == target_n)
+			break;
 	}
 	fclose(remove);
 

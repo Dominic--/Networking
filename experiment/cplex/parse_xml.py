@@ -58,7 +58,7 @@ def print_cap(result, topology):
         for j in range(ll):
             #print "%s %f" % ('pai%da%d' % (i, j), value['pai%da%d' % (i, j)])
             tmp += (cm[link[j][0]][link[j][1]] * value['pai%da%d' % (i, j)])
-        print "%d : %f" % (i, tmp)
+        #print "%d : %f" % (i, tmp)
 
 def filter(st_paths, links):
     routes = {}
