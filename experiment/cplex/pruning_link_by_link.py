@@ -1,4 +1,5 @@
 import parse_xml as xml
+import global_route_with_tm_bound as cplex
 
 def is_connected(links, nodes_n):
     stack = [0]
@@ -45,7 +46,6 @@ for name in files:
         cplex.generate_sol(topology, [0, w], True)  
         link_order = xml.get_link_order("global_opt_cplex_output.sol", topology)
 
-        temporary_topology = "../tmp/tmp_topology_when_pruning"
         have_remove = False
         for l in link_order:
             ls, ld = l
@@ -60,40 +60,23 @@ for name in files:
             else:
                 remove_links.append(l)
                 remove_n += 1
-
-                have_remove = True
         
-                if remove_n == (links_n - nodes_n + 1):
-                    f = open("../topology/final/%s-final-topology-%d" % (name, remove_n), "w")
-                    f.write('%d %d\n' % (nodes_n, links_n-remove_n))
+                temporary_topology = "../topology/final/%s-final-topology-%d" % (name, remove_n)
+                f = open(temporary_topology, "w")
+                f.write('%d %d\n' % (nodes_n, links_n-remove_n))
 
-                    for s in range(nodes_n):
-                        for d in range(s, nodes_n):
-                            if links[s][d] != 0:
-                                f.write('%d %d %.2f\n' % (s, d, links[s][d]))
-                    f.close()
+                for s in range(nodes_n):
+                    for d in range(s, nodes_n):
+                        if links[s][d] != 0:
+                            f.write('%d %d %.2f\n' % (s, d, links[s][d]))
+                f.close()
 
-                    f = open("../topology/remove/%s-remove-%d-links" % (name, remove_n), "w")
-                    for l in remove_links:
-                        f.write('%d %d\n' % (l[0], l[1]))
-                    f.close()
+                f = open("../topology/remove/%s-remove-%d-links" % (name, remove_n), "w")
+                for l in remove_links:
+                    f.write('%d %d\n' % (l[0], l[1]))
+                f.close()
 
-                else:
-                    f = open(temporary_topology, "w")
-                    f.write('%d %d\n' % (nodes_n, links_n-remove_n))
-
-                    for s in range(nodes_n):
-                        for d in range(s, nodes_n):
-                            if links[s][d] != 0:
-                                f.write('%d %d %.2f\n' % (s, d, links[s][d]))
-                    f.close()
-
-                    f = open(temporary_remove, "w")
-                    for l in remove_links:
-                        f.write('%d %d\n' % (l[0], l[1]))
-                    f.close()
-                
                 break
 
-        if not have_remove:
+        if remove_n == (likns_n - nodes_n + 1):
             break
