@@ -84,8 +84,8 @@ for t in ['abilene', 'geant']:
                 max_utilization = global_utilization / optimal_utilization
         
         f = open(result_file, 'a')
-        print("Base : %.4f New : %.4f\n" % (max_utilization_base, max_utilization))
-        f.write("Base : %.4f New : %.4f\n" % (max_utilization_base, max_utilization))
+        print("Remove %d links -- Base : %.4f New : %.4f\n" % (alpha, max_utilization_base, max_utilization))
+        f.write("Remove %d links -- Base : %.4f New : %.4f\n" % (alpha, max_utilization_base, max_utilization))
         f.close()
 
 
