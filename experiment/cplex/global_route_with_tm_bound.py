@@ -19,7 +19,7 @@ def global_utilization(topology, routes, demand_file, loop):
 
     return link_u_global_opt
 
-def global_routes(topology, bound, is_gravity):
+def generate_sol(topology, bound, is_gravity):
     # Init
     remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
     remove_all_lp_or_sol = "del *.lp *.sol >> log"
@@ -35,6 +35,10 @@ def global_routes(topology, bound, is_gravity):
             (global_opt_cplex_input, global_opt_cplex_output)	
     os.system(global_opt_cplex_cmd)
 
+def global_routes(topology, bound, is_gravity):
+    generate_sol(topology, bounnd, is_gravity)
+
+    global_opt_cplex_output = "global_opt_cplex_output.sol"
     global_opt_upper_bound = xml.get_object(global_opt_cplex_output)
     print("Upper Bound is %f" % global_opt_upper_bound)
 
