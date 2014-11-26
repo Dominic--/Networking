@@ -21,7 +21,6 @@ def global_utilization(topology, routes, demand_file, loop):
 
 def global_routes(topology):
     # Init
-    '''
     remove_all_lp_or_sol_or_txt = "del *.lp *.sol *.txt >> log"
     remove_all_lp_or_sol = "del *.lp *.sol >> log"
     os.system(remove_all_lp_or_sol_or_txt)
@@ -43,6 +42,3 @@ def global_routes(topology):
     #print(global_opt_routes)
 
     return global_opt_routes
-    '''
-
-    return xml.get_route('abilene-connected-cplex.sol')

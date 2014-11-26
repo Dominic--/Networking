@@ -14,10 +14,10 @@ begin = 36
 files = 131
 '''
 connected_topology = "../topology/connected/abilene-connected-topology"
-final_topology = "../topology/final/abilene-final-topology-2"
-remove_links = "../topology/remove/abilene-remove-2-links"
-#final_topology = "../topology/final/abilene-final-0-90-topology"
-#remove_links = "../topology/remove/abilene-remove-0-90-links"
+final_topology_template = "../topology/final/abilene-final-topology-%d"
+remove_links_templae = "../topology/remove/abilene-remove-%d-links"
+final_topology_base_template = "../topology/final/abilene-final-%d-topology-base"
+remove_links_base_template = "../topology/remove/abilene-remove-%d-links-base"
 demand_file_template = "../demand/real-abilene/XX02/%d.txt"
 result_file = "result-abilene-1-90-power"
 loop = 20
