@@ -17,7 +17,7 @@ def is_connected(links, nodes_n):
     else:
         return False
 
-files = ['abilene']
+files = ['abilene', 'geant']
 for name in files:
     topology = "../topology/connected/%s-connected-topology" % name
     f = open(topology, "r")
@@ -43,8 +43,8 @@ for name in files:
     remove_links = []
     remove_n = 0
     while True:
-        cplex.generate_sol(topology, [0, w], True)  
-        link_order = xml.get_link_order("global_opt_cplex_output.sol", topology)
+        cplex.generate_sol(temporary_topology, [0, w], True)  
+        link_order = xml.get_link_order("global_opt_cplex_output.sol", temporary_topology)
 
         have_remove = False
         for l in link_order:
@@ -78,5 +78,5 @@ for name in files:
 
                 break
 
-        if remove_n == (likns_n - nodes_n + 1):
+        if remove_n == (links_n - nodes_n + 1):
             break

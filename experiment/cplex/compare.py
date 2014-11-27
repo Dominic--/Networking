@@ -1,4 +1,5 @@
 from copy import deepcopy
+import parse_xml as xml
 import optimal_route_with_tm as optimal
 import global_route_with_tm_bound as common
 import adjust_route_in_new_topology as adjust
@@ -20,9 +21,9 @@ files = 100
 loop = 20
 diff = 1000
 
-for t in ['abilene', 'geant']:
+for t in ['geant']:
     result_file = result_file_template % (t)
-    for alpha in range(1, 5):
+    for alpha in range(1, 16):
         connected_topology = connected_topology_template % t
         final_topology = final_topology_template % (t, alpha)
         remove_links = remove_links_template % (t, alpha)
@@ -43,7 +44,7 @@ for t in ['abilene', 'geant']:
 
         # Generate the global routes for traffic sets 
         # Calculate the global maximum utilization for specific traffic matrix sets
-        global_routes = common.global_routes(connected_topology, bound, is_gravity)
+        global_routes = xml.get_route("last_xml")
 
         max_utilization = 0
         max_utilization_base = 0

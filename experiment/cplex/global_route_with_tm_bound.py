@@ -36,7 +36,7 @@ def generate_sol(topology, bound, is_gravity):
     os.system(global_opt_cplex_cmd)
 
 def global_routes(topology, bound, is_gravity):
-    generate_sol(topology, bounnd, is_gravity)
+    generate_sol(topology, bound, is_gravity)
 
     global_opt_cplex_output = "global_opt_cplex_output.sol"
     global_opt_upper_bound = xml.get_object(global_opt_cplex_output)
