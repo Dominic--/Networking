@@ -24,7 +24,7 @@ diff = 1000
 
 remove_links_n = {'abilene':5, 'geant':16}
 
-for t in ['geant']:
+for t in ['abilene','geant']:
     result_file = result_file_template % (t)
     for alpha in range(1, remove_links_n[t]):
         connected_topology = connected_topology_template % t
