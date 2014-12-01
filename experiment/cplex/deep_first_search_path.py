@@ -196,7 +196,7 @@ class Graph(object):
                 return
 
             for n in self.node_neighbors[node]:
-                if not n[0] in self.visited:
+                if not n[0] in self.visited and len(paths) < 10:
                     dfs(n[0])
 
             self.visited.pop(node, None)
