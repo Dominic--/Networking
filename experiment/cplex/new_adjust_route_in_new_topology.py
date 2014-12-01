@@ -7,6 +7,7 @@ from deep_first_search_path import *
 
 def adjust_route(topology, remove_file, routes, link_order):
     #print routes
+    print("in adjust")
     f = open(remove_file)
     links = []
     line = f.readline()
@@ -39,6 +40,8 @@ def adjust_route(topology, remove_file, routes, link_order):
         line = f.readline()
     f.close()
 
+
+    print("begin find path")
     path_replace = dict()
     for ls,ld in links:
         path_replace[ls,ld] = g.find_path_without_weight(ls,ld)
@@ -70,10 +73,12 @@ def adjust_route(topology, remove_file, routes, link_order):
             p[1] = cf
             sort_path(paths)
 
+    print("begin calculate")
     for (ls,ld) in path_replace:
         paths = path_replace[ls,ld]
         calculate_cf(paths, link_order)
 
+    print("begin replace")
     for (ls,ld) in path_replace:
         paths = path_replace[ls,ld]
         flows = link_order[ls,ld][1]
@@ -102,6 +107,7 @@ def adjust_route(topology, remove_file, routes, link_order):
         path_replace[ls,ld] = paths
 
     
+    print("begin replace")
     select_path = []
     for ls,ld in links:
         #print(ls,ld)
