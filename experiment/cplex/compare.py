@@ -2,7 +2,7 @@ from copy import deepcopy
 import parse_xml as xml
 import optimal_route_with_tm as optimal
 import global_route_with_tm_bound as common
-import adjust_route_in_new_topology as adjust
+import new_adjust_route_in_new_topology as adjust
 
 # Generate performance 
 

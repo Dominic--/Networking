@@ -23,6 +23,63 @@ class Graph(object):
     def nodes(self):
         return self.node_neighbors.keys()
 
+    #multi dfs path
+    def multi_dfs_path(self, s, v):
+        self.visited = {}
+        def find_max(q):
+            m = 0
+            key = 0
+            for i in q:
+                if q[i] > m:
+                    m = q[i]
+                    key = i
+            if m > 0:
+                return key
+            else:
+                return None
+        
+        path = []
+        def get_path(v, p):
+            if p[v] != None:
+                get_path(p[v], p)
+                path.append(v)
+            else:
+                path.append(v)
+                
+
+        path = []
+        queue = {}
+        for n in self.nodes():
+            queue[n] = 0
+
+        queue[s] = 100000
+        parents = {}
+        parents[s] = None
+        while True:
+            node = find_max(queue)
+
+            if node == None:
+                return None
+            w = queue[node]
+
+            if node == v:
+                get_path(v, parents)
+                return path
+            else:
+                for n in self.node_neighbors[node]:
+                    if n[0] not in self.visited:
+                        weight = w
+                        if w > n[1]:
+                            weight = n[1]
+
+                        if weight > queue[n[0]]:
+                            queue[n[0]] = weight
+                            parents[n[0]] = node
+
+                queue.pop(node)
+
+            self.visited[node] = True
+		
     #dijkstra path
     def dfs_path(self, s, v):
         self.visited = {}
@@ -60,15 +117,12 @@ class Graph(object):
 
             if node == None:
                 return None
-            #print("when %d" % node)
             w = queue[node]
 
             if node == v:
                 get_path(v, parents)
                 return path
             else:
-                #print("before : ")
-                #print(queue)
                 for n in self.node_neighbors[node]:
                     if n[0] not in self.visited:
                         weight = w
@@ -78,9 +132,6 @@ class Graph(object):
                         if weight > queue[n[0]]:
                             queue[n[0]] = weight
                             parents[n[0]] = node
-
-                #print("after : ")
-                #print(queue)
 
                 queue.pop(node)
 
@@ -142,7 +193,7 @@ if __name__ == '__main__':
 	#print("nodes:", g.nodes())
 
 	#paths = g.find_path(0, 3)
-	path = g.dfs_path(0, 3)
-	path = g.dfs_path(1, 3)
-	path = g.dfs_path(2, 0)
-	print(path)
+	#path = g.dfs_path(0, 3)
+	#path = g.dfs_path(1, 3)
+	paths = g.find_path(2, 0)
+	print(paths)

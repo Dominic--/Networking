@@ -175,6 +175,54 @@ def get_route_with_demand(file_name, demand):
 
     return route_from_variables(variables)
 
+def get_link_order_attr(solution, topology):
+    st_paths = get_route(solution)
+
+    links = {}
+    for i in range(300):
+        filter(st_paths, links)
+
+    f = open(topology, "r")
+    line = f.readline()
+    line = f.readline()
+
+    cm = {}
+    while line:
+        token = line.strip().split(" ")
+        ls = int(token[0])
+        ld = int(token[1])
+        lc = float(token[2])
+
+        cm[(ls,ld)] = lc
+
+        line = f.readline()
+    f.close()
+
+    link_order = []
+    for key in cm:
+        s,d = key
+        link_order.append([(s, d), cm[(s,d)] / links[(s,d)]])
+    
+    for i in range(len(link_order) - 1):
+        for j in range(i+1, len(link_order)):
+            if link_order[i][1] < link_order[j][1]:
+                temp_s, temp_d = link_order[i][0]
+                temp_c = link_order[i][1]
+
+                link_order[i][0] = link_order[j][0]
+                link_order[i][1] = link_order[j][1]
+
+                link_order[j][0] = (temp_s, temp_d)
+                link_order[j][1] = temp_c
+    
+
+    lo = []
+    for l in link_order:
+        s, d = l[0]
+        lo.append([(s,d), cm[(s,d)], links[(s,d)]])
+
+    return lo
+
 def get_link_order(solution, topology):
     st_paths = get_route(solution)
 
