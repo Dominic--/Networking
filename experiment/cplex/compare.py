@@ -22,7 +22,7 @@ files = 100
 loop = 20
 diff = 1000
 
-remove_links_n = {'abilene':4, 'geant':16}
+remove_links_n = {'abilene':5, 'geant':16}
 
 for t in ['abilene', 'geant']:
     result_file = result_file_template % (t)
@@ -49,7 +49,7 @@ for t in ['abilene', 'geant']:
         # Generate the global routes for traffic sets 
         # Calculate the global maximum utilization for specific traffic matrix sets
         global_routes = xml.get_route(solution)
-        link_order = xml.get_link_order_without_weight(solution, connected_topology)
+        link_order = xml.get_link_order_with_attr(solution, connected_topology)
 
         max_utilization = 0
         max_utilization_base = 0

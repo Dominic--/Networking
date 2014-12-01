@@ -278,4 +278,4 @@ if __name__ == '__main__':
     topology = '../topology/connected/abilene-connected-topology'
 
 	
-    print get_link_order_with_attr('abilene-connected-cplex.sol', topology)
+    #print get_link_order_with_attr('abilene-connected-cplex.sol', topology)
