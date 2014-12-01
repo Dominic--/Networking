@@ -169,7 +169,7 @@ class Graph(object):
                 return
 
             for n in self.node_neighbors[node]:
-                if not n[0] in self.visited and n[1] > 0.0001:
+                if not n[0] in self.visited and n[1] > 0.01:
                     dfs(n[0])
 
             self.visited.pop(node, None)
@@ -181,9 +181,39 @@ class Graph(object):
 
         return paths
 
+    def find_path_without_weight(self, s, v):
+        paths = []
+        path = []
+        def dfs(node):
+            self.visited[node] = True
+            path.append(node)
+
+            if node == v:
+                paths.append([[i for i in path], 0, 0])
+                path.remove(node)
+                
+                self.visited.pop(node, None)
+                return
+
+            for n in self.node_neighbors[node]:
+                if not n[0] in self.visited:
+                    dfs(n[0])
+
+            self.visited.pop(node, None)
+            path.remove(node)
+                        
+        dfs(s)
+
+        return paths
+
 if __name__ == '__main__':
 	g = Graph()
 	g.add_nodes([i for i in range(4)])
+	g.add_edge((1, 0, 10))
+	g.add_edge((2, 0, 5))
+	g.add_edge((3, 1, 3))
+	g.add_edge((1, 2, 20))
+	g.add_edge((3, 2, 6))
 	g.add_edge((0, 1, 10))
 	g.add_edge((0, 2, 5))
 	g.add_edge((1, 3, 3))
@@ -195,5 +225,5 @@ if __name__ == '__main__':
 	#paths = g.find_path(0, 3)
 	#path = g.dfs_path(0, 3)
 	#path = g.dfs_path(1, 3)
-	paths = g.find_path(2, 0)
+	paths = g.find_path_without_weight(2, 0)
 	print(paths)

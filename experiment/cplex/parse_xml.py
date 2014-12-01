@@ -175,7 +175,7 @@ def get_route_with_demand(file_name, demand):
 
     return route_from_variables(variables)
 
-def get_link_order_attr(solution, topology):
+def get_link_order_with_attr(solution, topology):
     st_paths = get_route(solution)
 
     links = {}
@@ -216,10 +216,10 @@ def get_link_order_attr(solution, topology):
                 link_order[j][1] = temp_c
     
 
-    lo = []
+    lo = {}
     for l in link_order:
         s, d = l[0]
-        lo.append([(s,d), cm[(s,d)], links[(s,d)]])
+        lo[(s,d)] = [cm[(s,d)], links[(s,d)]]
 
     return lo
 
@@ -278,4 +278,4 @@ if __name__ == '__main__':
     topology = '../topology/connected/abilene-connected-topology'
 
 	
-    get_link_order('abilene-connected-cplex.sol', topology)
+    print get_link_order_with_attr('abilene-connected-cplex.sol', topology)
