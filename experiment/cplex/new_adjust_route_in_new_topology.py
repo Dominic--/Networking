@@ -1,4 +1,6 @@
 import os, random
+from graph import DiGraph
+import algorithms
 from copy import deepcopy
 import paper_cplex_input_without_tm as cplex
 import utilization_from_route as utils
@@ -24,24 +26,30 @@ def adjust_route(topology, remove_file, routes, link_order):
         line = f.readline()
     f.close()
     
-    g = Graph()
+    #g = Graph()
+    g = DiGraph()
     f = open(topology)
     line = f.readline()
     line = f.readline()
     while line:
         s = line.rstrip().split(' ')
+        ls = int(s[0])
+        ld = int(s[1])
 
-        g.add_nodes([int(s[0]), int(s[1])])
-        g.add_edge((int(s[0]), int(s[1]), float(s[2])))
-        g.add_edge((int(s[1]), int(s[0]), float(s[2])))
+        #g.add_nodes([int(s[0]), int(s[1])])
+        g.add_edge(ls, ld, link_order[ls,ld][1] / link_order[ls,ld][0])
+        g.add_edge(ld, ls, link_order[ls,ld][1] / link_order[ls,ld][0])
 
         line = f.readline()
     f.close()
 
 
+
     path_replace = dict()
     for ls,ld in links:
-        path_replace[ls,ld] = g.find_path_without_weight(ls,ld)
+        yen_paths = algorithms.ksp_yen(g, ls, ld, 20)
+        path_replace[ls,ld] = [[y_path['path'], 0, 0] for y_path in yen_paths]
+        #path_replace[ls,ld] = g.find_path_without_weight(ls,ld)
 
     #print path_replace
     #print link_order
@@ -144,11 +152,11 @@ def adjust_route(topology, remove_file, routes, link_order):
 
 if __name__ == '__main__':
     topology = '../topology/final/abilene-final-topology-1'
-    routes = xml.get_route('abilene-connected-cplex.sol')
+    routes = xml.get_route('abilene-connected-cplex.xml')
     remove_file = '../topology/remove/abilene-remove-1-links'
 
     topology_connect = '../topology/connected/abilene-connected-topology'
-    solutions = 'abilene-connected-cplex.sol'
+    solutions = 'abilene-connected-cplex.xml'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
 
     adjust_route(topology, remove_file, routes, link_order)
