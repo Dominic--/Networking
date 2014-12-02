@@ -133,7 +133,7 @@ def fixed_route(routes):
         random_num = random.uniform(0, 1)
         for p,w in paths:
             if random_num < w:
-                routes[s,d] = [p, 1]
+                routes[s,d] = [[p, 1]]
                 break
             else:
                 random_num -= w

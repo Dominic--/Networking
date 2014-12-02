@@ -59,7 +59,7 @@ for t in ['abilene','geant']:
         global_routes_base_copy = deepcopy(global_routes)
         link_order_copy = deepcopy(link_order)
         new_global_routes_base = adjust.adjust_route(final_topology_base, remove_links_base, global_routes_base_copy, link_order_copy)
-        new_global_routes_fixed = adjust.fixed_route(new_global_routes_base)
+        new_global_routes_base_fixed = adjust.fixed_route(new_global_routes_base)
 
         max_utilization = 0
         max_utilization_base = 0
@@ -76,6 +76,7 @@ for t in ['abilene','geant']:
             #f = open(result_file,"a")
             # Calculate the optimal maximum utilization for specific traffic matrix
             optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
+            print optimal_utilization
             #print('Optimal Utilization is %f\n' % optimal_utilization)
             #f.write('%10.4f\t' % optimal_utilization)
 
@@ -87,6 +88,7 @@ for t in ['abilene','geant']:
 
             #print("Begin calculate utilization")
             global_utilization = common.global_utilization(final_topology, new_global_routes_fixed, demand_file, 1)
+            print global_utilization
             #print('Global Utilization is %f\n' % global_utilization)
             #f.write('%10.4f\t' % global_utilization)
 
@@ -94,6 +96,7 @@ for t in ['abilene','geant']:
             #link_order_copy = deepcopy(link_order)
             #new_global_routes_base = adjust.adjust_route(final_topology_base, remove_links_base, global_routes_base_copy, link_order_copy)
             global_utilization_base = common.global_utilization(final_topology_base, new_global_routes_base_fixed, demand_file, 1)
+            print global_utilization_base
 
             if max_utilization_base < (global_utilization_base / optimal_utilization):
                 max_utilization_base = global_utilization_base / optimal_utilization
