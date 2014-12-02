@@ -1,12 +1,12 @@
 \documentclass[conference]{IEEEtran}
 
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
+   \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
+   \graphicspath{{./png/}}
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+   \DeclareGraphicsExtensions{.png}
 \else
   % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
   % will default to the driver specified in the system graphics.cfg if no
@@ -92,6 +92,10 @@ area, the real precise traffic matrix still be a challenge. Take a step back, th
 diffcult even if we obtain the precise current one. Futhermore, ISP will not want to change their route policy 
 frequently, as it will result in other route failure possiblly. So our question is that : Is there exist a route both 
 satisfy power and utilization requirement for any traffic matrix given?
+
+
+\includegraphics[width=10cm]{net5}
+
 
 David Applegate propose a method for obtain a route wihich is ``robust'' to variations in demands for a specific network topology. 
 
