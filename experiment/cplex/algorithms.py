@@ -24,6 +24,7 @@
 from operator import itemgetter
 from prioritydictionary import priorityDictionary
 from graph import DiGraph
+from copy import deepcopy
 
 
 ## @package YenKSP
@@ -113,9 +114,12 @@ def ksp_yen(graph, node_start, node_end, max_k=2):
 # the distances and previous lists are returned.
 #
 def dijkstra(graph, node_start, node_end=None, visited=[]):
+    if node_end == None:
+        print visited
     distances = {}      
     previous = {}       
     Q = priorityDictionary()
+    visited_copy = deepcopy(visited)
     
     for v in graph:
         
@@ -134,11 +138,11 @@ def dijkstra(graph, node_start, node_end=None, visited=[]):
     Q[node_start] = 0
     
     for v in Q:
-        visited.append(v)
+        visited_copy.append(v)
         if v == node_end: break
 
         for u in graph[v]:
-            if u in visited:
+            if u in visited_copy:
                 continue
             cost_vu = 0
             if distances[v] > graph[v][u]:

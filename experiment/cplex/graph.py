@@ -24,6 +24,7 @@
 import os
 import json
 import random
+from copy import deepcopy
 from graphviz import Graphviz
 
 
@@ -72,7 +73,7 @@ class DiGraph:
         
         self.load()
         
-        self._painter = Graphviz()
+        #self._painter = Graphviz()
         return
 
     ## Gets the edges of a specified node.
