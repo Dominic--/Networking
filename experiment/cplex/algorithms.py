@@ -114,8 +114,6 @@ def ksp_yen(graph, node_start, node_end, max_k=2):
 # the distances and previous lists are returned.
 #
 def dijkstra(graph, node_start, node_end=None, visited=[]):
-    if node_end == None:
-        print visited
     distances = {}      
     previous = {}       
     Q = priorityDictionary()
