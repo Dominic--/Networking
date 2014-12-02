@@ -150,12 +150,12 @@ def adjust_route(topology, remove_file, routes, link_order):
     return routes
 
 if __name__ == '__main__':
-    topology = '../topology/final/abilene-final-topology-2'
-    routes = xml.get_route('abilene-connected-cplex.xml')
-    remove_file = '../topology/remove/abilene-remove-2-links'
+    topology = '../topology/final/geant-final-topology-1'
+    routes = xml.get_route('geant-connected-cplex.xml')
+    remove_file = '../topology/remove/geant-remove-1-links'
 
-    topology_connect = '../topology/connected/abilene-connected-topology'
-    solutions = 'abilene-connected-cplex.xml'
+    topology_connect = '../topology/connected/geant-connected-topology'
+    solutions = 'geant-connected-cplex.xml'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
 
     adjust_route(topology, remove_file, routes, link_order)

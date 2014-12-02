@@ -37,7 +37,7 @@ for name in files:
         links[d][s] = c
     f.close()
 
-    link_order = xml.get_link_order("../cplex/%s-connected-cplex.sol" % name, topology)
+    link_order = xml.get_link_order("../cplex/%s-connected-cplex.xml" % name, topology)
     remove_links = []
     remove_n = 0
     for l in link_order:
