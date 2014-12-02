@@ -54,3 +54,43 @@ def get_utilization(topology, routes, loop):
         #print('New Utilization For %d: %f' % (l, link_u))
 
     return link_u
+
+def get_utilization_with_probability(topology, routes):
+    # init cm and dd
+    f = open(topology)
+    line = f.readline().rstrip().split(' ')
+    node = (int)(line[0])
+    links = (int)(line[1])
+    cm = [([0] * node) for i in range(node)]
+
+    line = f.readline()
+    while line:
+        s = line.rstrip().split(' ')
+        cm[int(s[0])][int(s[1])] = float(s[2])
+        cm[int(s[1])][int(s[0])] = float(s[2])
+        line = f.readline()
+    f.close()
+
+    min_loop = 10000
+    for l in range(loop):
+        dd = [([0] * node) for i in range(node)]
+        for key in routes.keys():
+            value = routes[key]
+            for v in value:
+                path, weight = v
+                for i in range(len(path) - 1):
+                    dd[path[i]][path[i+1]] += weight
+                    dd[path[i+1]][path[i]] += weight
+
+        link_u = 0
+        for i in range(node):
+            for j in range(node):
+                if cm[i][j] != 0 and dd[i][j] / cm[i][j] > link_u:
+                    link_u = dd[i][j] / cm[i][j]
+
+        if link_u < min_loop:
+            min_loop = link_u
+
+        #print('New Utilization For %d: %f' % (l, link_u))
+
+    return link_u

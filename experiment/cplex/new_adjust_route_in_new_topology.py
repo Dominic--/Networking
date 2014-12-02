@@ -140,14 +140,34 @@ def fixed_route(routes):
 
     return routes
 
+def check_route(routes, link_order):
+    for s,d in routes:
+        path = routes[s,d][0][0]
+        if path[0] != s:
+            print Wrong
+        for i in range(len(path) - 1):
+            ls = path[i]
+            ld = path[i+1]
+            if ls > ld:
+                tmp = ls
+                ls = ld
+                ld = tmp
+            if (ls, ld) not in link_order:
+                print "Wrong"
+        if path[len(path) - 1] != d:
+            print "Wrong"
+            
+
+
 
 if __name__ == '__main__':
-    topology = '../topology/final/abilene-final-topology-1-base'
+    topology = '../topology/final/abilene-final-topology-2'
     solutions = 'abilene-connected-cplex.xml'
     routes = xml.get_route(solutions)
-    remove_file = '../topology/remove/abilene-remove-1-links-base'
+    remove_file = '../topology/remove/abilene-remove-2-links'
 
     topology_connect = '../topology/connected/abilene-connected-topology'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
 
-    print fixed_route(adjust_route(topology, remove_file, routes, link_order))
+    route = fixed_route(adjust_route(topology, remove_file, routes, link_order))
+    check_route(route, link_order)
