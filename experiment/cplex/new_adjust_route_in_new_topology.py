@@ -94,7 +94,8 @@ def adjust_route(topology, remove_file, routes, link_order):
                         break
             if remove_weight != 0:
                 # Find k-shortest-paths between s,d
-                yen_paths = [[yen_path['path'], 0, 0] for yen_path in algorithms.ksp_yen(g, s, d, 20)]
+                tmp_paths = algorithms.ksp_yen(g, s, d, 20)
+                yen_paths = [[yen_path['path'], 0, 0] for yen_path in tmp_paths]
                 
                 # make sure the proportion of every yen_path
                 steps = 10.0
