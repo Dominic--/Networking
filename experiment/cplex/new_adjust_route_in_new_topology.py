@@ -8,6 +8,7 @@ import parse_xml as xml
 from deep_first_search_path import *
 
 def adjust_route(topology, remove_file, routes, link_order):
+    # get remove_links
     f = open(remove_file)
     links = []
     line = f.readline()
@@ -26,6 +27,7 @@ def adjust_route(topology, remove_file, routes, link_order):
         line = f.readline()
     f.close()
 
+    # get final topology
     g = DiGraph()
     f = open(topology)
     line = f.readline()
@@ -42,17 +44,6 @@ def adjust_route(topology, remove_file, routes, link_order):
         line = f.readline()
     f.close()
 
-    path_replace = dict()
-    for ls,ld in links:
-        #g._data = deepcopy(graph_data_copy)
-        yen_paths = algorithms.ksp_yen(g, ls, ld, 20)
-        #print yen_paths
-        path_replace[ls,ld] = [[y_path['path'], 0, 0] for y_path in yen_paths]
-        #path_replace[ls,ld] = g.find_path_without_weight(ls,ld)
-
-    #print path_replace
-    #print link_order
-    
     def sort_path(paths):
         for i in range(len(paths)):
             for j in range(i, len(paths)):
@@ -77,85 +68,85 @@ def adjust_route(topology, remove_file, routes, link_order):
             p[1] = cf
             sort_path(paths)
 
-    for (ls,ld) in path_replace:
-        paths = path_replace[ls,ld]
-        calculate_cf(paths, link_order)
-
-    for (ls,ld) in path_replace:
-        paths = path_replace[ls,ld]
-        flows = link_order[ls,ld][1]
-
-        GAP_NUM = 10
-        gap = flows / GAP_NUM
-        used = 0
-        for loop in range(GAP_NUM):
-            #do something
-            for i in range(len(paths[0][0]) - 1):
-                s = paths[0][0][i]
-                d = paths[0][0][i+1]
-
-                if d < s:
-                    tmp = s
-                    s = d
-                    d = tmp
-
-                link_order[s,d][1] += gap
-            paths[0][2] += 0.1
-            calculate_cf(paths, link_order)
-            #print paths
-            #print used
-            used += gap
-
-        path_replace[ls,ld] = paths
-
-    
-    select_path = []
     for ls,ld in links:
         #print(ls,ld)
         for s,d in routes:
-            for i in range(len(routes[s,d])):
-                for j in range(len(routes[s,d][i][0]) - 1):
-                    if routes[s,d][i][0][j] == ls and routes[s,d][i][0][j+1] == ld:
-                        random_num = random.uniform(0, 1)
-                        for p in path_replace[ls, ld]:
-                            if random_num < p[2]:
-                                select_path = deepcopy(p[0])
-                                break
-                            else:
-                                random_num -= p[2]
+            route_paths = deepcopy(routes[s,d])
+            remove_route = []
+            remove_weight = 0
+            for path, weight in route_paths:
+                for i in range(len(path) - 1):
+                    if (path[i] == ls and path[i+1] == ld) or (path[i] == ld and path[i+1] == ls):
+                        remove_route.append([path, weight])
+                        remove_weight += weight
 
-                        if path_replace[ls, ld] != None:
-                            routes[s,d][i] = [routes[s,d][i][0][0:j] + select_path + routes[s,d][i][0][j+2:], routes[s,d][i][1]]
-                        else:
-                            print("Wrong")
+                        # remove weight from all the link
+                        for pi in range(len(path) - 1):
+                            ps = path[pi]
+                            pd = path[pi+1]
+                            if pd < ps:
+                                tmp = pd
+                                pd = ps
+                                ps = tmp
+
+                            link_order[ps,pd][1] -= weight
+
                         break
+            if remove_weight != 0:
+                # Find k-shortest-paths between s,d
+                yen_paths = [[yen_path['path'], 0, 0] for yen_path in algorithms.ksp_yen(g, s, d, 20)]
+                
+                # make sure the proportion of every yen_path
+                steps = 10.0
+                gap = remove_weight / steps
+                calculate_cf(yen_paths, link_order)
+                for step in range(int(steps)):
+                    for yi in range(len(yen_paths[0][0]) - 1):
+                        ys = yen_paths[0][0][yi]
+                        yd = yen_paths[0][0][yi + 1]
+                        if yd < ys:
+                            tmp = ys
+                            ys = yd
+                            yd = tmp
+                        link_order[ys,yd][1] += gap
+                    yen_paths[0][2] += 1 / steps
+                    calculate_cf(yen_paths, link_order)
 
-                    elif routes[s,d][i][0][j] == ld and routes[s,d][i][0][j+1] == ls:
-                        random_num = random.uniform(0, 1)
-                        for p in path_replace[ls, ld]:
-                            if random_num < p[2]:
-                                select_path = deepcopy(p[0])
-                                break
-                            else:
-                                random_num -= p[2]
+                # remain routes
+                for rr in remove_route:
+                    route_paths.remove(rr)
 
-                        select_path.reverse()
-                        if path_replace[ls, ld] != None:
-                            routes[s,d][i] = [routes[s,d][i][0][0:j] + select_path + routes[s,d][i][0][j+2:], routes[s,d][i][1]]
-                        else:
-                            print("Wrong")
-                        break
+                # merge k-s-p into routes
+                for yen_path, flows, proportion in yen_paths:
+                    if proportion == 0:
+                        continue
+                    route_paths.append([yen_path, remove_weight * proportion])
 
+                routes[s,d] = route_paths
     
     return routes
 
-if __name__ == '__main__':
-    topology = '../topology/final/geant-final-topology-1'
-    routes = xml.get_route('geant-connected-cplex.xml')
-    remove_file = '../topology/remove/geant-remove-1-links'
+def fixed_route(routes):
+    for s,d in routes:
+        paths = deepcopy(routes[s,d])
+        random_num = random.uniform(0, 1)
+        for p,w in paths:
+            if random_num < w:
+                routes[s,d] = [p, 1]
+                break
+            else:
+                random_num -= w
 
-    topology_connect = '../topology/connected/geant-connected-topology'
-    solutions = 'geant-connected-cplex.xml'
+    return routes
+
+
+if __name__ == '__main__':
+    topology = '../topology/final/abilene-final-topology-1'
+    solutions = 'abilene-connected-cplex.xml'
+    routes = xml.get_route(solutions)
+    remove_file = '../topology/remove/abilene-remove-1-links'
+
+    topology_connect = '../topology/connected/abilene-connected-topology'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
 
-    adjust_route(topology, remove_file, routes, link_order)
+    print fixed_route(adjust_route(topology, remove_file, routes, link_order))
