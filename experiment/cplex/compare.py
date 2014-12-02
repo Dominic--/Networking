@@ -17,7 +17,7 @@ remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
 solution_template = "%s-connected-cplex.xml"
 demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-compare-%s"
-files = 100
+files = 50
 
 loop = 20
 diff = 1000
