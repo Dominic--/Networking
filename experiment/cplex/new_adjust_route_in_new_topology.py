@@ -142,10 +142,10 @@ def fixed_route(routes):
 
 
 if __name__ == '__main__':
-    topology = '../topology/final/abilene-final-topology-1'
+    topology = '../topology/final/abilene-final-topology-1-base'
     solutions = 'abilene-connected-cplex.xml'
     routes = xml.get_route(solutions)
-    remove_file = '../topology/remove/abilene-remove-1-links'
+    remove_file = '../topology/remove/abilene-remove-1-links-base'
 
     topology_connect = '../topology/connected/abilene-connected-topology'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)

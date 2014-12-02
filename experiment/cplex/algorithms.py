@@ -162,7 +162,7 @@ def dijkstra(graph, node_start, node_end=None, visited=[]):
             '''
             
 
-    if node_end:
+    if node_end != None:
         return {'cost': distances[node_end], 
                 'path': path(previous, node_start, node_end)}
     else:
