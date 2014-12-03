@@ -28,6 +28,7 @@ remove_links_n = {'abilene':5, 'geant':16}
 for t in ['abilene']:
     connected_topology = connected_topology_template % t
     solution = solution_template % t
+    solution = solution_default
     result_file = result_file_template % (t)
 
     common.generate_sol(connected_topology, [0, 1.5], is_gravity)
