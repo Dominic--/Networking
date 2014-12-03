@@ -131,8 +131,22 @@ def get_route(file_name):
             s = [int(i) for i in s]
             if not (s[2], s[3]) in variables:
                 variables[(s[2], s[3])] = []	
-            if float(node.getAttribute("value")) != 0:
-                variables[(s[2], s[3])].append([s[0], s[1], float(node.getAttribute("value"))])
+            weight = float(node.getAttribute("value"))
+            if weight != 0:
+                found = False
+                for link in variables[(s[2], s[3])]:
+                    if link[0] == s[1] and link[1] == s[0]:
+                        if weight > link[2]:
+                            variables[(s[2], s[3])].remove(link)
+                            variables[(s[2], s[3])].append([s[0], s[1], weight - link[2]])
+                        else:
+                            variables[(s[2], s[3])].remove(link)
+                            variables[(s[2], s[3])].append([s[1], s[0], link[2] - weight])
+                        found = True
+                        break
+
+                if not found:
+                    variables[(s[2], s[3])].append([s[0], s[1], weight])
 
     #print "-------------------------------------"
     #print variables[(9,5)]

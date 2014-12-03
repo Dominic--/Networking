@@ -147,6 +147,29 @@ def fixed_route(routes):
 
     return routes
 
+def check_route_in_detail(routes, link_order, removes):
+    for s,d in routes:
+        paths = routes[s,d]
+        weight = 0
+        for path, w in paths:
+            if path[0] != s:
+                print Wrong
+            for i in range(len(path) - 1):
+                ls = path[i]
+                ld = path[i+1]
+                if ls > ld:
+                    tmp = ls
+                    ls = ld
+                    ld = tmp
+                if (ls, ld) not in link_order or (ls, ld) in removes:
+                    print "Wrong"
+            if path[len(path) - 1] != d:
+                print "Wrong"
+            weight += w
+
+        #if weight != 1:
+        #    print weight
+            
 def check_route(routes, link_order):
     for s,d in routes:
         path = routes[s,d][0][0]
@@ -163,19 +186,39 @@ def check_route(routes, link_order):
                 print "Wrong"
         if path[len(path) - 1] != d:
             print "Wrong"
-            
 
 
 
 if __name__ == '__main__':
-    topology = '../topology/final/abilene-final-topology-1'
+    topology = '../topology/final/abilene-final-topology-3-base'
     solutions = 'abilene-connected-cplex.xml'
     routes = xml.get_route(solutions)
-    remove_file = '../topology/remove/abilene-remove-1-links'
+    remove_file = '../topology/remove/abilene-remove-3-links-base'
+    f = open(remove_file)
+    removes = []
+    line = f.readline()
+    while line:
+        s = line.rstrip().split(' ')
+        s = [int(i) for i in s]
+        
+        ls = s[0]
+        ld = s[1]
+        if ld < ls:
+            tmp = ls
+            ls = ld
+            ld = tmp
+
+        removes.append((ls,ld))
+        removes.append((ld,ls))
+        line = f.readline()
+    f.close()
 
     topology_connect = '../topology/connected/abilene-connected-topology'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
-    print xml.get_link_order(solutions, topology_connect)
+    #print xml.get_link_order(solutions, topology_connect)
 
-    route = fixed_route(adjust_route(topology, remove_file, routes, link_order))
-    check_route(route, link_order)
+    #route = fixed_route(adjust_route(topology, remove_file, routes, link_order))
+    check_route_in_detail(routes, link_order, [])
+    route = adjust_route(topology, remove_file, routes, link_order)
+    
+    check_route_in_detail(route, link_order, removes)

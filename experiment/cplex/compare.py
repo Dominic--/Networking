@@ -31,6 +31,7 @@ for t in ['abilene']:
     result_file = result_file_template % (t)
 
     common.generate_sol(connected_topology, [0, 1.5], is_gravity)
+    print xml.get_object(solution)
     global_routes = xml.get_route(solution)
     link_order = xml.get_link_order_with_attr(solution, connected_topology)
     for alpha in range(1, remove_links_n[t]):

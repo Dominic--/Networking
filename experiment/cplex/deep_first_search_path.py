@@ -145,10 +145,10 @@ class Graph(object):
             path.append(node)
 
             if node == v:
-                min_weight = 1000000000
+                min_weight = 0
                 for i in range(len(path) - 1):
                     for n in self.node_neighbors[path[i]]:
-                        if n[0] == path[i+1] and min_weight > n[1]:
+                        if (n[0] == path[i+1] and min_weight > n[1]) or (n[0] == path[i+1] and min_weight == 0):
                             min_weight = n[1]
                 
                 for i in range(len(path) - 1):
@@ -169,7 +169,7 @@ class Graph(object):
                 return
 
             for n in self.node_neighbors[node]:
-                if not n[0] in self.visited and n[1] > 0.01:
+                if not n[0] in self.visited and n[1] > 0.001:
                     dfs(n[0])
 
             self.visited.pop(node, None)
@@ -178,6 +178,10 @@ class Graph(object):
         #for i in range(2):
             #self.visited = {}
         dfs(s)
+
+        weight = 0
+        for p,w in paths:
+            weight += w
 
         return paths
 
@@ -208,22 +212,25 @@ class Graph(object):
 
 if __name__ == '__main__':
 	g = Graph()
-	g.add_nodes([i for i in range(4)])
-	g.add_edge((1, 0, 10))
-	g.add_edge((2, 0, 5))
-	g.add_edge((3, 1, 3))
-	g.add_edge((1, 2, 20))
-	g.add_edge((3, 2, 6))
-	g.add_edge((0, 1, 10))
-	g.add_edge((0, 2, 5))
-	g.add_edge((1, 3, 3))
-	g.add_edge((2, 1, 20))
-	g.add_edge((2, 3, 6))
+	g.add_nodes([i for i in range(12)])
+	g.add_edge((1, 4, 0.42))
+	g.add_edge((2, 5, 0.58))
+	g.add_edge((2, 8, 0.42))
+	g.add_edge((3, 9, 0.14))
+	g.add_edge((3, 10, 0.44))
+	g.add_edge((4, 7, 0.42))
+	g.add_edge((5, 6, 0.58))
+	g.add_edge((6, 3, 0.58))
+	g.add_edge((7, 9, 0.42))
+	g.add_edge((8, 11, 0.42))
+	g.add_edge((10, 9, 0.44))
+	g.add_edge((11, 1, 0.42))
+        print g.find_path(2, 9)
         #print(g.node_neighbors)
 	#print("nodes:", g.nodes())
 
 	#paths = g.find_path(0, 3)
 	#path = g.dfs_path(0, 3)
 	#path = g.dfs_path(1, 3)
-	paths = g.find_path_without_weight(2, 0)
-	print(paths)
+	#paths = g.find_path_without_weight(2, 0)
+	#print(paths)
