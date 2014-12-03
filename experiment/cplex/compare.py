@@ -17,6 +17,7 @@ remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
 solution_template = "%s-connected-cplex.xml"
 demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-compare-%s"
+solution_default = "global_opt_cplex_output.sol"
 files = 50
 
 loop = 20
@@ -24,15 +25,19 @@ diff = 1000
 
 remove_links_n = {'abilene':5, 'geant':16}
 
-for t in ['abilene','geant']:
+for t in ['abilene']:
+    connected_topology = connected_topology_template % t
+    solution = solution_template % t
     result_file = result_file_template % (t)
+
+    common.generate_sol(connected_topology, bound, is_gravity)
+    global_routes = xml.get_route(solution)
+    link_order = xml.get_link_order_with_attr(solution, connected_topology)
     for alpha in range(1, remove_links_n[t]):
-        connected_topology = connected_topology_template % t
         final_topology = final_topology_template % (t, alpha)
         remove_links = remove_links_template % (t, alpha)
         final_topology_base = final_topology_base_template % (t, alpha)
         remove_links_base = remove_links_base_template % (t, alpha)
-        solution = solution_template % t
 
         upper = 0
         if is_gravity:
@@ -48,8 +53,6 @@ for t in ['abilene','geant']:
 
         # Generate the global routes for traffic sets 
         # Calculate the global maximum utilization for specific traffic matrix sets
-        global_routes = xml.get_route(solution)
-        link_order = xml.get_link_order_with_attr(solution, connected_topology)
 
         global_routes_copy = deepcopy(global_routes)
         link_order_copy = deepcopy(link_order)
