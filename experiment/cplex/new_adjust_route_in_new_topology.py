@@ -121,7 +121,14 @@ def adjust_route(topology, remove_file, routes, link_order):
                 for yen_path, flows, proportion in yen_paths:
                     if proportion == 0:
                         continue
-                    route_paths.append([yen_path, remove_weight * proportion])
+
+                    exist = False
+                    for rp in route_paths:
+                        if rp[0] == yen_path:
+                            rp[1] += remove_weight * proportion
+                            exist = True
+                    if not exist:
+                        route_paths.append([yen_path, remove_weight * proportion])
 
                 routes[s,d] = route_paths
     
