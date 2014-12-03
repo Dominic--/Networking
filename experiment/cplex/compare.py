@@ -20,7 +20,7 @@ result_file_template = "result-compare-%s"
 solution_default = "global_opt_cplex_output.sol"
 files = 50
 
-loop = 20
+loop = 1
 diff = 1000
 
 remove_links_n = {'abilene':5, 'geant':16}
