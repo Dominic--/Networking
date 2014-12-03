@@ -8,7 +8,6 @@ import parse_xml as xml
 from deep_first_search_path import *
 
 def adjust_route(topology, remove_file, routes, link_order):
-    print link_order
     # get remove_links
     f = open(remove_file)
     links = []
