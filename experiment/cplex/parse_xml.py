@@ -241,13 +241,26 @@ def get_link_order(solution, topology):
     st_paths = get_route(solution)
 
     links = {}
-    for i in range(300):
-        filter(st_paths, links)
+    for key in st_paths.keys():
+        value = st_paths[key]
+        for p,w in value:
+            if w == 0:
+                continue
+            for i in range(len(p) - 1):
+                a = p[i]
+                b = p[i+1]
+                if a > b:
+                    tmp = a
+                    a = b
+                    b = a
+                if (a,b) not in links:
+                    links[a,b] = w
+                else:
+                    links[a,b] += w
 
     f = open(topology, "r")
     line = f.readline()
     line = f.readline()
-
     cm = {}
     while line:
         token = line.strip().split(" ")

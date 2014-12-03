@@ -8,6 +8,7 @@ import parse_xml as xml
 from deep_first_search_path import *
 
 def adjust_route(topology, remove_file, routes, link_order):
+    print link_order
     # get remove_links
     f = open(remove_file)
     links = []
@@ -161,13 +162,14 @@ def check_route(routes, link_order):
 
 
 if __name__ == '__main__':
-    topology = '../topology/final/abilene-final-topology-2'
+    topology = '../topology/final/abilene-final-topology-1'
     solutions = 'abilene-connected-cplex.xml'
     routes = xml.get_route(solutions)
-    remove_file = '../topology/remove/abilene-remove-2-links'
+    remove_file = '../topology/remove/abilene-remove-1-links'
 
     topology_connect = '../topology/connected/abilene-connected-topology'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
+    print xml.get_link_order(solutions, topology_connect)
 
     route = fixed_route(adjust_route(topology, remove_file, routes, link_order))
     check_route(route, link_order)
