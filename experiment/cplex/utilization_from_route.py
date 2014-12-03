@@ -55,7 +55,7 @@ def get_utilization(topology, routes, loop):
 
     return link_u
 
-def get_utilization_with_probability(topology, routes):
+def get_utilization_with_probability(topology, routes, loop):
     # init cm and dd
     f = open(topology)
     line = f.readline().rstrip().split(' ')

@@ -14,7 +14,7 @@ def global_utilization(topology, routes, demand_file, loop):
         line = f.readline()
     f.close()
 
-    link_u_global_opt = utils.get_utilization(topology, routes, loop)
+    link_u_global_opt = utils.get_utilization_with_probability(topology, routes, loop)
     #print("Global Utilization is %f \n" % link_u_global_opt)
 
     return link_u_global_opt

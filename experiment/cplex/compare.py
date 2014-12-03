@@ -93,7 +93,7 @@ for t in ['abilene']:
 
             #print("Begin calculate utilization")
             new_global_routes_fixed_copy = deepcopy(new_global_routes_fixed)
-            global_utilization = common.global_utilization_with_probability(final_topology, new_global_routes_fixed_copy, demand_file, 1)
+            global_utilization = common.global_utilization(final_topology, new_global_routes_fixed_copy, demand_file, 1)
             print global_utilization
             #print('Global Utilization is %f\n' % global_utilization)
             #f.write('%10.4f\t' % global_utilization)
@@ -102,7 +102,7 @@ for t in ['abilene']:
             #link_order_copy = deepcopy(link_order)
             #new_global_routes_base = adjust.adjust_route(final_topology_base, remove_links_base, global_routes_base_copy, link_order_copy)
             new_global_routes_base_fixed_copy = deepcopy(new_global_routes_base_fixed)
-            global_utilization_base = common.global_utilization_with_probability(final_topology_base, new_global_routes_base_fixed_copy, demand_file, 1)
+            global_utilization_base = common.global_utilization(final_topology_base, new_global_routes_base_fixed_copy, demand_file, 1)
             print global_utilization_base
 
             if max_utilization_base < (global_utilization_base / optimal_utilization):
