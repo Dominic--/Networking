@@ -18,14 +18,13 @@ solution_template = "%s-connected-cplex.xml"
 demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-compare-%s"
 solution_default = "global_opt_cplex_output.sol"
-files = 50
+files = 1000
 
 loop = 1
-diff = 1000
 
 remove_links_n = {'abilene':5, 'geant':16}
 
-for t in ['abilene']:
+for t in ['abilene', 'geant']:
     connected_topology = connected_topology_template % t
     solution = solution_template % t
     solution = solution_default
@@ -35,7 +34,7 @@ for t in ['abilene']:
     print xml.get_object(solution)
     global_routes = xml.get_route(solution)
     link_order = xml.get_link_order_with_attr(solution, connected_topology)
-    for alpha in range(1, remove_links_n[t]):
+    for alpha in range(0, remove_links_n[t]):
         final_topology = final_topology_template % (t, alpha)
         remove_links = remove_links_template % (t, alpha)
         final_topology_base = final_topology_base_template % (t, alpha)
