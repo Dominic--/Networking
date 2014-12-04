@@ -29,6 +29,6 @@ def optimal_utilization(topology, demand_file, loop):
 
 if __name__ == '__main__':
     connected_topology = "../topology/connected/abilene-connected-topology"
-    demand_file = "../demand/gravity-abilene/0.txt"
-    min_routes = xml.get_route_with_demand("min_cplex_output.xml", demand_file)
+    demand_file = "../demand/gravity-abilene/1000.txt"
+    min_routes = xml.get_route_with_demand("1_min_abilene_cplex.xml", demand_file)
     print utils.get_utilization_with_probability(connected_topology, min_routes, 1)

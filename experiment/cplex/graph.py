@@ -71,6 +71,7 @@ class DiGraph:
         if name:
             self._name = name
         
+        self._data = {}
         self.load()
         
         #self._painter = Graphviz()
