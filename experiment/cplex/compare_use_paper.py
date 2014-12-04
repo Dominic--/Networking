@@ -17,16 +17,15 @@ remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
 solution_template = "%s-connected-cplex.xml"
 demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-compare-use-paper-%s"
-files = 100
+files = 1000
 
-loop = 20
-diff = 1000
+loop = 1
 
 remove_links_n = {'abilene':5, 'geant':16}
 
 for t in ['abilene','geant']:
     result_file = result_file_template % (t)
-    for alpha in range(1, remove_links_n[t]):
+    for alpha in range(0, remove_links_n[t]):
         connected_topology = connected_topology_template % t
         final_topology = final_topology_template % (t, alpha)
         remove_links = remove_links_template % (t, alpha)
@@ -73,11 +72,13 @@ for t in ['abilene','geant']:
             #print("Begin adjust route")
 
             #print("Begin calculate utilization")
-            global_utilization = common.global_utilization(final_topology, global_routes, demand_file, loop)
+            global_routes_copy = deepcopy(global_routes)
+            global_utilization = common.global_utilization(final_topology, global_routes_copy, demand_file, loop)
             #print('Global Utilization is %f\n' % global_utilization)
             #f.write('%10.4f\t' % global_utilization)
 
-            global_utilization_base = common.global_utilization(final_topology_base, global_routes_base, demand_file, loop)
+            global_routes_base_copy = deepcopy(global_routes_base)
+            global_utilization_base = common.global_utilization(final_topology_base, global_routes_base_copy, demand_file, loop)
 
             if max_utilization_base < (global_utilization_base / optimal_utilization):
                 max_utilization_base = global_utilization_base / optimal_utilization
