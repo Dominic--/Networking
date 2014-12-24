@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
 		free(copy_matrix);
 
 		//printf("remove (%d, %d) : %f\n", links[i].s, links[i].d, temp_connected_value);
-		if (temp_connected_value <= 0.0001) {
+		if (temp_connected_value <= 0.001) {
 			matrix[links[i].s * nodes_n + links[i].d] = backup;
 			matrix[links[i].d * nodes_n + links[i].s] = backup;
 			matrix[links[i].s * nodes_n + links[i].s] -= backup;

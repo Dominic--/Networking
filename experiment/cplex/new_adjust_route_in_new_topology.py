@@ -191,15 +191,15 @@ def check_route(routes, link_order):
 
 
 if __name__ == '__main__':
-    topology = '../topology/final/abilene-final-topology-4'
-    topology_base = '../topology/final/abilene-final-topology-4-base'
+    #topology = '../topology/final/geant-final-topology-12-base'
+    topology_base = '../topology/final/geant-final-topology-12-base'
     #solutions = 'abilene-connected-cplex.xml'
-    solutions = '1_abilene_cplex.xml'
+    solutions = 'geant-connected-cplex.xml'
     routes = xml.get_route(solutions)
-    remove_file_base = '../topology/remove/abilene-remove-4-links-base'
-    remove_file = '../topology/remove/abilene-remove-4-links'
+    remove_file_base = '../topology/remove/geant-remove-12-links-base'
+    #remove_file = '../topology/remove/abilene-remove-4-links'
     demand_file = '../demand/gravity-abilene/1000.txt'
-    f = open(remove_file)
+    f = open(remove_file_base)
     removes = []
     line = f.readline()
     while line:
@@ -218,10 +218,10 @@ if __name__ == '__main__':
         line = f.readline()
     f.close()
 
-    topology_connect = '../topology/connected/abilene-connected-topology'
+    topology_connect = '../topology/connected/geant-connected-topology'
     link_order = xml.get_link_order_with_attr(solutions, topology_connect)
     
-    min_routes = xml.get_route_with_demand("1_min_abilene_cplex.xml", demand_file)
+    #min_routes = xml.get_route_with_demand("1_min_abilene_cplex.xml", demand_file)
     #min_routes = xml.get_route_with_demand("min_cplex_output.xml", demand_file)
     #print utils.get_utilization_with_probability(topology_connect, min_routes, 1)
 
@@ -233,13 +233,13 @@ if __name__ == '__main__':
     routes_copy = deepcopy(routes)
     link_order_copy = deepcopy(link_order)
     route = adjust_route(topology_base, remove_file_base, routes_copy, link_order_copy)
-    print route
-    print common.global_utilization(topology_base, route, demand_file, 1) 
+    #print route
+    #print common.global_utilization(topology_base, route, demand_file, 1) 
 
-    routes_copy = deepcopy(routes)
-    link_order_copy = deepcopy(link_order)
-    route = adjust_route(topology, remove_file, routes_copy, link_order_copy)
-    print route
-    print common.global_utilization(topology, route, demand_file, 1) 
+    #routes_copy = deepcopy(routes)
+    #link_order_copy = deepcopy(link_order)
+    #route = adjust_route(topology, remove_file, routes_copy, link_order_copy)
+    #print route
+    #print common.global_utilization(topology, route, demand_file, 1) 
     
     #check_route_in_detail(route, link_order, removes)
