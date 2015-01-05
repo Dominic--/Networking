@@ -16,9 +16,9 @@ for t in ['cernet2','abilene', 'geant']:
     for w in [1.5, 2, 2.5, 3, 3.5, 4]:
         connected_topology = connected_topology_template % t
 
-        #common.generate_sol(connected_topology, [0, w], is_gravity)
-        #print xml.get_object(solution_default)
+        common.generate_sol(connected_topology, [0, w], is_gravity)
+        print xml.get_object(solution_default)
 
         solution = solution_template % (t, w)
-        print solution
-        #os.system("mv %s %s" % (solution_default, solution))
+        #print solution
+        os.system("mv %s %s" % (solution_default, solution))

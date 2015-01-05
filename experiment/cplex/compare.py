@@ -14,26 +14,24 @@ final_topology_template = "../topology/final/%s-final-topology-%d"
 remove_links_template = "../topology/remove/%s-remove-%d-links"
 final_topology_base_template = "../topology/final/%s-final-topology-%d-base"
 remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
-solution_template = "%s-connected-cplex.xml"
-demand_file_template = "../demand/%s-%s/%d.txt"
+solution_template = "%s-cplex-%0.1f.xml"
+demand_file_template = "../demand/%s-%s/%0.1f/%d.txt"
 result_file_template = "result-compare-%s"
 middle_file_template = "middle-compare-%s"
 solution_default = "global_opt_cplex_output.sol"
 files = 1000
 
 loop = 1
+w = 1.5
 
-remove_links_n = {'abilene':5, 'geant':13}
+remove_links_n = {'abilene':5, 'geant':13, 'cernet2':4}
 
-for t in ['abilene', 'geant']:
+for t in ['abilene', 'geant', 'cernet2']:
     connected_topology = connected_topology_template % t
-    solution = solution_template % t
-    #solution = solution_default
+    solution = solution_template % (t, w)
     result_file = result_file_template % (t)
     middle_file = middle_file_template % (t)
 
-    #common.generate_sol(connected_topology, [0, 1.5], is_gravity)
-    #print xml.get_object(solution)
     global_routes = xml.get_route(solution)
     link_order = xml.get_link_order_with_attr(solution, connected_topology)
     for alpha in range(0, remove_links_n[t]):
@@ -44,7 +42,7 @@ for t in ['abilene', 'geant']:
 
         upper = 0
         if is_gravity:
-            upper = 1.5
+            upper = w
             type_random = "gravity"
         else:
             if t == 'abilene':
@@ -52,7 +50,7 @@ for t in ['abilene', 'geant']:
             elif t == 'geant':
                 upper = 1956.0
 
-        bound = [0, 1.5]
+        bound = [0, w]
 
         # Generate the global routes for traffic sets 
         # Calculate the global maximum utilization for specific traffic matrix sets
@@ -74,7 +72,7 @@ for t in ['abilene', 'geant']:
         for num in range(files):
             print("Round %d" % num)
 
-            demand_file = demand_file_template % (type_random, t, num)
+            demand_file = demand_file_template % (type_random, t, w, num)
             f = open(demand_file, "r")
             line = f.readline()
             f.close()
