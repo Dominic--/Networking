@@ -17,21 +17,23 @@ remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
 solution_template = "%s-connected-cplex.xml"
 demand_file_template = "../demand/%s-%s/%d.txt"
 result_file_template = "result-compare-%s"
+middle_file_template = "middle-compare-%s"
 solution_default = "global_opt_cplex_output.sol"
 files = 1000
 
 loop = 1
 
-remove_links_n = {'abilene':5, 'geant':16}
+remove_links_n = {'abilene':5, 'geant':13}
 
 for t in ['abilene', 'geant']:
     connected_topology = connected_topology_template % t
     solution = solution_template % t
-    solution = solution_default
+    #solution = solution_default
     result_file = result_file_template % (t)
+    middle_file = middle_file_template % (t)
 
-    common.generate_sol(connected_topology, [0, 1.5], is_gravity)
-    print xml.get_object(solution)
+    #common.generate_sol(connected_topology, [0, 1.5], is_gravity)
+    #print xml.get_object(solution)
     global_routes = xml.get_route(solution)
     link_order = xml.get_link_order_with_attr(solution, connected_topology)
     for alpha in range(0, remove_links_n[t]):
@@ -70,7 +72,7 @@ for t in ['abilene', 'geant']:
         max_utilization = 0
         max_utilization_base = 0
         for num in range(files):
-            print("Round %d\n" % num)
+            print("Round %d" % num)
 
             demand_file = demand_file_template % (type_random, t, num)
             f = open(demand_file, "r")
@@ -95,7 +97,7 @@ for t in ['abilene', 'geant']:
             #print("Begin calculate utilization")
             new_global_routes_fixed_copy = deepcopy(new_global_routes_fixed)
             global_utilization = common.global_utilization(final_topology, new_global_routes_fixed_copy, demand_file, 1)
-            print global_utilization / optimal_utilization
+            #print global_utilization / optimal_utilization
             #print('Global Utilization is %f\n' % global_utilization)
             #f.write('%10.4f\t' % global_utilization)
 
@@ -104,17 +106,23 @@ for t in ['abilene', 'geant']:
             #new_global_routes_base = adjust.adjust_route(final_topology_base, remove_links_base, global_routes_base_copy, link_order_copy)
             new_global_routes_base_fixed_copy = deepcopy(new_global_routes_base_fixed)
             global_utilization_base = common.global_utilization(final_topology_base, new_global_routes_base_fixed_copy, demand_file, 1)
-            print global_utilization_base / optimal_utilization
+            #print global_utilization_base / optimal_utilization
+
+            f = open(middle_file, 'a')
+            print("%d %d %0.4f %0.4f\n" % (alpha, num, global_utilization_base / optimal_utilization, global_utilization / optimal_utilization))
+            f.write("%d %d %0.4f %0.4f\n" % (alpha, num, global_utilization_base / optimal_utilization, global_utilization / optimal_utilization))
+            f.close()
 
             if max_utilization_base < (global_utilization_base / optimal_utilization):
                 max_utilization_base = global_utilization_base / optimal_utilization
             
             if max_utilization < (global_utilization / optimal_utilization):
                 max_utilization = global_utilization / optimal_utilization
+
         
         f = open(result_file, 'a')
-        print("Remove %d links -- Base : %.4f New : %.4f\n" % (alpha, max_utilization_base, max_utilization))
-        f.write("Remove %d links -- Base : %.4f New : %.4f\n" % (alpha, max_utilization_base, max_utilization))
+        print("%d %.4f %.4f\n" % (alpha, max_utilization_base, max_utilization))
+        f.write("%d %.4f %.4f\n" % (alpha, max_utilization_base, max_utilization))
         f.close()
 
 
