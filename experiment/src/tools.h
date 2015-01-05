@@ -27,6 +27,8 @@ typedef struct link link_t;
  */
 int init_matrix_with_file(char *, double **, link_t **, int *, int *, bool);
 
+bool check_connectivity(double *, int);
+
 /*
  * Print matrix for debug
  */

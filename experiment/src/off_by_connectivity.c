@@ -77,13 +77,15 @@ int main(int argc, char **argv) {
 		matrix[links[i].s * nodes_n + links[i].s] += backup;
 		matrix[links[i].d * nodes_n + links[i].d] += backup;
 		
-		double * copy_matrix = (double *) malloc(nodes_n * nodes_n * sizeof(double));
-		memcpy(copy_matrix, matrix, nodes_n * nodes_n * sizeof(double));
-		double temp_connected_value = get_eigenvalue(copy_matrix, nodes_n);
-		free(copy_matrix);
+		//double * copy_matrix = (double *) malloc(nodes_n * nodes_n * sizeof(double));
+		//memcpy(copy_matrix, matrix, nodes_n * nodes_n * sizeof(double));
+		//double temp_connected_value = get_eigenvalue(copy_matrix, nodes_n);
+		//free(copy_matrix);
 
 		//printf("remove (%d, %d) : %f\n", links[i].s, links[i].d, temp_connected_value);
-		if (temp_connected_value <= 0.001) {
+		//if (temp_connected_value <= 0.001) {
+		//printf("%i\n", check_connectivity(matrix, nodes_n));
+		if (!check_connectivity(matrix, nodes_n)) {
 			matrix[links[i].s * nodes_n + links[i].d] = backup;
 			matrix[links[i].d * nodes_n + links[i].s] = backup;
 			matrix[links[i].s * nodes_n + links[i].s] -= backup;

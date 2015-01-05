@@ -61,3 +61,19 @@ void print_matrix(double * const matrix, int nodes_n) {
 		printf("\n ");
 	}
 }
+
+bool check_connectivity(double * const matrix, int nodes_n) {
+	for (int i = 0; i < nodes_n; i++) {
+		bool connectivity = false;
+		for (int j = 0; j < nodes_n; j++) {
+			if (i != j && matrix[i * nodes_n + j] < 0) {
+				connectivity = true;
+				break;
+			}
+		}
+		if (!connectivity) {
+			return connectivity;
+		}
+	}
+	return true;
+}

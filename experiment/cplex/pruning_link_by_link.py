@@ -17,7 +17,8 @@ def is_connected(links, nodes_n):
     else:
         return False
 
-files = ['abilene', 'geant']
+#files = ['abilene', 'geant']
+files = ['cernet2']
 for name in files:
     topology = "../topology/connected/%s-connected-topology" % name
     f = open(topology, "r")
