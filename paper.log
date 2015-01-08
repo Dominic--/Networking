@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  2 DEC 2014 02:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  8 JAN 2015 15:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -210,32 +210,39 @@ Overfull \hbox (42.52756pt too wide) in paragraph at lines 97--98
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 103.
+(Font)              <7> on input line 104.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 103.
+(Font)              <5> on input line 104.
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
  <./png/net5.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 131--134
+Underfull \hbox (badness 10000) in paragraph at lines 132--135
 []\OT1/ptm/m/n/10 A com-mon met-ric for the per-for-mance of a
  []
 
 
-Underfull \hbox (badness 5189) in paragraph at lines 131--134
+Underfull \hbox (badness 5189) in paragraph at lines 132--135
 \OT1/ptm/m/n/10 given rout-ing with re-spect to a cer-tain TM is the
  []
 
-[2] [3]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 325.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 325.
+[2] <./png/3-nodes-example.png, id=23, 377.41pt x 62.2325pt>
+File: ./png/3-nodes-example.png Graphic file (type png)
 
-Overfull \hbox (22.89981pt too wide) in paragraph at lines 397--419
+<use ./png/3-nodes-example.png>
+Package pdftex.def Info: ./png/3-nodes-example.png used on input line 210.
+(pdftex.def)             Requested size: 227.62204pt x 37.5335pt.
+ [3 <./png/3-nodes-example.png>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 332.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 332.
+
+Overfull \hbox (22.89981pt too wide) in paragraph at lines 404--426
 [][] 
  []
 
+[4]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -247,39 +254,41 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4] (./paper.aux) ) 
+[5
+
+] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2192 strings out of 493315
- 35159 string characters out of 6137903
- 103265 words of memory out of 5000000
- 5639 multiletter control sequences out of 15000+600000
+ 2197 strings out of 493315
+ 35297 string characters out of 6137903
+ 104265 words of memory out of 5000000
+ 5643 multiletter control sequences out of 15000+600000
  38757 words of font info for 72 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
  37i,10n,23p,243b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.
-enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.p
-fb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pf
-b></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/
-2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/t
-exmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
-e1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/tim
-es/utmri8a.pfb>
-Output written on paper.pdf (4 pages, 230260 bytes).
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.en
+c}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
+r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
+cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/t
+exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texl
+ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/20
+13/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
+/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on paper.pdf (5 pages, 237799 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 99 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

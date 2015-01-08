@@ -251,6 +251,8 @@ def get_link_order_with_attr(solution, topology):
 
     return lo
 
+
+# return the links ordered by capacity/traffic from larger to less
 def get_link_order(solution, topology):
     st_paths = get_route(solution)
 

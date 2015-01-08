@@ -1,6 +1,10 @@
 import parse_xml as xml
 import global_route_with_tm_bound as cplex
 
+# check the graph represented by links if connected.
+# nodes is the set of visited nodes, stack is the stack of to-be-visited nodes
+# every time pop a node from stack, visit it, 
+# and finally check if all the nodes is visited.
 def is_connected(links, nodes_n):
     stack = [0]
     nodes = set()
