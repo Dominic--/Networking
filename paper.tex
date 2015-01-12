@@ -58,10 +58,10 @@ conservation is involved. To overcome the challenges, we first define a new metr
 ratio with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
 certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
 and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve 
-the problem in two phases. REAR select sleeping links based on extended robust link utilization, and compute the 
-routing based on a classical demand-oblivious routing algorithm. We evaluate our algorithms on real and 
-synthetic topologies. The simulation results show that REAR can save XX\% of line card power while the performance 
-ratio is less than XX.
+the problem in two phases. REAR select sleeping links based on extended robust link utilization or algebraic 
+connectivity, and compute the routing based on a classical demand-oblivious routing algorithm. 
+We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save 
+XX\% of line card power while the performance ratio is less than XX.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -221,11 +221,13 @@ the one which 3M link is closed.
 
 \section{Algorithm}
 In our paper, Robust Energy-Aware Routing (REAR) algorithm works in two phases. Firstly, REAR select links 
-should be sleeping from the origin topology based on extended robust link utilization, then compute the robust 
-routing by demand-oblivious routing algorithm.
+should be sleeping from the origin topology based on extended robust link utilization or algebraic connectivity, 
+then compute the robust routing by demand-oblivious routing algorithm. There are two metrics
+for selecting removed links, our two-phase algorithm is flexible because we can replace the metric with whatever
+metric which will be proposed in the future.
 
 
-\subsection{Extend Algebraic Connectivity}
+\subsection{Algebraic Connectivity}
 Network topology is represented by $G = (V, E)$ as mentioned in Model section, where $V$ is the set of vertices
 and $E$ is the set of links. We say $A(G)$ is the Adjacency Matrix of graph $G$, that include information for which
 vertices of the graph are adjacent to which other vertices. $A(G)$ is a $N \times N$ matrix, where
@@ -245,48 +247,52 @@ where $D(G)$ is the Degree Matrix and $A(G)$ is the Adjacency Matrix.
 
 
 In the mathematical field of graph theory, the number of eigenvalues equal to 0 is the number of connected 
-componements of $G$, so the smallest eigenvalue always be 0. And we call the second smallest one as
+componements of $G$, so the smallest eigenvalue always be 0 in arbitrary graph . And we call the second smallest one as
 algebraic connectivity, which is greater than 0 if and only if graph $G$ is connected. Further more,  
 it measures the connectivity and stability of graph, the greater of which, the more connective of graph;
-and it is a metric of average distance between any two vertices of graph $G$.
+and it is a metric of average distance between any two vertices of graph $G$. We call the algebraic connectivity as
+$\lambda_2(G)$.
 
 
-As far as we know, 
-algebraic connectivity regard every link the same, without considering the capacity of each one, but it is 
-ridiculous in network. It is easy to see, link with greater capacity is more important than the same one
-with lower capacity. and in graph theory, algebraic connectivity value monotonically increased when we
-increase the weight of link between vertices. So we extend the algebraic connectivity definition by following ways:
-
-\begin{enumerate}
-	\item We change the Adjacency Matrix from binary-matrix to float-matrix, i.e. if $(i,j) \in E$ we set the $a_{ij}$
-with the capacity of link $l_{ij}$ instead of binary value 1.
-	\item Degree Matrix is not ever the denotation for the degree of nodes, but the conbined capacity of all the links
-adjacent to the node, there is still exist the equation: $d_{ij} == \sum_{j} a_{ij}$
-	\item No modification for definition of Laplacian Matrix
-\end{enumerate}
-
-
-We calculate new extend algebraic connectivity from the new Laplacian matrix, denoted by $\lambda_2(G)$.
-
-
-Topology always have different extend algebraic connectivity values, it is clear that when one link is added or 
-removed from the graph, the extend algebraic connectivity value changes accordingly. And we say the changed value
+Topology always have different algebraic connectivity values, it is clear that when one link is added or 
+removed from the graph, the algebraic connectivity value changes accordingly. And we say the changed value
 is the impact of this link on the graph. Supposed we sleep link $l$ from graph $G$, new graph is described as $G^*$, 
 we defined the impact of link $l$ as :
 \begin{equation}
 	\Delta_l = \lambda_2(G) - \lambda_2(G^*)
 \end{equation}
-where $\lambda_2(G)$ and $\lambda_2(G^*)$ is extend algebraic connectivity of $G$ and $G^*$ respectly.
+where $\lambda_2(G)$ and $\lambda_2(G^*)$ is algebraic connectivity of $G$ and $G^*$ respectly.
 
 
 Clearly, $\Delta_l$ is always greater than 0, because graph will always lose connectivity when link is removed.
 Further more, some link will play a more important role in the connectivity of graph, such as the backbone link 
 of network topology. And we say a link $l$ affect more if $\Delta_l$ is greater.
 
+\subsection{Extended Robust Link Utilization}
+The demand-oblivious routing is well studied before, which means that this routing is not always the best one for 
+specific $TM$, but good enough for a range of $TMs$. we mentioned the definition of link utilization above when 
+demand and routing are determined, as demand become oblivious, the definition is also not suitable. So we define
+a notation named $extended\ robust\ link\ utilization$ replace the normal link utilization like :
+\begin{equation}
+	u^e_{ij} = \frac {\sum_{a,b}f_{ab}(i,j)} {cap_{ij}}
+\end{equation}
+
+
+Proposing this definition for two consideration: firstyly, the more flows across the link, the greater the $u^e_{ij}$ is;
+secondly, the more fraction of traffic in one flow across the link, the greater the $u^e_{ij}$ is. The link with greater
+extended robust link utilization is also more important than others in a sense. Although there is no demand here, we mean
+there is more probability that this link have greater link utilization when specific demand come. Similarly, we define 
+the impact of link $l$ as :
+\begin{equation}
+    \Delta_l = u^e_{l}
+\end{equation}
+
+And there is the same conclusion that a link $l$ affect more if $\Delta_l$ is greater.
+
 
 \subsection{Algorithm Phase One}
-REAR sleep as many links as possible without losing much connectivity of graph. Originly,  we should
-calculate impact of all the links and sleep the lowest one from the graph, then repeat calculate and remove
+REAR sleep as many links as possible without losing much connectivity or transportation of graph for different metrics. 
+Originly,  we should calculate impact of all the links and sleep the lowest one from the graph, then repeat calculate and remove
 process until arrive some specific threhold. Obviously, it is NP-Hard, following is a heuristic algorithm.
 
 
@@ -299,20 +305,20 @@ where $\Delta_{l_i} < \Delta_{l_j}$.
 
 
 Pay attention we only compute the link impact once at the begining of algorihtm, and the ordered list $\Gamma$ show 
-the order of `importantance` among links in the connectivity of the graph. 
+the order of `importance` among links in the graph. 
 
 
 Now we begin selecting which links should be sleep.
 We denote the set of the sleeping links as $S$, and the output of this phase is final graph $G^* = (V, E-S)$. We set 
-$S = \emptyset$, and repeat our selecting process, each iteration we select one link and put it into $S$. 
-In iteration $i$, algorithm scan links as the order of $\Gamma$ and choose one which is still not in the $S$, we try to
-remove this link from the graph, if some metric of the current graph do not arrive the threhold we put the link into
-$S$ then go next iteration, or choose the next link from the $\Gamma$ for trying to remove otherwise. Algorithm
-stop until all the links in $\Gamma$ is tried but there is no one to satisfy the threhold.
+$S = \emptyset$, and repeat our selecting process, each iteration we select one link, remove it from $\Gamma$ and put it into $S$. 
+In iteration $i$, algorithm scan links as the order in $\Gamma$, we try to
+remove this link from the graph to check if the graph is still connected and the energy conservation have not arrive the threshold.
+If so, we select this one then go next iteration.
+Otherwise choose the next link from $\Gamma$ for trying to remove. Algorithm
+stop until all the links in $\Gamma$ is tried but no one is satisfied with both connectivity and power threhold.
 
 
-So before going ahead our algorithm, there is another thing we should done, what is the threhold for the graph.
-It does matter for what we concern most of the graph, in our graph, we choose the power consumption. 
+So before going ahead our algorithm, there is another thing we should done, how to measure the power of graph.
 We simple take an power model from `Green TE` showed in Table xx, and defined the difference of power consumption 
 between two graphs as:
 \begin{equation}
@@ -323,9 +329,9 @@ link $l$ are both removed from the origin graph $G^o$, and the $\rho(G^o)$ is th
 the origin graph.
 
 
-If we set $diff_c$ valued 90\%, it means that whenever we try to remove the link $l$ from the origin graph in 
+If we set $diff_p$ valued 90\%, it means that whenever we try to remove the link $l$ from the origin graph in 
 iteration, the power consumption should never lower than the 90\% of origin one. In another words, the output 
-of this phase protect as much connectivity as possible. Following is our implementation: 
+of this phase protect as much connectivity and transportation as possible. Following is our implementation: 
 
 
 \begin{table}[!th]
@@ -344,7 +350,7 @@ $\:\:$5:\ $S \leftarrow \emptyset$, $goon \leftarrow true$;\\
 $\:\:$6:\ \textbf{while} {$goon$}\\
 $\:\:$7:\quad\  $goon \leftarrow false$;\\
 $\:\:$8:\quad\ \textbf{for} {each link $l$ in $\Gamma - S$}\\
-$\:\:$9:\quad\ \quad\ \textbf{if} $G_{S,l}$ is connected and $\rho(G_{S,l})/\rho(G)<threhold$\\
+$\:\:$9:\quad\ \quad\ \textbf{if} $G_{S,l}$ is connected and $\rho(G_{S,l})/\rho(G)>threhold$\\
 $\:\:$10:\quad\ \quad\ \quad\ $S \leftarrow S \cup \{l\}$;\\
 $\:\:$11:\quad\ \quad\ \quad\ $goon \leftarrow true$;\\
 $\:\:$12:\quad\ \quad\ \quad\ \textbf{break};\\
@@ -356,24 +362,27 @@ $\:\:$13:\ \textbf{return} $S, G(V, E-S)$;\\
 
 
 \subsection{Algorihtm Phase Two}
-Once we get the output network topology from the first phase based on extend algebraic connectivity, it is time to compute
-the robust routing. We first calculate the demand-oblivious rouintg from the origin topology based on algorithm proposed 
-by David Applegate[1]; and adjust routing in details according to the links we switched off in the final topology.
+Once we get the output network topology from the first phase based on either metric, it is time to compute
+the robust routing. On one hand, computation process may cost too much time if we directly calculate the robust routing in 
+the final graph; on the other hand, the robust routing based on the final graph may not be the best one.
+There is a heuristic algorithm
+based on the demand-oblivious routing on the origin graph, which should be obtained at first.
+then adjust routing in details according to the links we switched off.
 
 
-The demand-oblivious routing can be computed by a single LP with $O(mn^2)$ variables and $O(nm^2)$ constraints :
+The demand-oblivious routing can be computed by a single LP with $O(mn^2)$ variables and $O(nm^2)$ constraints[1] :
 \begin{table}[!th]
-\begin{tabular}{lll}
-    $\:\:$\quad\quad\ min $r$ \\
-    $\:\:$\quad\quad\ $f_{ij}(e)$ is a routing \\
-    $\:\:$\quad\quad\ $\forall$ links $l$: $\sum_m cap(m)t(l,m) \le r$ \\
-    $\:\:$\quad\quad\ $\forall$ links $l$, $\forall$ pairs $i \rightarrow j$: \\
-    $\:\:$\quad\quad\quad\quad\ $f_{ij}(l)/cap(l) \le p_l(i,j)$ \\ 
-    $\:\:$\quad\quad\ $\forall$ links $l$, $\forall$ nodes $i$, $\forall$ edges $e = j \rightarrow k$: \\
-    $\:\:$\quad\quad\quad\quad\ $\pi(l, link-of(e)) + p_l(i,j) - p_l(i,k) \ge 0$ \\
-    $\:\:$\quad\quad\ $\forall$ links $l$, $m$: $\pi(l, m) \ge 0$ \\
-    $\:\:$\quad\quad\ $\forall$ links $l$, $\forall$ nodes $i$: $p_l(i,i) = 0$ \\
-    $\:\:$\quad\quad\ $\forall$ links $l$, $\forall$ nodes $i$, $j$: $p_l(i,j) \ge 0$ \\
+\begin{tabular}{ll}
+$\:\:$\quad\quad\quad\quad\ \textbf{min} $r$ \\
+$\:\:$\quad\quad\quad\quad\ $f_{ij}(e)$ is a routing \\
+$\:\:$\quad\quad\quad\quad\ $\forall$ links $l$: $\sum_m cap(m)t(l,m) \le r$ \\
+$\:\:$\quad\quad\quad\quad\ $\forall$ links $l$, $\forall$ pairs $i \rightarrow j$: \\
+$\:\:$\quad\quad\quad\quad\quad\quad\ $f_{ij}(l)/cap(l) \le p_l(i,j)$ \\ 
+$\:\:$\quad\quad\quad\quad\ $\forall$ links $l$, $\forall$ nodes $i$, $\forall$ edges $e = j \rightarrow k$: \\
+$\:\:$\quad\quad\quad\quad\quad\quad\ $\pi(l, link-of(e)) + p_l(i,j) - p_l(i,k) \ge 0$ \\
+$\:\:$\quad\quad\quad\quad\ $\forall$ links $l$, $m$: $\pi(l, m) \ge 0$ \\
+$\:\:$\quad\quad\quad\quad\ $\forall$ links $l$, $\forall$ nodes $i$: $p_l(i,i) = 0$ \\
+$\:\:$\quad\quad\quad\quad\ $\forall$ links $l$, $\forall$ nodes $i$, $j$: $p_l(i,j) \ge 0$ \\
 \end{tabular}
 \end{table}
 
@@ -386,17 +395,22 @@ and OD pair $i$, $j$ is the length of the shortest path from $i$ to $j$ accordin
 The routing we get indicate how to arrive at destination node from source node for every OD pair in the origin topology.
 What is different is that, the flow can be splited in the routing, i.e. there may be two paths ($path_1$, $path_2$)
 both from source node $s$ to destination node $d$, and the optimal obilious routing trace 70\% traffic on 
-$path_1$ and left on $path_2$. However splitting flow is hard handled, we take a transformation for this case like this:
-when an flow is coming, there is 70\% probability we trace it on $path_1$, otherwise $path_2$.
+$path_1$ and left on $path_2$. Although splitting flow is hard handled, we take a transformation for the case like that:
+when an flow is coming, there is 70\% probability we trace it on $path_1$, otherwise $path_2$. This is easily implementated 
+in real world.
 
 
-Because all the routing is based on the origin topology, when switch-off links is done, we must adjust the routing 
-as well. Take pair $(s, d)$ for example, the path in routing maybe like $s \rightarrow i \rightarrow j \rightarrow d$,
-unfortunately link $i \rightarrow j$ is switched off in Phase One of Algorithm. For the final topology is still 
-connected, we must can find another path from $i$ to $j$, such as $i \rightarrow k \rightarrow j$,
-then we just replace the routhing $s \rightarrow i \rightarrow j \rightarrow d$ with
-$s \rightarrow i \rightarrow k \rightarrow j \rightarrow d$.
-Find the path between two nodes of switch-off link is easy by Dijkstra Algorithm on the final topology.
+Because all the routing is based on the origin topology, when some links are switched off, we must adjust the routing 
+as well. Supposed there are some paths between two vertices $s$ and $d$, maybe one link in some paths be removed, 
+and these paths become not reachable any more, we should adjust the traffic in these paths to other paths. Of course,
+we can not put the whole traffic on another path, this will make some links of the path congested, so we should split the traffic 
+to some paths `averagely`, in the sense of extended robust link utilization. Similarly to link utilization, we define the extended
+robust link utilization as the maximum extended robust link utilization of links.
+
+
+Take pair $(s, d)$ for example, routing includes paths from $s$ to $d$, such as $p_1, p_2, ... , p_n$. While only $p_1$ trace 
+the removed link, and of course it will be unreachable. We split the traffic of $p_1$, and put them on other paths to make 
+the extend robust link utilization of paths almost closely.
 
 
 And this is our implementation:
@@ -407,30 +421,34 @@ And this is our implementation:
 \hline
 $\:\:$\textbf{Input:} $G(V,E)$ which is the origin topology;\\
 $\quad\quad\ \ \ $ $S$ which is the switch-off links set generated by Phase One;\\
-$\:\:$\textbf{Output:} $Rouing$ Robust Energy-Aware Routing on new topology\\
-$\:\:$1:\ $G^* \leftarrow G(V, E-S)$;\\
-$\:\:$2:\ $Replace \leftarrow \emptyset$;\\
-$\:\:$3:\ \textbf{for} {each link $l$ in $S$}\\
-$\:\:$4:\quad\ $ls \leftarrow$ node of $l$;\\
-$\:\:$5:\quad\ $ld \leftarrow$ the other node of $l$;\\
-$\:\:$6:\quad\ $Replace[ls, ld] \leftarrow$ find path from $ls$ to $ld$ on $G^*$;\\
-$\:\:$7:\ $Routing \leftarrow$ run LP on $G$ by CPLEX, fetch routing through parsing result;\\
-$\:\:$8:\ \textbf{for} {each $r$ in $Routing$}\\
-$\:\:$9:\quad\ \textbf{if} {$l \in S$ in $r$}\\
-$\:\:$10:\quad\quad\ \ $s \leftarrow$ source of $r$;\\
-$\:\:$11:\quad\quad\ \ $d \leftarrow$ destination of $r$;\\
-$\:\:$12:\quad\quad\ $r \leftarrow r[s, ls] + Replace[ls,ld] + r[ld,d]$;\\
-$\:\:$13:\ \textbf{return} Routing;\\
+$\quad\quad\ \ \ $ $R$ which is the Robust Routing on origin topology;\\
+$\:\:$\textbf{Output:} $Routing$ Robust Energy-Aware Routing on new topology\\
+$\:\:$\ 1:\ $G^* \leftarrow G(V, E-S)$;\\
+$\:\:$\ 2:\ \textbf{for} {each link $l$ in $S$}\\
+$\:\:$\ 3:\quad\ \textbf{for} {each $s,d,paths$ in $R$}\\
+$\:\:$\ 4:\quad\ \quad\ $traffic \leftarrow$ 0;\\
+$\:\:$\ 5:\quad\ \quad\ \textbf{for} {each $path$ in $paths$}\\
+$\:\:$\ 6:\quad\ \quad\ \quad\ \textbf{if} {$link$ in $path$}\\
+$\:\:$\ 7:\quad\ \quad\ \quad\ \quad\ $traffic \leftarrow$ $traffic$ + $path$.$traffic$; \\
+$\:\:$\ 8:\quad\ \quad\ \quad\ \quad\ $paths$.remove($path$); \\
+$\:\:$\ 9:\quad\ \quad\ $yen\_paths \leftarrow$ yens\_algorithm($G^*$, $s$,$d$);\\
+$\:\:$10:\quad\ \quad\ \textbf{while} {$traffic$ != 0}\\
+$\:\:$11:\quad\ \quad\ \quad\ sort\_paths\_by\_extend\_robust\_link\_utilization($yen\_paths$)\\
+$\:\:$12:\quad\ \quad\ \quad\ $yen\_paths$[0].$traffic$ = $traffic$ / N\\
+$\:\:$13:\quad\ \quad\ \quad\ $traffic$ = $traffic$ - $traffic$ / N\\
+$\:\:$14:\quad\ \quad\ \quad\ $paths$.add($yen\_paths$[0])\\
+$\:\:$15:\quad\ \quad\ $paths$.merge();\\
+$\:\:$16:\ \textbf{return} $R$;\\
 \hline
 \end{tabular}
 \end{table}
 
 
-\section{Samples}
+\section{Samples and Proof}
 For showing obilious performance ratio with energy constraint really make a difference in the switching off link 
 process, we will explain it in two simple topologies, cliques and cycles. On the other hand, we also say that
 there will be an upper bound for obilious performance ratio with energy constraint, and get the bound according
-to the topology.
+to the topology. For simpleness, we refer 
 
 Cycles topology connect all the nodes by a cycle, any node in which has two links joined. Figure 1 show the six
 nodes cycles topology, let nodes named from $A$ to $F$ and links named by its two vertices, such as $l_{ab}$.

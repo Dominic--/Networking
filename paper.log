@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  8 JAN 2015 15:18
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  12 JAN 2015 16:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -234,15 +234,10 @@ Package pdftex.def Info: ./png/3-nodes-example.png used on input line 210.
 (pdftex.def)             Requested size: 227.62204pt x 37.5335pt.
  [3 <./png/3-nodes-example.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 332.
+(Font)              <8> on input line 338.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 332.
-
-Overfull \hbox (22.89981pt too wide) in paragraph at lines 404--426
-[][] 
- []
-
-[4]
+(Font)              <6> on input line 338.
+ [4]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -258,13 +253,13 @@ Before submitting the final camera ready copy, remember to:
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2197 strings out of 493315
- 35297 string characters out of 6137903
- 104265 words of memory out of 5000000
- 5643 multiletter control sequences out of 15000+600000
+ 2198 strings out of 493315
+ 35315 string characters out of 6137903
+ 106265 words of memory out of 5000000
+ 5644 multiletter control sequences out of 15000+600000
  38757 words of font info for 72 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
- 37i,10n,23p,243b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,12n,23p,243b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.en
 c}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
@@ -285,7 +280,7 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on paper.pdf (5 pages, 237799 bytes).
+Output written on paper.pdf (5 pages, 241012 bytes).
 PDF statistics:
  99 PDF objects out of 1000 (max. 8388607)
  70 compressed objects within 1 object stream
