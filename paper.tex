@@ -94,9 +94,6 @@ frequently, as it will result in other route failure possiblly. So our question 
 satisfy power and utilization requirement for any traffic matrix given?
 
 
-\includegraphics[width=10cm]{net5}
-
-
 David Applegate propose a method for obtain a route wihich is ``robust'' to variations in demands for a specific network topology. 
 
 
@@ -448,11 +445,147 @@ $\:\:$16:\ \textbf{return} $R$;\\
 For showing obilious performance ratio with energy constraint really make a difference in the switching off link 
 process, we will explain it in two simple topologies, cliques and cycles. On the other hand, we also say that
 there will be an upper bound for obilious performance ratio with energy constraint, and get the bound according
-to the topology. For simpleness, we refer 
+to the topology. For simpleness, we refer the energy constraint to the quantity of removed links.
 
+\includegraphics[width=4cm]{circle}
+\includegraphics[width=4cm]{clique}
+
+\subsection{Circles}
 Cycles topology connect all the nodes by a cycle, any node in which has two links joined. Figure 1 show the six
-nodes cycles topology, let nodes named from $A$ to $F$ and links named by its two vertices, such as $l_{ab}$.
-Without loss of generality,  
+nodes cycles topology, let nodes named from $A$ to $F$ and links named from $a$ to $f$ in the figure.
+Now suppose a traffic in the topology then calculate the optimal routing for it,
+let $D_a$ and $C_a$ be the demand and capacity of the link, without loss of generality, we say the link $d$ is the 
+bottleneck, i.e. with the maximum link utilization. There are two solutions for us, switching off the link $d$,
+or the other link, such as link $f$.
+
+
+For case one, when we switch off the link $d$, the origin traffic pass the link will be redirected. The worst situation
+is that all the traffic on the link $d$ will be put to the other path : $D \leftarrow C \leftarrow B \leftarrow A \leftarrow 
+F \leftarrow E$. After traffic redirection, the bottleneck link may become the link $e$, according to our definition of
+extended robust link utilization:
+
+\begin{equation}
+    \frac {\frac{D_e + D_d} {C_e}} {\frac {D_d}{C_d}} = (1 + \frac{D_e}{D_d}) \frac{C_d}{C_e}
+\end{equation}
+
+Because the link utilization of link $d$ is the maximum one, we have :
+
+\begin{equation}
+    \frac{D_d}{C_d} > \frac{D_e}{C_e} 
+\end{equation}
+\begin{equation}
+    \frac{D_e * C_d}{C_e * D_d} < 1
+\end{equation}
+
+so we have the extended robust link utilization in case one :
+
+\begin{equation}
+    (1 + \frac{D_e}{D_d}) \frac{C_d}{C_e} < \frac{C_d}{C_e} + 1
+\end{equation}
+
+
+For case two, similar to case one, all the traffic will be redirected on the other path between $F$ and $A$. There are two 
+sub cases after traffic redirection, the link $D$ is still the bottleneck or the link $E$ become the new bottleneck. In sub 
+case one:
+
+\begin{equation}
+    \frac{\frac{D_d + D_f}{C_d}}{\frac{D_d}{C_d}} = 1 + \frac{D_f}{D_d}
+\end{equation}
+
+Because the link utilization of link $d$ is the maximum one in origin topology, we have as:
+
+\begin{equation}
+    \frac{D_d}{C_d} > \frac{D_f}{C_f} 
+\end{equation}
+\begin{equation}
+    \frac{D_f}{D_d} < \frac{C_d}{C_f} 
+\end{equation}
+
+So we get the extended robust link utilization in this case :
+\begin{equation}
+    (1 + \frac{D_f}{D_d}) < \frac{C_d}{C_f} + 1
+\end{equation}
+
+In sub case two, we get the new extended robust link utilization in link $E$:
+
+\begin{equation}
+    \frac{\frac{D_e + D_d}{C_e}}{\frac{D_d}{C_d}} = \frac{D_e * C_d}{D_d * C_e} * \frac{C_d * D_f}{C_e * D_e}
+\end{equation}
+
+Similarly as mentioned above, we get equations :
+
+\begin{equation}
+    \frac{D_d}{C_d} > \frac{D_e}{C_e} => \frac{D_e * C_d}{C_e * D_d} < 1 
+\end{equation}
+\begin{equation}
+    \frac{D_d}{C_d} > \frac{D_f}{C_f} => \frac{D_f * C_d}{D_d} < C_f
+\end{equation}
+
+So we get the extended robust link utilization:
+
+\begin{equation}
+    \frac{D_e * C_d}{D_d * C_e} + \frac{C_d * D_f}{C_e * D_d} < 1 + \frac{C_f}{C_e}
+\end{equation}
+
+As a result, the upper bound of extended robust link utilization must be :
+
+\begin{equation}
+    Max\{1 + \frac{C_d}{C_e}, 1 + \frac{C_d}{C_f}, 1 + \frac{C_f}{C_e}\}
+\end{equation}
+
+Particularly, if all the links have the same capacity, the upper bound equal to 2 when switch off one link. Otherwise, the 
+upper bound only dependent to the greatest ratio of link capacity.
+ 
+\subsection{Cliques}
+In clique topology, all the nodes connect to each other, it means that situation become more difficult because the traffic
+can be adjusted to multi paths rather than one path in circle. And we will see that splitting traffic on multi paths is 
+always better than put all the traffic to one, so if we get the upper bound of the worst case, it must be the upper bound
+of other case. Similarly to circle topology, we say the link $a$ is the bottleneck, and we will switch off it or other link
+like $b$.
+
+In case one, after we switch off link $a$, the new bottleneck link must be the affected link, the link contains the origin 
+traffic on link $a$. Otherwise if the link $b$ is the bottleneck, but we adjust the traffic on other links, it means that
+we can do the same thing in the origin topology, and the bottleneck become link $b$ rather than $a$. It is conflict with our
+assumption. So we have the extended robust link utilization as :
+
+\begin{equation}
+    \frac {\frac{D_b + D_a}{C_b}}{\frac{D_a}{C_a}} = (1+\frac{D_b}{D_a}) \frac{C_a}{C_b}
+\end{equation}
+
+Because the link $a$ is the bottleneck link with the maximum link utilization, like what we do above, we can get 
+
+\begin{equation}
+    (1+\frac{D_b}{D_a}) \frac{C_a}{C_b} < 1 + \frac{C_a}{C_b}
+\end{equation}
+
+In case two, the bottleneck may still be link $a$ or the new link $c$. If it is link $a$, and no new traffic across it,
+the extended robust link utilization equal to 1 obiliously. Or we adjust the new traffic $D_b$ on it, we can get the
+extended robust link utilization:
+
+\begin{equation}
+    \frac{\frac{D_a + D_b}{C_a}}{\frac{D_a}{C_a}} = 1 + \frac{D_b}{D_a} < 1 + \frac{C_b}{C_a}
+\end{equation}
+
+If the bottleneck become new link $c$, similar to our proof of circle topology, we can get extended robust link utilization:
+\begin{equation}
+    \frac{\frac{D_c + D_b}{C_c}}{\frac{D_a}{C_a}} = \frac{D_c * C_a}{D_a * C_c} + \frac{D_b * C_a}{D_a * C_c} < 1 + \frac{C_b}{C_c}
+\end{equation}
+
+So we obtain the same conclusion as circle topology, the extended robust link utilization must be :
+
+\begin{equation}
+    Max\{1 + \frac{C_a}{C_b}, 1 + \frac{C_b}{C_a}, 1 + \frac{C_b}{C_c}\}
+\end{equation}
+
+\subsection{Other Topology}
+We can also see that, when we switch off different link, it really matters the performance which dependent on not only the 
+demand or traffic, but also the capacity of links. Particularly, the upper bound is just related with the capacity of links.
+And from our proof process, there is no special limitation for specific topology, so we can get the similar conclusion 
+on other topology.
+
+
+\section{Experiments}
+There is are experiments.
 
 
 \section{Conclusion}

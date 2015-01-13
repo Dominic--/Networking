@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  12 JAN 2015 16:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  13 JAN 2015 10:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -199,45 +199,49 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-<./png/net5.png, id=1, 631.35875pt x 305.14pt>
-File: ./png/net5.png Graphic file (type png)
- <use ./png/net5.png>
-Package pdftex.def Info: ./png/net5.png used on input line 97.
-(pdftex.def)             Requested size: 284.52756pt x 137.51659pt.
-
-Overfull \hbox (42.52756pt too wide) in paragraph at lines 97--98
-[][] 
- []
-
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 104.
+(Font)              <7> on input line 101.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 104.
+(Font)              <5> on input line 101.
+
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
- <./png/net5.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 132--135
+]
+Underfull \hbox (badness 10000) in paragraph at lines 129--132
 []\OT1/ptm/m/n/10 A com-mon met-ric for the per-for-mance of a
  []
 
 
-Underfull \hbox (badness 5189) in paragraph at lines 132--135
+Underfull \hbox (badness 5189) in paragraph at lines 129--132
 \OT1/ptm/m/n/10 given rout-ing with re-spect to a cer-tain TM is the
  []
 
-[2] <./png/3-nodes-example.png, id=23, 377.41pt x 62.2325pt>
+<./png/3-nodes-example.png, id=13, 377.41pt x 62.2325pt>
 File: ./png/3-nodes-example.png Graphic file (type png)
 
 <use ./png/3-nodes-example.png>
-Package pdftex.def Info: ./png/3-nodes-example.png used on input line 210.
+Package pdftex.def Info: ./png/3-nodes-example.png used on input line 207.
 (pdftex.def)             Requested size: 227.62204pt x 37.5335pt.
- [3 <./png/3-nodes-example.png>]
+ [2 <./png/3-nodes-example.png>] [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 338.
+(Font)              <8> on input line 335.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 338.
+(Font)              <6> on input line 335.
  [4]
+<./png/circle.png, id=35, 335.2525pt x 306.14375pt>
+File: ./png/circle.png Graphic file (type png)
+ <use ./png/circle.png>
+Package pdftex.def Info: ./png/circle.png used on input line 450.
+(pdftex.def)             Requested size: 113.81102pt x 103.92867pt.
+
+<./png/clique.png, id=36, 335.2525pt x 298.11375pt>
+File: ./png/clique.png Graphic file (type png)
+ <use ./png/clique.png>
+Package pdftex.def Info: ./png/clique.png used on input line 451.
+(pdftex.def)             Requested size: 113.81102pt x 101.20267pt.
+
+[5 <./png/circle.png> <./png/clique.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -249,14 +253,14 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
+[6
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2198 strings out of 493315
- 35315 string characters out of 6137903
- 106265 words of memory out of 5000000
- 5644 multiletter control sequences out of 15000+600000
+ 2202 strings out of 493315
+ 35412 string characters out of 6137903
+ 105265 words of memory out of 5000000
+ 5648 multiletter control sequences out of 15000+600000
  38757 words of font info for 72 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
  37i,12n,23p,243b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -280,10 +284,10 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on paper.pdf (5 pages, 241012 bytes).
+Output written on paper.pdf (6 pages, 269114 bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 103 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
