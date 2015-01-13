@@ -16,21 +16,21 @@ final_topology_base_template = "../topology/final/%s-final-topology-%d-base"
 remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
 solution_template = "%s-cplex-%0.1f.xml"
 demand_file_template = "../demand/%s-%s/%0.1f/%d.txt"
-result_file_template = "result-compare-%s"
-middle_file_template = "middle-compare-%s"
+result_file_template = "result-compare-%s-%0.1f"
+middle_file_template = "middle-compare-%s-%0.1f"
 solution_default = "global_opt_cplex_output.sol"
 files = 1000
 
 loop = 1
 w = 1.5
 
-remove_links_n = {'abilene':5, 'geant':13, 'cernet2':4}
+remove_links_n = {'abilene':5, 'geant':16, 'cernet2':4}
 
 for t in ['abilene', 'geant', 'cernet2']:
     connected_topology = connected_topology_template % t
     solution = solution_template % (t, w)
-    result_file = result_file_template % (t)
-    middle_file = middle_file_template % (t)
+    result_file = result_file_template % (t, w)
+    middle_file = middle_file_template % (t, w)
 
     global_routes = xml.get_route(solution)
     link_order = xml.get_link_order_with_attr(solution, connected_topology)
