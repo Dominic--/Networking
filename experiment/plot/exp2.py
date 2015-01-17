@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-result_file_template = "middle-compare-abilene"
+result_file_template = "middle-compare-abilene-1.5"
 count = 1000
 remove = 5
 

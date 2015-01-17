@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  13 JAN 2015 10:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  17 JAN 2015 23:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -232,16 +232,77 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 <./png/circle.png, id=35, 335.2525pt x 306.14375pt>
 File: ./png/circle.png Graphic file (type png)
  <use ./png/circle.png>
-Package pdftex.def Info: ./png/circle.png used on input line 450.
+Package pdftex.def Info: ./png/circle.png used on input line 451.
 (pdftex.def)             Requested size: 113.81102pt x 103.92867pt.
 
 <./png/clique.png, id=36, 335.2525pt x 298.11375pt>
 File: ./png/clique.png Graphic file (type png)
  <use ./png/clique.png>
-Package pdftex.def Info: ./png/clique.png used on input line 451.
+Package pdftex.def Info: ./png/clique.png used on input line 452.
 (pdftex.def)             Requested size: 113.81102pt x 101.20267pt.
 
 [5 <./png/circle.png> <./png/clique.png>]
+<./png/opr_with_remove_links.png, id=40, 497.2176pt x 411.939pt>
+File: ./png/opr_with_remove_links.png Graphic file (type png)
+
+<use ./png/opr_with_remove_links.png>
+Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 596
+.
+(pdftex.def)             Requested size: 113.81102pt x 94.2914pt.
+
+<./png/opr_with_power_saving.png, id=42, 502.9992pt x 411.939pt>
+File: ./png/opr_with_power_saving.png Graphic file (type png)
+
+<use ./png/opr_with_power_saving.png>
+Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 597
+.
+(pdftex.def)             Requested size: 113.81102pt x 93.20398pt.
+
+<./png/power_model.png, id=43, 475.7775pt x 128.48pt>
+File: ./png/power_model.png Graphic file (type png)
+
+<use ./png/power_model.png>
+Package pdftex.def Info: ./png/power_model.png used on input line 616.
+(pdftex.def)             Requested size: 227.62204pt x 61.46776pt.
+
+<./png/exp2_nosort_abilene.png, id=44, 516.0078pt x 411.939pt>
+File: ./png/exp2_nosort_abilene.png Graphic file (type png)
+
+<use ./png/exp2_nosort_abilene.png>
+Package pdftex.def Info: ./png/exp2_nosort_abilene.png used on input line 631.
+(pdftex.def)             Requested size: 113.81102pt x 90.85313pt.
+
+<./png/exp2_nosort_geant.png, id=45, 515.2851pt x 411.939pt>
+File: ./png/exp2_nosort_geant.png Graphic file (type png)
+
+<use ./png/exp2_nosort_geant.png>
+Package pdftex.def Info: ./png/exp2_nosort_geant.png used on input line 632.
+(pdftex.def)             Requested size: 113.81102pt x 90.98514pt.
+
+<./png/exp2_sort_abilene.png, id=46, 516.0078pt x 411.939pt>
+File: ./png/exp2_sort_abilene.png Graphic file (type png)
+
+<use ./png/exp2_sort_abilene.png>
+Package pdftex.def Info: ./png/exp2_sort_abilene.png used on input line 637.
+(pdftex.def)             Requested size: 113.81102pt x 90.85313pt.
+
+<./png/exp2_sort_geant.png, id=47, 516.0078pt x 411.939pt>
+File: ./png/exp2_sort_geant.png Graphic file (type png)
+
+<use ./png/exp2_sort_geant.png>
+Package pdftex.def Info: ./png/exp2_sort_geant.png used on input line 638.
+(pdftex.def)             Requested size: 113.81102pt x 90.85313pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <./png/opr_with_remove_links.png> <./png/opr_with_power_saving.png> <./png/
+power_model.png>] <./png/exp3_w.png, id=54, 502.9992pt x 411.939pt>
+File: ./png/exp3_w.png Graphic file (type png)
+
+<use ./png/exp3_w.png>
+Package pdftex.def Info: ./png/exp3_w.png used on input line 651.
+(pdftex.def)             Requested size: 227.62161pt x 113.80841pt.
+
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -253,41 +314,42 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6
+[7
 
-] (./paper.aux) ) 
+ <./png/exp2_nosort_abilene.png> <./png/exp2_nosort_geant.png> <./png/exp2_sort
+_abilene.png> <./png/exp2_sort_geant.png> <./png/exp3_w.png>] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2202 strings out of 493315
- 35412 string characters out of 6137903
+ 2242 strings out of 493315
+ 36551 string characters out of 6137903
  105265 words of memory out of 5000000
- 5648 multiletter control sequences out of 15000+600000
+ 5680 multiletter control sequences out of 15000+600000
  38757 words of font info for 72 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
  37i,12n,23p,243b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.en
-c}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on paper.pdf (6 pages, 269114 bytes).
+{/
+usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texliv
+e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2
+013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
+/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times
+/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.p
+fb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (7 pages, 817098 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
- 72 compressed objects within 1 object stream
+ 125 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

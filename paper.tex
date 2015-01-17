@@ -61,7 +61,7 @@ and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware
 the problem in two phases. REAR select sleeping links based on extended robust link utilization or algebraic 
 connectivity, and compute the routing based on a classical demand-oblivious routing algorithm. 
 We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save 
-XX\% of line card power while the performance ratio is less than XX.
+19\% of line card power while the performance ratio is less than 34\%.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -447,8 +447,10 @@ process, we will explain it in two simple topologies, cliques and cycles. On the
 there will be an upper bound for obilious performance ratio with energy constraint, and get the bound according
 to the topology. For simpleness, we refer the energy constraint to the quantity of removed links.
 
+\vspace*{0.2in}
 \includegraphics[width=4cm]{circle}
 \includegraphics[width=4cm]{clique}
+\vspace*{0.2in}
 
 \subsection{Circles}
 Cycles topology connect all the nodes by a cycle, any node in which has two links joined. Figure 1 show the six
@@ -584,8 +586,70 @@ And from our proof process, there is no special limitation for specific topology
 on other topology.
 
 
-\section{Experiments}
-There is are experiments.
+\section{Experiments and Results}
+We implemented our algorithm on real world topology, including Abilene, Geant and Cernet2, and we use Gravity model to generate
+random traffic matrix. Because we take an attribute $w$ to expand the traffic range from $1/w$ to $w$, when the $w$ increased the
+traffic varied in wider range. Particularly, when the $w$ limit extremity, we say the traffic matrix is really random, and our 
+algorithm is irrelevant with traffic.
+
+\vspace*{0.2in}
+\includegraphics[width=4cm]{opr_with_remove_links}
+\includegraphics[width=4cm]{opr_with_power_saving}
+\vspace*{0.2in}
+
+In Figure, we take $w$ as 1.5 and observe that: when we switch off more links, the OPR is increased as well. 
+It is obvious that when the topology
+lose connectivity by removing links, the worst case of robust routing must be far away from the optimal case in origin topology. And
+in Geant and Abilene, even in the origin topology, the OPR value still not be 1. It is reasonable, because our robust routing 
+is used for a range of traffic, however the optimal routing is calculated for the specific traffic matrix. But fortunately, our robust
+routing is only $24\%$ greater than the optimal routing even in its worst case of Geant. And we also see that the curve become 
+cliffy in the end, because when we remove the links the toplogy lose too much connectivity and there alwasy one path between two vertices.
+Obviously, the performance will become worse in the end. Lastly we say that although the OPR relation really different in different 
+topology, but the curve still be similar with each other, they are exponetial curve correspond with their vertices amount.
+
+
+On the other hand, we may concern how is the OPR varifying when the power saving achived besides the amount of removed links.
+Of course the more we removed the links, the more power we saved, but how to quantify the power of one link is difficult. Green
+TE proposed the simple power model for topology, which can be represented in Table x:
+
+\vspace*{0.2in}
+\includegraphics[width=8cm]{power_model}
+\vspace*{0.2in}
+
+We compute the power saving ratio as the total power of the removed links over the total power of all the links. And we can
+save 19\% power with only 34\% worse than the worst case for all the traffic in Abilene topology. In Geant and Cernet2, 
+the OPR is little higher. Also we can see that two ways for removing links perform almost the same at the begin in Geant,
+and varified at the end. It shows that we may find another better way for removing the links in the future.
+
+
+For computing the worst case, we generate 1000 traffic matrix for every topoloy and the $w$ with the Gravity Model.
+We show the each result in the Figure x and x when we remove the first 4 links in each topology. In Abilene, the result 
+is more tighter than Geant. Comparsion in two ways, we can see that in Abilene the AC method is worse than the ERLU one,
+and the downmost zone is the same in two ways, because the robust routing is same in the origin topology.
+
+\vspace*{0.2in}
+\includegraphics[width=4cm]{exp2_nosort_abilene}
+\includegraphics[width=4cm]{exp2_nosort_geant}
+\vspace*{0.2in}
+
+
+\vspace*{0.2in}
+\includegraphics[width=4cm]{exp2_sort_abilene}
+\includegraphics[width=4cm]{exp2_sort_geant}
+\vspace*{0.2in}
+
+From Figure xx and Figure xx, we sort the 1000 TMs by their OPR value, and see that most of the TMs are quite average. 
+It is said that, our metric OPR is always not be achived for most traffic matrix.
+
+
+We know when we compute the robust routing for specific topology, the $w$ is very important. When the $w$ limit extremely,
+our robust routing is said without knowledge of traffic matrix. Figure xx, show the OPR varified when $w$ changes. The greater
+the $w$ is, the greater the OPR is. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider 
+range, and our OPR is the worst case of all the traffic matrix.
+
+\vspace*{0.2in}
+\includegraphics[width=8cm,height=4cm]{exp3_w}
+\vspace*{0.2in}
 
 
 \section{Conclusion}
