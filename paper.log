@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  18 JAN 2015 14:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  18 JAN 2015 17:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -91,7 +91,12 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \@IEEEtmpitemindent=\dimen116
 \c@IEEEbiography=\count91
 \@IEEEtranrubishbin=\box26
-) (/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphicx.sty
+) (/usr/local/texlive/2013/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 373.
+Package: cite 2010/09/10  v 5.3
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/keyval.sty
@@ -156,18 +161,18 @@ Package caption Info: Unknown document class (or package),
 (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
 
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -232,21 +237,25 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 107.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 107.
 
+
+LaTeX Warning: Citation `networking:oblivious' on page 1 undefined on input lin
+e 65.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 110.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 110.
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 135--138
+Underfull \hbox (badness 10000) in paragraph at lines 138--141
 []\OT1/ptm/m/n/10 A com-mon met-ric for the per-for-mance of a
  []
 
 
-Underfull \hbox (badness 5189) in paragraph at lines 135--138
+Underfull \hbox (badness 5189) in paragraph at lines 138--141
 \OT1/ptm/m/n/10 given rout-ing with re-spect to a cer-tain TM is the
  []
 
@@ -254,24 +263,24 @@ Underfull \hbox (badness 5189) in paragraph at lines 135--138
 File: ./png/3-nodes-example.png Graphic file (type png)
 
 <use ./png/3-nodes-example.png>
-Package pdftex.def Info: ./png/3-nodes-example.png used on input line 215.
+Package pdftex.def Info: ./png/3-nodes-example.png used on input line 218.
 (pdftex.def)             Requested size: 227.62204pt x 37.5335pt.
  [2] [3 <./png/3-nodes-example.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 346.
+(Font)              <8> on input line 349.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 346.
+(Font)              <6> on input line 349.
 
 <./png/circle.png, id=26, 335.2525pt x 306.14375pt>
 File: ./png/circle.png Graphic file (type png)
  <use ./png/circle.png>
-Package pdftex.def Info: ./png/circle.png used on input line 465.
+Package pdftex.def Info: ./png/circle.png used on input line 468.
 (pdftex.def)             Requested size: 113.81102pt x 103.92867pt.
 
 <./png/clique.png, id=27, 335.2525pt x 298.11375pt>
 File: ./png/clique.png Graphic file (type png)
  <use ./png/clique.png>
-Package pdftex.def Info: ./png/clique.png used on input line 468.
+Package pdftex.def Info: ./png/clique.png used on input line 471.
 (pdftex.def)             Requested size: 113.81102pt x 101.20267pt.
 
 [4] [5 <./png/circle.png> <./png/clique.png>]
@@ -279,7 +288,7 @@ Package pdftex.def Info: ./png/clique.png used on input line 468.
 File: ./png/opr_with_remove_links.png Graphic file (type png)
 
 <use ./png/opr_with_remove_links.png>
-Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 617
+Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 620
 .
 (pdftex.def)             Requested size: 113.81102pt x 92.1409pt.
 
@@ -287,7 +296,7 @@ Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 617
 File: ./png/opr_with_power_saving.png Graphic file (type png)
 
 <use ./png/opr_with_power_saving.png>
-Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 618
+Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 621
 .
 (pdftex.def)             Requested size: 113.81102pt x 91.07828pt.
  [6 <./png/opr_with_remove_links.png> <./png/opr_with_power_saving.png>]
@@ -295,34 +304,34 @@ Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 618
 File: ./png/exp2_nosort_abilene.png Graphic file (type png)
 
 <use ./png/exp2_nosort_abilene.png>
-Package pdftex.def Info: ./png/exp2_nosort_abilene.png used on input line 672.
+Package pdftex.def Info: ./png/exp2_nosort_abilene.png used on input line 675.
 (pdftex.def)             Requested size: 113.81102pt x 88.78105pt.
 
 <./png/exp2_nosort_geant.png, id=49, 515.2851pt x 402.5439pt>
 File: ./png/exp2_nosort_geant.png Graphic file (type png)
 
 <use ./png/exp2_nosort_geant.png>
-Package pdftex.def Info: ./png/exp2_nosort_geant.png used on input line 673.
+Package pdftex.def Info: ./png/exp2_nosort_geant.png used on input line 676.
 (pdftex.def)             Requested size: 113.81102pt x 88.91003pt.
 
 <./png/exp2_sort_abilene.png, id=50, 516.0078pt x 402.5439pt>
 File: ./png/exp2_sort_abilene.png Graphic file (type png)
 
 <use ./png/exp2_sort_abilene.png>
-Package pdftex.def Info: ./png/exp2_sort_abilene.png used on input line 682.
+Package pdftex.def Info: ./png/exp2_sort_abilene.png used on input line 685.
 (pdftex.def)             Requested size: 113.81102pt x 88.78105pt.
 
 <./png/exp2_sort_geant.png, id=51, 516.0078pt x 402.5439pt>
 File: ./png/exp2_sort_geant.png Graphic file (type png)
 
 <use ./png/exp2_sort_geant.png>
-Package pdftex.def Info: ./png/exp2_sort_geant.png used on input line 683.
+Package pdftex.def Info: ./png/exp2_sort_geant.png used on input line 686.
 (pdftex.def)             Requested size: 113.81102pt x 88.78105pt.
 
 <./png/exp3_w.png, id=52, 502.9992pt x 402.5439pt>
 File: ./png/exp3_w.png Graphic file (type png)
  <use ./png/exp3_w.png>
-Package pdftex.def Info: ./png/exp3_w.png used on input line 700.
+Package pdftex.def Info: ./png/exp3_w.png used on input line 703.
 (pdftex.def)             Requested size: 227.62161pt x 113.81099pt.
 
 
@@ -337,36 +346,42 @@ Before submitting the final camera ready copy, remember to:
  process uses the appropriate paper size.
 
 [7 <./png/exp2_nosort_abilene.png> <./png/exp2_nosort_geant.png> <./png/exp2_so
-rt_abilene.png> <./png/exp2_sort_geant.png> <./png/exp3_w.png>] (./paper.aux) )
- 
+rt_abilene.png> <./png/exp2_sort_geant.png> <./png/exp3_w.png>] (./paper.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2973 strings out of 493315
- 49768 string characters out of 6137903
- 120579 words of memory out of 5000000
- 6403 multiletter control sequences out of 15000+600000
- 40481 words of font info for 74 fonts, out of 8000000 for 9000
+ 3065 strings out of 493315
+ 50966 string characters out of 6137903
+ 122449 words of memory out of 5000000
+ 6494 multiletter control sequences out of 15000+600000
+ 37661 words of font info for 71 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
  38i,12n,47p,243b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2
-013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/201
-3/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
-e1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/tim
-es/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a
-.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (7 pages, 775133 bytes).
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2
+013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
+ype1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/t
+imes/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr
+8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (7 pages, 775326 bytes).
 PDF statistics:
  123 PDF objects out of 1000 (max. 8388607)
  77 compressed objects within 1 object stream

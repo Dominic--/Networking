@@ -1,5 +1,7 @@
 \documentclass[conference]{IEEEtran}
 
+\usepackage{cite}
+
 \ifCLASSINFOpdf
    \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
@@ -24,6 +26,7 @@
 \else
     \usepackage[caption=false,font=footnotesize]{subfig}
 \fi
+
     
 
 % correct bad hyphenation here
@@ -58,10 +61,10 @@ are changing frequently. This makes the approaches difficult to implement. Furth
 frequently, and is not robust to sudden traffic changes.
 
 In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic 
-matrices, in particular, to arbitrary traffic demands. Such a routing without energy consideration is known as 
-the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy 
+matrices, particularly to arbitrary traffic demands. Such a routing without energy consideration is known as 
+the demand-oblivious routing, and is well studied\cite{networking:oblivious}. However, the problem becomes much more challenging when energy 
 conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance 
-ratio with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
+ratio (OPR) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
 certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
 and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve 
 the problem in two phases. REAR select sleeping links based on extended robust link utilization or algebraic 
@@ -704,7 +707,7 @@ range, and our OPR is the worst case of all the traffic matrix.
 
 
 \section{Related Work}
-related work
+related work.
 
 
 \section{Conclusion}
@@ -712,10 +715,14 @@ The conclusion goes here.
 
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{networking:greente}
+M.Zhang, C.Yi, B.Liu and B.Zhang, "GreenTE: Power-Aware Traffic Engineering".
+
+\bibitem{networking:oblivious}
+D.Applegate and E.Cohen, "Making Intra-Domain Routing Robust to Changing and Uncertain Traffic Demands: Understanding Fundamental Tradeoffs".
+
 \end{thebibliography}
+
 
 % that's all folks
 \end{document}
