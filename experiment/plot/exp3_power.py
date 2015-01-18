@@ -132,10 +132,9 @@ for t in ['geant']:
 
 plt.xlabel('Power Saving')
 plt.ylabel('Oblivious Performance Ratio')
-plt.title('OPR with Power Saving')
 plt.legend(line_list, label_list, loc=2)
 
 #plt.show()
-plt.savefig('exp1.png', bbox_inches='tight')
+plt.savefig('exp3_w.png', bbox_inches='tight')
 
 

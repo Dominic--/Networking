@@ -131,10 +131,9 @@ for t in ['abilene', 'geant', 'cernet2']:
 
 plt.xlabel('Power Saving')
 plt.ylabel('Oblivious Performance Ratio')
-plt.title('OPR with Power Saving')
 plt.legend(line_list, label_list, loc=2)
 
-plt.show()
-#plt.savefig('exp1.png', bbox_inches='tight')
+#plt.show()
+plt.savefig('exp1_power.png', bbox_inches='tight')
 
 

@@ -19,9 +19,15 @@
   % \DeclareGraphicsExtensions{.eps}
 \fi
 
+\ifCLASSOPTIONcompsoc
+    \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+    \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
+    
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
-
 
 \begin{document}
 
@@ -29,13 +35,13 @@
 
 
 \author{\IEEEauthorblockN{Heng Lin}
-\IEEEauthorblockA{Tsinghua University}
+\IEEEauthorblockA{Tsinghua University \\ henglin1991@gmail.com}
 \and
 \IEEEauthorblockN{Mingwei Xu}
-\IEEEauthorblockA{Tsinghua University}
+\IEEEauthorblockA{Tsinghua University \\ xmw@cernet.edu.cn}
 \and
 \IEEEauthorblockN{Yuan Yang}
-\IEEEauthorblockA{Tsinghua University}}
+\IEEEauthorblockA{Tsinghua University \\ yyang@csnet1.cs.tsinghua.edu.cn}}
 
 
 % make the title area
@@ -203,9 +209,14 @@ for the first traffic matrix, whose maximum link utilization is 0.5. we will tra
 lower link for the second traffic matrix, whose maximum link utilization is 0.5 as well.
 
 
-\vspace*{0.2in}
+\begin{figure}[!t]
+\centering
+\vspace*{0.1in}
 \includegraphics[width=8cm]{3-nodes-example}
-\vspace*{0.2in}
+\caption{Model Example}
+\label{label}
+\vspace*{0.1in}
+\end{figure}
 
 
 Now for some reason, we will choose one link to shut down for power saving without lose connection of the network. 
@@ -447,10 +458,18 @@ process, we will explain it in two simple topologies, cliques and cycles. On the
 there will be an upper bound for obilious performance ratio with energy constraint, and get the bound according
 to the topology. For simpleness, we refer the energy constraint to the quantity of removed links.
 
-\vspace*{0.2in}
-\includegraphics[width=4cm]{circle}
-\includegraphics[width=4cm]{clique}
-\vspace*{0.2in}
+\begin{figure}[!t]
+\centering
+\vspace*{0.1in}
+\subfloat[Circle]{\includegraphics[width=4cm]{circle}
+\label{subfiga}}
+\hfill
+\subfloat[Clique]{\includegraphics[width=4cm]{clique}
+\label{subfigb}}
+\caption{Circle and Clique topology of 6 nodes}
+\vspace*{0.1in}
+\end{figure}
+
 
 \subsection{Circles}
 Cycles topology connect all the nodes by a cycle, any node in which has two links joined. Figure 1 show the six
@@ -592,10 +611,14 @@ random traffic matrix. Because we take an attribute $w$ to expand the traffic ra
 traffic varied in wider range. Particularly, when the $w$ limit extremity, we say the traffic matrix is really random, and our 
 algorithm is irrelevant with traffic.
 
-\vspace*{0.2in}
-\includegraphics[width=4cm]{opr_with_remove_links}
-\includegraphics[width=4cm]{opr_with_power_saving}
-\vspace*{0.2in}
+\begin{figure}[!t]
+\centering
+\vspace*{0.1in}
+\subfloat{\includegraphics[width=4cm]{opr_with_remove_links}}
+\subfloat{\includegraphics[width=4cm]{opr_with_power_saving}}
+\caption{OPR with Power Saving}
+\vspace*{0.1in}
+\end{figure}
 
 In Figure, we take $w$ as 1.5 and observe that: when we switch off more links, the OPR is increased as well. 
 It is obvious that when the topology
@@ -612,9 +635,25 @@ On the other hand, we may concern how is the OPR varifying when the power saving
 Of course the more we removed the links, the more power we saved, but how to quantify the power of one link is difficult. Green
 TE proposed the simple power model for topology, which can be represented in Table x:
 
-\vspace*{0.2in}
-\includegraphics[width=8cm]{power_model}
-\vspace*{0.2in}
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1}
+\caption{Green TE Power Model}
+\label{power model}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\bfseries Line-Card & \bfseries Speed(Mbps) & \bfseries Power(Watts) \\
+\hline
+1-Port OC3 & 155.52 & 60 \\
+\hline
+8-Port OC3 & 1244.16 & 100 \\
+\hline
+1-Port OC48 & 2488.32 & 140 \\
+\hline
+1-Port OC192 & 9953.28 & 174 \\
+\hline
+\end{tabular}
+\end{table}
 
 We compute the power saving ratio as the total power of the removed links over the total power of all the links. And we can
 save 19\% power with only 34\% worse than the worst case for all the traffic in Abilene topology. In Geant and Cernet2, 
@@ -627,16 +666,24 @@ We show the each result in the Figure x and x when we remove the first 4 links i
 is more tighter than Geant. Comparsion in two ways, we can see that in Abilene the AC method is worse than the ERLU one,
 and the downmost zone is the same in two ways, because the robust routing is same in the origin topology.
 
-\vspace*{0.2in}
-\includegraphics[width=4cm]{exp2_nosort_abilene}
-\includegraphics[width=4cm]{exp2_nosort_geant}
-\vspace*{0.2in}
+\begin{figure}[!t]
+\centering
+\vspace*{0.1in}
+\subfloat{\includegraphics[width=4cm]{exp2_nosort_abilene}}
+\subfloat{\includegraphics[width=4cm]{exp2_nosort_geant}}
+\caption{Nosort: (a). Abilene (b).Geant}
+\vspace*{0.1in}
+\end{figure}
 
 
-\vspace*{0.2in}
-\includegraphics[width=4cm]{exp2_sort_abilene}
-\includegraphics[width=4cm]{exp2_sort_geant}
-\vspace*{0.2in}
+\begin{figure}[!t]
+\centering
+\vspace*{0.1in}
+\subfloat{\includegraphics[width=4cm]{exp2_sort_abilene}}
+\subfloat{\includegraphics[width=4cm]{exp2_sort_geant}}
+\caption{Sort: (a). Abilene (b).Geant}
+\vspace*{0.1in}
+\end{figure}
 
 From Figure xx and Figure xx, we sort the 1000 TMs by their OPR value, and see that most of the TMs are quite average. 
 It is said that, our metric OPR is always not be achived for most traffic matrix.
@@ -647,9 +694,17 @@ our robust routing is said without knowledge of traffic matrix. Figure xx, show 
 the $w$ is, the greater the OPR is. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider 
 range, and our OPR is the worst case of all the traffic matrix.
 
-\vspace*{0.2in}
+\begin{figure}
+\centering
+\vspace*{0.1in}
 \includegraphics[width=8cm,height=4cm]{exp3_w}
-\vspace*{0.2in}
+\caption{OPR with w relationship}
+\vspace*{0.1in}
+\end{figure}
+
+
+\section{Related Work}
+related work
 
 
 \section{Conclusion}
