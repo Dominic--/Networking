@@ -1,5 +1,10 @@
 \documentclass[conference]{IEEEtran}
 
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
 \usepackage{cite}
 
 \ifCLASSINFOpdf
@@ -62,7 +67,7 @@ frequently, and is not robust to sudden traffic changes.
 
 In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic 
 matrices, particularly to arbitrary traffic demands. Such a routing without energy consideration is known as 
-the demand-oblivious routing, and is well studied\cite{networking:oblivious}. However, the problem becomes much more challenging when energy 
+the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy 
 conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance 
 ratio (OPR) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
 certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
@@ -76,34 +81,52 @@ We evaluate our algorithms on real and synthetic topologies. The simulation resu
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-We aim to find the ``robust'' route for all possible traffic matrix, not only consider performance but also energy 
-consumption in network.
-
-\section{Motivation}
-Suppose two hosts named host A and host B, and there are three links between 
-them, respectively, capacity with 2M, 3M and 5M. Now demands come, with 1M from A to B. we regard the capacity 
-as the power of the link, and the minimum maximum utilization of network links as a metric of the network performance. 
-There are two directions for operating this example. One consider the min power consumption except for the 
-utilization, it is obviously that we should close the larger power consuming links, such as the 5M and 3M links, and 
-all the traffic go through the 2M link. In this way, the min max utilization of network is 0.5 and the power consuming 
-is 2 units (means the power difference come from the link mainly). The other consider the power except for the 
-utilization reversely, so we should split the 1M traffic to three parts, 0.2M across 2M link, 0.3M across 3M link and 
-0.5M across 5M, consequently with a min max utilization of 0.1, but the power is 10 units however.
-
-Two directions mentioned above both are extremely single-consideration. Previous researchers solve the problem more 
-considerable, include ``GreenTE'' and ``a\%-green is engouh''. The former set a threshold of min max utilization, 
-close links as many as possible to achive the most power saving. And the latter one set a destination of the power 
-saving, calculate optimal route for get the min max utilization. Two work have their restriction, which both need a 
-specific traffic matrix that as base of their optimization.
-
-But the need of precise current traffic matrix shound be carefully checked. Although some researcher contribute to this 
-area, the real precise traffic matrix still be a challenge. Take a step back, the dynamic of traffic matrix is more 
-diffcult even if we obtain the precise current one. Futhermore, ISP will not want to change their route policy 
-frequently, as it will result in other route failure possiblly. So our question is that : Is there exist a route both 
-satisfy power and utilization requirement for any traffic matrix given?
+Internet was playing a more and more important role in our daily life, as an huge and indispensable communication system
+it also has its considerable share in energy consumption. Devices such as routers and switchs contributed to the most
+consumption because of inefficient energy management solutions, which made the devices always working in full mode 
+regardless of traffic demands. In particular, even there are no traffic in the link between two routers or switches, 
+the line cards related to the link were still working and in previous research line cards are the main energy consuming part of
+routers or switches. So for energy consideration, we should obtain link-level solutions which switched the link (line cards)
+to sleep mode if there is no traffic on it.
 
 
-David Applegate propose a method for obtain a route wihich is ``robust'' to variations in demands for a specific network topology. 
+Usually, We computed routing to stipulate how is the traffic going, aimed to achieved some traffic engineering goals such as 
+the maximum link utilization ratio (MLUR). In details, we used traffic demands and network topology as input for routing 
+computation process, then combined routing and traffic demands to get the traffic on each link, based on which we determind
+which link can be put to sleep. However, measuring and predicting accurate traffic demands are difficult, so did the dynamic
+natrue. Even getting all knowledge about traffic demands, the related routing shift frequently when the traffic demands
+changes. It means that we should change the link (line cards) working mode frequently according to routing, and it is 
+unpractical. So the robust routing is needed, which based on the approximate traffic demands and was robust to sudden traffic changes.
+Such a routing is known as the demand-oblivious routing and is well studied in \cite{networking:oblivious}, which proposed
+the algorithm for computing robust routing with uncertain traffic demands on specific topology.
+
+
+Unfortunately, there is no metric in such robust routing to measure the importance of links, in another word, we have no 
+ideas to put which link to sleep mode. Furthermore, when some links are switched off and the topology changed actually, but we 
+still have no ideas on how to adjust the routing in final topology. Another challenge is that, to achieve the power saving
+goals we may should switch off not only one link, and it is a classical NP-Hard problem. To overcome the challenges,
+we define a metric namely extended robust link utilization (ERLU) to measure the traffic engineering natrue without real traffic 
+demands, and define oblivious performance ratio (OPR) to reflect the MLUR distance from a routing to the optimal
+when certain energy conservation requirement is satisfied. We use algebraic connectivity \cite{networking:algebraic} and 
+ERLU as criterion to switch off links, and use OPR to adjust routing.
+
+
+Our main contribution in this paper contains three aspects. Firstly, we model the problem of minimizing the OPR, then
+analyze the lower and the upper bounds. Secondly, we proposed an heuristic algorithm named Robust Energy-Aware Routing (REAR) 
+to solve the problem in two phases, included choosing links to sleep and adjust routing. Thirdly, we implemented our
+algorithm in real topology and arbitrary traffic demands to observe the relationship between power saving and OPR. The
+simulation results show that REAR can save 19\% of line card power while OPR is less than 34\% in some topology. Also 
+we investigate the path stretching problem.
+
+
+The rest of the paper is organized as follows. Section \Rmnum{2} reviews the related work and Section \Rmnum{3}
+define two new metric and model our problem. Following we proposed our algorithm in Section \Rmnum{4}. For understanding
+more clear on our problem, we give two simple samples and prove the bounds in Section \Rmnum{5}. Experiments are discribed
+and result are showed in Section \Rmnum{6}. We discuss issues and future work in Section \Rmnum{7}, then conclude in 
+Section \Rmnum{8}
+
+\section{Related Work}
+related work
 
 
 \section{Model}
@@ -706,8 +729,8 @@ range, and our OPR is the worst case of all the traffic matrix.
 \end{figure}
 
 
-\section{Related Work}
-related work.
+\section{Future and Issue}
+Future and Issue
 
 
 \section{Conclusion}
