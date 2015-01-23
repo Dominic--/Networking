@@ -72,7 +72,7 @@ conservation is involved. To overcome the challenges, we first define a new metr
 ratio (OPR) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
 certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
 and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve 
-the problem in two phases. REAR select sleeping links based on extended robust link utilization or algebraic 
+the problem in two phases. REAR select sleeping links based on extended robust link utilization (ERLU) or algebraic 
 connectivity, and compute the routing based on a classical demand-oblivious routing algorithm. 
 We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save 
 19\% of line card power while the performance ratio is less than 34\%.
@@ -81,48 +81,48 @@ We evaluate our algorithms on real and synthetic topologies. The simulation resu
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-Internet was playing a more and more important role in our daily life, as an huge and indispensable communication system
-it also has its considerable share in energy consumption. Devices such as routers and switchs contributed to the most
-consumption because of inefficient energy management solutions, which made the devices always working in full mode 
-regardless of traffic demands. In particular, even there are no traffic in the link between two routers or switches, 
-the line cards related to the link were still working and in previous research line cards are the main energy consuming part of
-routers or switches. So for energy consideration, we should obtain link-level solutions which switched the link (line cards)
-to sleep mode if there is no traffic on it.
+Internet is playing a more and more important role in our daily life, as an huge and indispensable communication system
+it has considerable share in energy consumption. Network components such as routers and switchs contribute to the prominent
+consumption part on account of inefficient energy management solutions, which makes the devices always working in full mode 
+regardless of traffic demands. In particular, even there are no traffic on the link between two routers or switches, 
+the line cards related to the link are still working. Line cards are the main part of energy consuming in routers or switches 
+which is researched in previous work. For the energy consideration, we should obtain link-level solutions that
+switches the link (line cards) to sleep mode if possible.
 
 
-Usually, We computed routing to stipulate how is the traffic going, aimed to achieved some traffic engineering goals such as 
-the maximum link utilization ratio (MLUR). In details, we used traffic demands and network topology as input for routing 
-computation process, then combined routing and traffic demands to get the traffic on each link, based on which we determind
-which link can be put to sleep. However, measuring and predicting accurate traffic demands are difficult, so did the dynamic
-natrue. Even getting all knowledge about traffic demands, the related routing shift frequently when the traffic demands
-changes. It means that we should change the link (line cards) working mode frequently according to routing, and it is 
-unpractical. So the robust routing is needed, which based on the approximate traffic demands and was robust to sudden traffic changes.
-Such a routing is known as the demand-oblivious routing and is well studied in \cite{networking:oblivious}, which proposed
+Usually, We compute routing to stipulate how is the traffic going, to achieve some traffic engineering goals such as 
+the maximum link utilization ratio (MLUR). In details, we use traffic demands and network topology as input for
+computation, then combine routing and traffic demands to get the traffic on each link, based on which we determind
+which link can be put to sleep. However, measuring and predicting accurate traffic demands are difficult, so does its dynamic
+natrue. Although we have obtained all knowledge about traffic demands, the corresponding routing may shift frequently 
+when the traffic demands change. It means that we should change the link (line cards) working mode frequently as well, 
+of course it is unpractical. So we need the routing be robust to sudden traffic changes, and based on the approximate traffic demands.
+Such a routing is known as the demand-oblivious routing and is well studied in \cite{networking:oblivious}, which proposes
 the algorithm for computing robust routing with uncertain traffic demands on specific topology.
 
 
 Unfortunately, there is no metric in such robust routing to measure the importance of links, in another word, we have no 
-ideas to put which link to sleep mode. Furthermore, when some links are switched off and the topology changed actually, but we 
-still have no ideas on how to adjust the routing in final topology. Another challenge is that, to achieve the power saving
+idea to put which link to sleep mode. Furthermore, when some links are switched off and the topology changed actually, but we 
+still have no idea for how to adjust the routing in result topology. Another challenge is that, to achieve the power saving
 goals we may should switch off not only one link, and it is a classical NP-Hard problem. To overcome the challenges,
-we define a metric namely extended robust link utilization (ERLU) to measure the traffic engineering natrue without real traffic 
-demands, and define oblivious performance ratio (OPR) to reflect the MLUR distance from a routing to the optimal
-when certain energy conservation requirement is satisfied. We use algebraic connectivity \cite{networking:algebraic} and 
+we define a metric namely extended robust link utilization (ERLU) to measure the traffic engineering natrue of link without real traffic 
+demands, and define oblivious performance ratio (OPR) to reflect the MLUR distance from a routing to the optimal one
+when certain energy conservation requirement is satisfied. In our algorithm, we use algebraic connectivity \cite{networking:algebraic} and 
 ERLU as criterion to switch off links, and use OPR to adjust routing.
 
 
-Our main contribution in this paper contains three aspects. Firstly, we model the problem of minimizing the OPR, then
-analyze the lower and the upper bounds. Secondly, we proposed an heuristic algorithm named Robust Energy-Aware Routing (REAR) 
-to solve the problem in two phases, included choosing links to sleep and adjust routing. Thirdly, we implemented our
-algorithm in real topology and arbitrary traffic demands to observe the relationship between power saving and OPR. The
-simulation results show that REAR can save 19\% of line card power while OPR is less than 34\% in some topology. Also 
+Our main contribution in this paper is three-fold. Firstly, we model the problem of minimizing the OPR, then
+analyze the lower and the upper bounds. Secondly, we propose an heuristic algorithm named Robust Energy-Aware Routing (REAR) 
+to solve the problem in two phases, includes choosing links to sleep and adjusting routing. Thirdly, we implement our
+algorithm on real topology and arbitrary traffic demands to observe the relationship between energy conservation and OPR. The
+simulation results show that REAR can save 19\% power of line cards while OPR is less than 34\% in some topology. Also 
 we investigate the path stretching problem.
 
 
 The rest of the paper is organized as follows. Section \Rmnum{2} reviews the related work and Section \Rmnum{3}
-define two new metric and model our problem. Following we proposed our algorithm in Section \Rmnum{4}. For understanding
-more clear on our problem, we give two simple samples and prove the bounds in Section \Rmnum{5}. Experiments are discribed
-and result are showed in Section \Rmnum{6}. We discuss issues and future work in Section \Rmnum{7}, then conclude in 
+defines two metric and models our problem. Following we propose our algorithm in Section \Rmnum{4}. For clearer understanding
+on our problem, we give two simple samples and prove the bounds in Section \Rmnum{5}. Experiments are discribed
+and result are showed in Section \Rmnum{6}. We discuss issues and future work in Section \Rmnum{7}, then conclude our wok in 
 Section \Rmnum{8}
 
 \section{Related Work}
@@ -130,60 +130,59 @@ related work
 
 
 \section{Model}
-We model the network as a undirected graph $G = (V, E)$, where $V$ is the set of vertices (i.e., routers and end hosts), 
-and $E$ is the set of links (either link between routers or router and end-host). In graph $G$, two vertices $u$ and $v$
+The network is modeled as a undirected graph $G = (V, E)$, where $V$ is the set of vertices (i.e., routers, switches 
+and end hosts), and $E$ is the set of links. In graph $G$, two vertices $u$ and $v$
 are called connected if $G$ contains a path between $u$ and $v$. Then We say graph $G$ is connected, if and only if 
 arbitrary pair of vertices in the graph is connected.
 
-Let $\theta(G) = \{ (V, E - \{ e \}) | e \in E \}$ denote the network set after closing/removing the link $e$ from
-$G$. Then, choosing the connected graph from $\theta(G)$ to consist a new set, denoted by 
-$\Theta(G) = \{G | G \in \theta(G) \ \& \& \ G\ is\ connected\}$. We call $\Theta(G)$ as successor of $G$.
+Let $\theta(G) = \{ (V, E - \{ e \}) | e \in E \}$ denote the network set after removing the link $e$ from
+$G$. Then, choosing the connected graph from $\theta(G)$ to consist of a new set, denoted by 
+$\Theta(G) = \{G | G \in \theta(G) \ \&\& \ G\ is\ connected\}$. We call $\Theta(G)$ as successor of $G$.
 
-A $traffic\ matrix$ (abbreviation as TM below) is the set of traffic between each Origin-Destination(OD) pair in 
-network $G$, and a $routing$ specifies how traffic of each OD pair is routed across the network. Usually, there are 
-multiple paths for each OD pair and each path routes a fraction of the traffic. Let $m$ denote the $traffic\ matrix$, 
-which can be represented by a set of trinary group like $(a, b, d_{ab}$, where $a$ and $b$ is the origin and 
-destination of pair respectively, $d_{ab}$ is the traffic demand of the OD pair. 
+A traffic matrix (abbreviation as TM below) is the set of traffic demands between each Origin-Destination(OD) pair in 
+network $G$, and the $routing$ specifies how traffic of each OD pair is routed across the network. Usually, there are 
+multiple paths for each OD pair and each path routes a fraction of the traffic.
+TM can be represented by a set of trinary group like $(a, b, d_{ab})$, where $a$ and $b$ is the origin and 
+destination node respectively, $d_{ab}$ is the traffic demand between the OD pair. 
 
 Let $r$ denote the $routing$ mentioned above, which is specified by a set of values $f_{ab}(i,j)$ that specifies the 
 fraction of demand from $a$ to $b$ that is routed on the link $(i,j)$. So an OD pair contribute to the traffic of 
 link $(i,j)$ is $d_{ab}f_{ab}(i,j)$, and all the traffic across link $(i,j)$ can be calculated as :
 \begin{equation}
-	\sum_{(a,b,d_{ab}\in m)} d_{ab}f_{ab}(i,j)
+	\sum_{(a,b,d_{ab})\in TM} d_{ab}f_{ab}(i,j)
 \end{equation}
 
-Futhermore, we define the utilization of link as traffic acorss the link divide capacity of the link, as ;
+Futhermore, we define the utilization of link as traffic acorss the link divide the capacity of link, as ;
 \begin{equation}
 	u_{ij} = \frac{\sum_{a,b} d_{ab}f_{ab}(i,j)}{cap_{ij}}
 \end{equation}
 where $cap_{ij}$ is the capacity of the link $(i,j)$.
 
-A common metric for the performance of a given routing with respect to a certain TM is the $maximum\ link\ utilization$.
-This is the maximum utilization of link over all ones, Formally, the maximum link utilization of a routing $r$ on 
+A common metric of the performance for a given routing respect to a certain TM is the maximum link utilization ratio (MLUR).
+This is the maximum one of all links, Formally, the maximum link utilization ratio of a routing $r$ on 
 TM $m$ in network $G(V,E)$ is 
 \begin{equation}
 	U_{r, m, G} = \max_{(i,j)\in E} u_{ij}
 \end{equation}
 
-The $optimal\ routing$ in all the possible route $R$ for network $G$ is a routing which minimize the maximum utilization,
-the minimum maximum utilization is called optimal utilization, can be represented by :
+The optimal routing in all possible routes $R$ for network $G$ is a routing which minimize the MLUR,
+the minimum maximum link utilization ratio is called optimal utilization, can be represented by :
 \begin{equation}
 	OptU_{m, G} = \min_{r\in R} U_{r, m, G}
 \end{equation}
 
-The $performance\ ratio$ of a given routing $r$ on a given TM $m$ and a given network $G$ meaures how far from being 
-optimal, it is defined as the maximum link utilization divided by optimal utilization on the $m$ and $G$, as following : 
+The performance ratio of a given routing $r$ on a given TM $m$ and a given network $G$ meaures how far from the routing to
+the optimal one, it is defined as the MLUR divided by optimal utilization, as following : 
 \begin{equation}
 	P(\{ r \},\{ m \}, G) = \frac{U_{r,m,G}}{OptU_{m,G}}
 \end{equation}
 
-We now extend the definition of performance ratio of a routing to be with respect to a set of TMs $M$. 
+We now extend the definition of performance ratio of a routing, from the specific TM $m$ to TM set $M$. 
 \begin{equation}
 	P(\{ r \}, M, G) = \max_{m\in M} P(\{ r \}, \{ m \}, G)
 \end{equation}
 
-Obviously, the optimal routing in routing set $R$ for the set of TMs is a routing which minimize the extended 
-performance ratio, such as :
+Obviously, the optimal routing in routing set $R$ is the routing which minimize the extended performance ratio, such as :
 \begin{equation}
 	P(R, M, G) = \min_{r\in R} P(\{ r \}, M, G)
 \end{equation}
@@ -200,11 +199,11 @@ links are not always the same with each other, such as their capacity.
 
 The reason for the ``fake robust'' is that, the routing in the successor graph (i.e. $L$ in above example) become 
 unique, the current routing always be the optimal routing. More generally, we should make a little modification
-for the $performance\ ratio$ as the network self changes.
+for the performance ratio when the network self changes.
 
-Let $G$ be the origin network, and the $G^* \in \Theta(G)$ be the successor network from $G$ after closing/removing
-some link, we define $performance\ ratio\ between\ different\ graphs$ as the performance ratio of successor graph divide 
-the optimal performance ratio of father graph, like :
+Let $G$ be the origin network, and the $G^* \in \Theta(G)$ be the successor network from $G$ after removing
+some links, we define extended performance ratio between different graphs as the MLUR of successor graph divide 
+the optimal utilization of origin graph, and get the minimum value of all routings, like :
 \begin{equation}
 	P(R^*, \{ m\}, G, G^*) = \min_{r \in R^*} \frac{U_{r,m,G^*}}{OptU_{m,G}}
 \end{equation}
@@ -218,17 +217,17 @@ performance ratio when the TM is $m \in M$, described as following :
 \end{equation}
 
 Now we can say that, if a successor network arrive the minimum performance ratio, it is the ``robust'' successor 
-network graph. Formally, we define the performance ratio as $optimal\ successor\ performance\ ratio$ :
+network graph. Formally, we define the performance ratio as optimal successor performance ratio :
 \begin{equation}
 	P^{*}(M, G) = \min_{G^* \in \Theta(G)} P(R^*, M, G, G^*)
 \end{equation}
 where $M$ is the TM set, and $R^*$ is routing set. 
 
-If the scope of $M$ is large engouh, the optimal successor network graph is alwo independent from specific TM. 
+If the scope of $M$ is large engouh, the optimal successor network graph is also independent from specific TM. 
 
 \subsection{Model Example}
-We will take an example to explain how to choose the link to close in our experiment.
-Three hostes include : A, B, C, Three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose 
+We will take an example to explain how to choose the link to close in our algorithm.
+Three hostes include : A, B, C, three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose 
 there are two TM : ${(A,B,2M), (A,C,1M)}$ and ${(A,B,1M), (A,C,1M)}$. For each traffic matrix, the optimal route is 
 obvious, we will trace 2M from A to B across the lower link and trace the 1M from A to C across the upper one 
 for the first traffic matrix, whose maximum link utilization is 0.5. we will trace all the traffic acorss the
@@ -255,10 +254,10 @@ the one which 3M link is closed.
 
 \section{Algorithm}
 In our paper, Robust Energy-Aware Routing (REAR) algorithm works in two phases. Firstly, REAR select links 
-should be sleeping from the origin topology based on extended robust link utilization or algebraic connectivity, 
+should be put to sleep from the origin topology based on extended robust link utilization or algebraic connectivity, 
 then compute the robust routing by demand-oblivious routing algorithm. There are two metrics
 for selecting removed links, our two-phase algorithm is flexible because we can replace the metric with whatever
-metric which will be proposed in the future.
+metric.
 
 
 \subsection{Algebraic Connectivity}
@@ -283,7 +282,7 @@ where $D(G)$ is the Degree Matrix and $A(G)$ is the Adjacency Matrix.
 In the mathematical field of graph theory, the number of eigenvalues equal to 0 is the number of connected 
 componements of $G$, so the smallest eigenvalue always be 0 in arbitrary graph . And we call the second smallest one as
 algebraic connectivity, which is greater than 0 if and only if graph $G$ is connected. Further more,  
-it measures the connectivity and stability of graph, the greater of which, the more connective of graph;
+it measures the connectivity and stability of graph, the greater of the value, the more connective of graph;
 and it is a metric of average distance between any two vertices of graph $G$. We call the algebraic connectivity as
 $\lambda_2(G)$.
 
@@ -303,18 +302,18 @@ Further more, some link will play a more important role in the connectivity of g
 of network topology. And we say a link $l$ affect more if $\Delta_l$ is greater.
 
 \subsection{Extended Robust Link Utilization}
-The demand-oblivious routing is well studied before, which means that this routing is not always the best one for 
-specific $TM$, but good enough for a range of $TMs$. we mentioned the definition of link utilization above when 
+The demand-oblivious routing is not always the best one for 
+specific $TM$, but good enough for a range of $TM$. we mentioned the definition of link utilization above when 
 demand and routing are determined, as demand become oblivious, the definition is also not suitable. So we define
-a notation named $extended\ robust\ link\ utilization$ replace the normal link utilization like :
+a notation named extended robust link utilization (ERLU) replace the normal link utilization like :
 \begin{equation}
 	u^e_{ij} = \frac {\sum_{a,b}f_{ab}(i,j)} {cap_{ij}}
 \end{equation}
 
 
-Proposing this definition for two consideration: firstyly, the more flows across the link, the greater the $u^e_{ij}$ is;
-secondly, the more fraction of traffic in one flow across the link, the greater the $u^e_{ij}$ is. The link with greater
-extended robust link utilization is also more important than others in a sense. Although there is no demand here, we mean
+Proposing this definition for two consideration: firstly, the more flows across the link, the greater the $u^e_{ij}$ is;
+secondly, the more fraction of one flow across the link, the greater the $u^e_{ij}$ is. The link with greater
+ERLU is also more important than others in a sense. Although there is no demand here, we mean
 there is more probability that this link have greater link utilization when specific demand come. Similarly, we define 
 the impact of link $l$ as :
 \begin{equation}
@@ -339,7 +338,7 @@ where $\Delta_{l_i} < \Delta_{l_j}$.
 
 
 Pay attention we only compute the link impact once at the begining of algorihtm, and the ordered list $\Gamma$ show 
-the order of `importance` among links in the graph. 
+the order of `importance' among links in the graph. 
 
 
 Now we begin selecting which links should be sleep.
@@ -353,10 +352,10 @@ stop until all the links in $\Gamma$ is tried but no one is satisfied with both 
 
 
 So before going ahead our algorithm, there is another thing we should done, how to measure the power of graph.
-We simple take an power model from `Green TE` showed in Table xx, and defined the difference of power consumption 
+We simple take an power model from \cite{networking:greente} showed in Table \Rmnum{1}, and defined the difference of power consumption 
 between two graphs as:
 \begin{equation}
-	diff_p = \rho(G_{S, l}^o) / \rho(G^o) * 100
+	diff_p = \frac{\rho(G_{S, l}^o)} {\rho(G^o)} * 100
 \end{equation}
 where $\rho(G_{S, l}^o)$ is the power consumption of the final graph, when the links set $S$ and 
 link $l$ are both removed from the origin graph $G^o$, and the $\rho(G^o)$ is the power consumption of 
@@ -630,6 +629,16 @@ demand or traffic, but also the capacity of links. Particularly, the upper bound
 And from our proof process, there is no special limitation for specific topology, so we can get the similar conclusion 
 on other topology.
 
+\begin{figure*}[!t]
+\centering
+\vspace*{0.1in}
+\subfloat{\includegraphics[width=6cm]{exp2_sort_cernet2}}
+\subfloat{\includegraphics[width=6cm]{exp2_sort_abilene}}
+\subfloat{\includegraphics[width=6cm]{exp2_sort_geant}}
+\caption{Sort: (a). Abilene (b).Geant}
+\vspace*{0.1in}
+\end{figure*}
+
 
 \section{Experiments and Results}
 We implemented our algorithm on real world topology, including Abilene, Geant and Cernet2, and we use Gravity model to generate
@@ -692,24 +701,8 @@ We show the each result in the Figure x and x when we remove the first 4 links i
 is more tighter than Geant. Comparsion in two ways, we can see that in Abilene the AC method is worse than the ERLU one,
 and the downmost zone is the same in two ways, because the robust routing is same in the origin topology.
 
-\begin{figure}[!t]
-\centering
-\vspace*{0.1in}
-\subfloat{\includegraphics[width=4cm]{exp2_nosort_abilene}}
-\subfloat{\includegraphics[width=4cm]{exp2_nosort_geant}}
-\caption{Nosort: (a). Abilene (b).Geant}
-\vspace*{0.1in}
-\end{figure}
 
 
-\begin{figure}[!t]
-\centering
-\vspace*{0.1in}
-\subfloat{\includegraphics[width=4cm]{exp2_sort_abilene}}
-\subfloat{\includegraphics[width=4cm]{exp2_sort_geant}}
-\caption{Sort: (a). Abilene (b).Geant}
-\vspace*{0.1in}
-\end{figure}
 
 From Figure xx and Figure xx, we sort the 1000 TMs by their OPR value, and see that most of the TMs are quite average. 
 It is said that, our metric OPR is always not be achived for most traffic matrix.

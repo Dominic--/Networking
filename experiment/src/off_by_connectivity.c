@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
 	int remove_link_n = 0;
 	FILE *remove = fopen(argv[5], "w");
 	for (int i = 0; i < links_n; i++) {
+        printf("%d\n", i);
 		double backup = matrix[links[i].s * nodes_n + links[i].d];
 
 		matrix[links[i].s * nodes_n + links[i].d] = 0;

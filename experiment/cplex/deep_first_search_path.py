@@ -148,7 +148,11 @@ class Graph(object):
                 min_weight = 0
                 for i in range(len(path) - 1):
                     for n in self.node_neighbors[path[i]]:
-                        if (n[0] == path[i+1] and min_weight > n[1]) or (n[0] == path[i+1] and min_weight == 0):
+                        if i == 0 and path[i+1] == n[0]:
+                            min_weight = n[1]
+                            continue
+
+                        if (n[0] == path[i+1] and min_weight > n[1]):
                             min_weight = n[1]
                 
                 for i in range(len(path) - 1):

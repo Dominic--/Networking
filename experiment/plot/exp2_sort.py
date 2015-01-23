@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 
-result_file_template = "middle-compare-abilene-1.5"
+result_file_template = "middle-compare-cernet2-1.5"
 count = 1000
-remove = 5
+remove = 4
 
 f = open(result_file_template)
 line = f.readline();
@@ -48,7 +48,7 @@ for i in range(2, remove):
 plt.xlabel('Random Traffic Matrix')
 plt.ylabel('Oblivious Performance Ratio')
 plt.legend([line1, line2], ['AC', 'ERLU'], loc=2)
-#plt.show()
 
-plt.savefig('exp2_sort_abilene.png', bbox_inches='tight')
+#plt.show()
+plt.savefig('exp2_sort_cernet2.png', bbox_inches='tight')
 

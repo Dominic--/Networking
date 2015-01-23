@@ -73,6 +73,7 @@ def adjust_route(topology, remove_file, routes, link_order):
         #print(ls,ld)
         for s,d in routes:
             route_paths = routes[s,d]
+
             remove_route = []
             remove_weight = 0
             for path, weight in route_paths:
@@ -192,7 +193,7 @@ def check_route(routes, link_order):
 
 if __name__ == '__main__':
     #topology = '../topology/final/geant-final-topology-12-base'
-    topology_base = '../topology/final/geant-final-topology-12-base'
+    topology_base = '../topology/final/geant-final-topology-15-base'
     #solutions = 'abilene-connected-cplex.xml'
     solutions = 'geant-connected-cplex.xml'
     routes = xml.get_route(solutions)

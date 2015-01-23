@@ -62,18 +62,39 @@ void print_matrix(double * const matrix, int nodes_n) {
 	}
 }
 
+int get_unvisited(int * visited, int nodes_n) {
+    for (int i = 0; i < nodes_n; i++) {
+        if (visited[i] == 1) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 bool check_connectivity(double * const matrix, int nodes_n) {
-	for (int i = 0; i < nodes_n; i++) {
-		bool connectivity = false;
+    int * visited = (int *) malloc(nodes_n * sizeof(int));
+    for (int i = 0; i < nodes_n; i++) {
+        visited[i] = 0;
+    }
+    visited[0] = 1;
+    
+    int unvisited = get_unvisited(visited, nodes_n);
+    while(unvisited != -1) {
+        visited[unvisited] = -1;
 		for (int j = 0; j < nodes_n; j++) {
-			if (i != j && matrix[i * nodes_n + j] < 0) {
-				connectivity = true;
-				break;
+			if (unvisited != j && matrix[unvisited * nodes_n + j] < 0) {
+				if (visited[j] == 0)
+                    visited[j] = 1;
 			}
 		}
-		if (!connectivity) {
-			return connectivity;
-		}
+
+        unvisited = get_unvisited(visited, nodes_n);
 	}
+
+    for (int i = 0; i < nodes_n; i++) {
+        if (visited[i] != -1) {
+            return false;
+        }
+    }
 	return true;
 }
