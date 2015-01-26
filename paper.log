@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  19 JAN 2015 20:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  26 JAN 2015 19:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -239,40 +239,43 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 
-LaTeX Warning: Citation `networking:algebraic' on page 1 undefined on input lin
-e 110.
+LaTeX Warning: Citation `networking:oblivious' on page 1 undefined on input lin
+e 89.
 
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 133.
+(Font)              <7> on input line 103.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 133.
+(Font)              <5> on input line 103.
 
-[2] <./png/3-nodes-example.png, id=21, 377.41pt x 62.2325pt>
+[2] <./png/3-nodes-example.png, id=22, 377.41pt x 62.2325pt>
 File: ./png/3-nodes-example.png Graphic file (type png)
 
 <use ./png/3-nodes-example.png>
-Package pdftex.def Info: ./png/3-nodes-example.png used on input line 240.
+Package pdftex.def Info: ./png/3-nodes-example.png used on input line 210.
 (pdftex.def)             Requested size: 227.62204pt x 37.5335pt.
  [3 <./png/3-nodes-example.png>]
+
+LaTeX Warning: Citation `networking:greente' on page 4 undefined on input line 
+325.
+
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 371.
+(Font)              <8> on input line 341.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 371.
- [4]
-<./png/circle.png, id=35, 335.2525pt x 306.14375pt>
+(Font)              <6> on input line 341.
+[4] <./png/circle.png, id=35, 335.2525pt x 306.14375pt>
 File: ./png/circle.png Graphic file (type png)
  <use ./png/circle.png>
-Package pdftex.def Info: ./png/circle.png used on input line 490.
+Package pdftex.def Info: ./png/circle.png used on input line 460.
 (pdftex.def)             Requested size: 113.81102pt x 103.92867pt.
 
 <./png/clique.png, id=36, 335.2525pt x 298.11375pt>
 File: ./png/clique.png Graphic file (type png)
  <use ./png/clique.png>
-Package pdftex.def Info: ./png/clique.png used on input line 493.
+Package pdftex.def Info: ./png/clique.png used on input line 463.
 (pdftex.def)             Requested size: 113.81102pt x 101.20267pt.
 
 [5 <./png/circle.png> <./png/clique.png>]
@@ -280,28 +283,32 @@ Package pdftex.def Info: ./png/clique.png used on input line 493.
 File: ./png/exp2_sort_cernet2.png Graphic file (type png)
 
 <use ./png/exp2_sort_cernet2.png>
-Package pdftex.def Info: ./png/exp2_sort_cernet2.png used on input line 635.
+Package pdftex.def Info: ./png/exp2_sort_cernet2.png used on input line 605.
 (pdftex.def)             Requested size: 170.71652pt x 133.17772pt.
 
 <./png/exp2_sort_abilene.png, id=42, 516.0078pt x 402.5439pt>
 File: ./png/exp2_sort_abilene.png Graphic file (type png)
 
 <use ./png/exp2_sort_abilene.png>
-Package pdftex.def Info: ./png/exp2_sort_abilene.png used on input line 636.
+Package pdftex.def Info: ./png/exp2_sort_abilene.png used on input line 606.
 (pdftex.def)             Requested size: 170.71652pt x 133.17772pt.
 
 <./png/exp2_sort_geant.png, id=43, 516.0078pt x 402.5439pt>
 File: ./png/exp2_sort_geant.png Graphic file (type png)
 
 <use ./png/exp2_sort_geant.png>
-Package pdftex.def Info: ./png/exp2_sort_geant.png used on input line 637.
+Package pdftex.def Info: ./png/exp2_sort_geant.png used on input line 607.
 (pdftex.def)             Requested size: 170.71652pt x 133.17772pt.
+
+
+LaTeX Warning: Citation `networking:gravity' on page 6 undefined on input line 
+615.
 
 <./png/opr_with_remove_links.png, id=44, 497.2176pt x 402.5439pt>
 File: ./png/opr_with_remove_links.png Graphic file (type png)
 
 <use ./png/opr_with_remove_links.png>
-Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 652
+Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 641
 .
 (pdftex.def)             Requested size: 113.81102pt x 92.1409pt.
 
@@ -309,16 +316,22 @@ Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 652
 File: ./png/opr_with_power_saving.png Graphic file (type png)
 
 <use ./png/opr_with_power_saving.png>
-Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 653
+Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 642
 .
 (pdftex.def)             Requested size: 113.81102pt x 91.07828pt.
  [6 <./png/opr_with_remove_links.png> <./png/opr_with_power_saving.png>]
+
+LaTeX Warning: Citation `networking:greente' on page 7 undefined on input line 
+662.
+
 <./png/exp3_w.png, id=51, 502.9992pt x 402.5439pt>
 File: ./png/exp3_w.png Graphic file (type png)
  <use ./png/exp3_w.png>
-Package pdftex.def Info: ./png/exp3_w.png used on input line 719.
+Package pdftex.def Info: ./png/exp3_w.png used on input line 709.
 (pdftex.def)             Requested size: 227.62161pt x 113.81099pt.
 
+[7 <./png/exp2_sort_cernet2.png> <./png/exp2_sort_abilene.png> <./png/exp2_sort
+_geant.png> <./png/exp3_w.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -330,20 +343,24 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7 <./png/exp2_sort_cernet2.png> <./png/exp2_sort_abilene.png> <./png/exp2_sort
-_geant.png> <./png/exp3_w.png>] (./paper.aux)
+[8
+
+] (./paper.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 3062 strings out of 493315
- 50827 string characters out of 6137903
- 117462 words of memory out of 5000000
- 6491 multiletter control sequences out of 15000+600000
+ 3063 strings out of 493315
+ 50843 string characters out of 6137903
+ 117402 words of memory out of 5000000
+ 6492 multiletter control sequences out of 15000+600000
  38768 words of font info for 72 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
- 38i,12n,47p,243b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,12n,47p,1064b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
@@ -363,10 +380,10 @@ ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts
 ype1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/t
 imes/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr
 8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (7 pages, 489687 bytes).
+Output written on paper.pdf (8 pages, 491313 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
- 77 compressed objects within 1 object stream
+ 124 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

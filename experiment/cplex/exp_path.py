@@ -99,7 +99,6 @@ for t in ['abilene', 'geant', 'cernet2']:
                 path_len += (len(path) - 1) * weight
             path_len_routes[(alpha, s, d)] = path_len
 
-        print new_global_routes_fixed[17,18]
 
         #print path_len_routes
 

@@ -81,49 +81,19 @@ We evaluate our algorithms on real and synthetic topologies. The simulation resu
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-Internet is playing a more and more important role in our daily life, as an huge and indispensable communication system
-it has considerable share in energy consumption. Network components such as routers and switchs contribute to the prominent
-consumption part on account of inefficient energy management solutions, which makes the devices always working in full mode 
-regardless of traffic demands. In particular, even there are no traffic on the link between two routers or switches, 
-the line cards related to the link are still working. Line cards are the main part of energy consuming in routers or switches 
-which is researched in previous work. For the energy consideration, we should obtain link-level solutions that
-switches the link (line cards) to sleep mode if possible.
 
+Energy conservation has become a global concern nowadays. The Internet is one of the major energy consumers, and its rapid growth makes the green Internet a hot research topic. In the Internet backbone, energy is mainly drawn by routers and switches. Such devices consume almost full power even if the traffic load is small. Thus, an effective method to save energy in the Internet is to aggregate traffic into part of the routers when the traffic load is small, and switch the under-utilized components (routers or line cards) into off/sleep mode. Such a method is known as the energy efficient routing.
 
-Usually, We compute routing to stipulate how is the traffic going, to achieve some traffic engineering goals such as 
-the maximum link utilization ratio (MLUR). In details, we use traffic demands and network topology as input for
-computation, then combine routing and traffic demands to get the traffic on each link, based on which we determind
-which link can be put to sleep. However, measuring and predicting accurate traffic demands are difficult, so does its dynamic
-natrue. Although we have obtained all knowledge about traffic demands, the corresponding routing may shift frequently 
-when the traffic demands change. It means that we should change the link (line cards) working mode frequently as well, 
-of course it is unpractical. So we need the routing be robust to sudden traffic changes, and based on the approximate traffic demands.
-Such a routing is known as the demand-oblivious routing and is well studied in \cite{networking:oblivious}, which proposes
-the algorithm for computing robust routing with uncertain traffic demands on specific topology.
+An important issue for energy efficient routing is to avoid network congestion after the traffic is aggregated. Many approaches have been proposed in existing works. Most approaches compute the routing based on real-time traffic matrices or link loads, to achieve a good load balancing and avoid congestion. However, such approaches come at a cost of obtaining real-time traffic data. Furthermore, the routing may shift frequently with the traffic changes, and a sudden traffic change may still induce congestions. To this end, we need to study the robustness of energy efficient routing.
 
+Specifically, we study the energy efficient routing when traffic matrices cannot be obtained or predicted precisely, i.e., with uncertain traffic demands. To achieve robustness, we need to find a routing, which can perform near optimally under a range of traffic matrices. The key technique that makes this possible is the advanced \emph{demand-oblivious routing}. A seminal work \cite{networking:oblivious} find that, the distance between the maximum link utilization ratio (MLUR) of a demand-oblivious routing and the MLUR of the optimal routing is bounded. Thus, no matter how the traffic demand changes, the demand-oblivious routing can guarantee certain performance. We note that this conclusion is in a network without off/sleep components, and we need to consider the situation when energy conservation is required.
 
-Unfortunately, there is no metric in such robust routing to measure the importance of links, in another word, we have no 
-idea to put which link to sleep mode. Furthermore, when some links are switched off and the topology changed actually, but we 
-still have no idea for how to adjust the routing in result topology. Another challenge is that, to achieve the power saving
-goals we may should switch off not only one link, and it is a classical NP-Hard problem. To overcome the challenges,
-we define a metric namely extended robust link utilization (ERLU) to measure the traffic engineering natrue of link without real traffic 
-demands, and define oblivious performance ratio (OPR) to reflect the MLUR distance from a routing to the optimal one
-when certain energy conservation requirement is satisfied. In our algorithm, we use algebraic connectivity \cite{networking:algebraic} and 
-ERLU as criterion to switch off links, and use OPR to adjust routing.
+However, existing demand-oblivious routing algorithms cannot be directly applied to energy efficient routing. There are several challenges. First, we need to define a metric that can effectively measure the distance between a robust energy efficient routing and the optimal routing, because the existing metric for demand-oblivious routing fails in the situation when some components are switched into off/sleep mode. Second, we need to analyze whether the metric can be bounded, just like for demand-oblivious routing. If there exists no bound, then it is not feasible to find a robust energy efficient routing. Third, we need practical algorithms to compute the robust energy efficient routing. Specifically, we need to determine: 1) which routers or line cards should be switched into off/sleep node; and 2) in which path to forward the traffic.
 
+In this paper, we overcome the aforementioned challenges. First, we define a new metric, namely the Oblivious Performance Ratio with Energy constraint (OPRE). The OPRE reflects the MLUR distance from a routing to the optimal one when certain energy conservation requirement is satisfied. We model the problem of minimizing the OPRE. Second, we prove that there exists a robust energy efficient routing with the minimum OPRE, which has an upper bound given a network. Then, we propose Robust Energy-Aware Routing (REAR) scheme, which uses heuristic algorithms to solve the problem. We develop algorithm XXX, which chooses off/sleep line cards in a way that the OPRE can be minimized potentially. We then develop algorithm XXX to compute the routing in the remaining topology, by extending existing optimal demand-oblivious routing algorithm. We evaluate our algorithms by simulations on real topologies and synthetic traffic demands with random fluctuations. The results show that REAR can achieve an OPRE of 1.34 while 19\% of line card power is saved.
 
-Our main contribution in this paper is three-fold. Firstly, we model the problem of minimizing the OPR, then
-analyze the lower and the upper bounds. Secondly, we propose an heuristic algorithm named Robust Energy-Aware Routing (REAR) 
-to solve the problem in two phases, includes choosing links to sleep and adjusting routing. Thirdly, we implement our
-algorithm on real topology and arbitrary traffic demands to observe the relationship between energy conservation and OPR. The
-simulation results show that REAR can save 19\% power of line cards while OPR is less than 34\% in some topology. Also 
-we investigate the path stretching problem.
+The rest of the paper is organized as follows. Section \Rmnum{2} shows the related work. Section \Rmnum{3} presents metric OPRE and formally models the problem. We presents the bounds on OPRE in Section \Rmnum{4}, and propose our algorithms in Section \Rmnum{5}. Section \Rmnum{6} shows our simulation setup and results, and Section \Rmnum{7} concludes our work.
 
-
-The rest of the paper is organized as follows. Section \Rmnum{2} reviews the related work and Section \Rmnum{3}
-defines two metric and models our problem. Following we propose our algorithm in Section \Rmnum{4}. For clearer understanding
-on our problem, we give two simple samples and prove the bounds in Section \Rmnum{5}. Experiments are discribed
-and result are showed in Section \Rmnum{6}. We discuss issues and future work in Section \Rmnum{7}, then conclude our wok in 
-Section \Rmnum{8}
 
 \section{Related Work}
 related work
@@ -352,7 +322,7 @@ stop until all the links in $\Gamma$ is tried but no one is satisfied with both 
 
 
 So before going ahead our algorithm, there is another thing we should done, how to measure the power of graph.
-We simple take an power model from \cite{networking:greente} showed in Table \Rmnum{1}, and defined the difference of power consumption 
+We simple take an power model from \cite{networking:greente} showed in Table \Rmnum{2}, and defined the difference of power consumption 
 between two graphs as:
 \begin{equation}
 	diff_p = \frac{\rho(G_{S, l}^o)} {\rho(G^o)} * 100
@@ -641,10 +611,29 @@ on other topology.
 
 
 \section{Experiments and Results}
-We implemented our algorithm on real world topology, including Abilene, Geant and Cernet2, and we use Gravity model to generate
-random traffic matrix. Because we take an attribute $w$ to expand the traffic range from $1/w$ to $w$, when the $w$ increased the
-traffic varied in wider range. Particularly, when the $w$ limit extremity, we say the traffic matrix is really random, and our 
+We simulated our algorithm on real world topology, including Abilene, Geant and Cernet2, whose number of nodes and links are listed in Table \Rmnum{1}.
+Then we generate 1000 random traffic matrix with Gravity Model \cite{networking:gravity}, which assume that the traffic demand between nodes is proportional
+to their combined capacity of connecting links. To extrapolate a complete TM, we take an attribute $w$ to scale the traffic range from $1/w$ to $w$
+base on the basic traffic demand. Particularly, when the $w$ limit extremity, we say the traffic matrix is really arbitrary, and our 
 algorithm is irrelevant with traffic.
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1}
+\caption{Topologies}
+\label{three topologies}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\bfseries Topology & \bfseries Nodes & \bfseries Links & \bfseries Links can be Removed \\
+\hline
+Abilene & 12 & 15 & 4 \\
+\hline
+Geant & 23 & 37 & 15 \\
+\hline
+Cernet2 & 20 & 22 & 3 \\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{figure}[!t]
 \centering
@@ -655,20 +644,23 @@ algorithm is irrelevant with traffic.
 \vspace*{0.1in}
 \end{figure}
 
-In Figure, we take $w$ as 1.5 and observe that: when we switch off more links, the OPR is increased as well. 
-It is obvious that when the topology
-lose connectivity by removing links, the worst case of robust routing must be far away from the optimal case in origin topology. And
-in Geant and Abilene, even in the origin topology, the OPR value still not be 1. It is reasonable, because our robust routing 
-is used for a range of traffic, however the optimal routing is calculated for the specific traffic matrix. But fortunately, our robust
-routing is only $24\%$ greater than the optimal routing even in its worst case of Geant. And we also see that the curve become 
-cliffy in the end, because when we remove the links the toplogy lose too much connectivity and there alwasy one path between two vertices.
-Obviously, the performance will become worse in the end. Lastly we say that although the OPR relation really different in different 
-topology, but the curve still be similar with each other, they are exponetial curve correspond with their vertices amount.
+
+\subsection{OPR versus Power Saving}
+In Figure 4(a), we see that the value of OPR is at least 1 even in the origin topology, particularly in Geant the value is 1.24,
+it means the robust routing always not be the optimal for all TMs even no links removed from topology. It is reasonable because
+our robust routing is used for a range of traffic rather than a specific TM.
+
+When we switch off links, the topology lose connectivity and some routing paths will be failed, traffic on those paths will be 
+adjusted to others, which result in the value of OPR increased. We take margin as 1.5 and observe this phenomena from Figure 4(a).
+And all the curves can split in two phases according to the growth speed of OPR, for example in Abilene, the OPR rise geantly 
+before 4 links are removed, and rise rapidly since then. It is revelatory for implementing our algorithm in real life, controlling
+the number of removed links less than the turning point is more efficient. The another reason for avoiding removeing too much links
+is that the robust routing will be less `robust', because there is only one path between two vertices in the minimum connected topology.
 
 
-On the other hand, we may concern how is the OPR varifying when the power saving achived besides the amount of removed links.
-Of course the more we removed the links, the more power we saved, but how to quantify the power of one link is difficult. Green
-TE proposed the simple power model for topology, which can be represented in Table x:
+On the other hand, we concern more about how is the OPR varifying when achived specific power saving target. Obviously, the more 
+links we removed, the more power we saved, but how to quantify the power of one link is difficult. Green TE \cite{networking:greente} 
+proposed a simple power model, which can be represented in Table \Rmnum{2}. In which, the total energy of topology is dominant by  
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1}
@@ -700,8 +692,6 @@ For computing the worst case, we generate 1000 traffic matrix for every topoloy 
 We show the each result in the Figure x and x when we remove the first 4 links in each topology. In Abilene, the result 
 is more tighter than Geant. Comparsion in two ways, we can see that in Abilene the AC method is worse than the ERLU one,
 and the downmost zone is the same in two ways, because the robust routing is same in the origin topology.
-
-
 
 
 From Figure xx and Figure xx, we sort the 1000 TMs by their OPR value, and see that most of the TMs are quite average. 
@@ -737,6 +727,8 @@ M.Zhang, C.Yi, B.Liu and B.Zhang, "GreenTE: Power-Aware Traffic Engineering".
 \bibitem{networking:oblivious}
 D.Applegate and E.Cohen, "Making Intra-Domain Routing Robust to Changing and Uncertain Traffic Demands: Understanding Fundamental Tradeoffs".
 
+\bibitem{networking:gravity}
+M.Roughan, A.Greenberg, C.Kalmanek, M.Rumsewicz, J.Yates, and Y.Zhang. Experience in measuring backbone traffic variability: models, metrics, measurements, and meaning. InProceedings of the 2nd Internet Measurement Workshop. ACM, 2002
 \end{thebibliography}
 
 
