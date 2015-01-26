@@ -22,7 +22,7 @@ def is_connected(links, nodes_n):
         return False
 
 #files = ['abilene', 'geant']
-files = ['cernet2']
+files = ['abilene', 'geant', 'cernet2']
 for name in files:
     topology = "../topology/connected/%s-connected-topology" % name
     f = open(topology, "r")
@@ -43,7 +43,7 @@ for name in files:
         links[d][s] = c
     f.close()
 
-    w = 1.5
+    w = 2.0
     temporary_topology = topology
     remove_links = []
     remove_n = 0
@@ -66,7 +66,7 @@ for name in files:
                 remove_links.append(l)
                 remove_n += 1
         
-                temporary_topology = "../topology/final/%s-final-topology-%d" % (name, remove_n)
+                temporary_topology = "../topology/final/%s-final-topology-%d-%0.1f" % (name, remove_n, w)
                 f = open(temporary_topology, "w")
                 f.write('%d %d\n' % (nodes_n, links_n-remove_n))
 
@@ -76,7 +76,7 @@ for name in files:
                             f.write('%d %d %.2f\n' % (s, d, links[s][d]))
                 f.close()
 
-                f = open("../topology/remove/%s-remove-%d-links" % (name, remove_n), "w")
+                f = open("../topology/remove/%s-remove-%d-links-%0.1f" % (name, remove_n, w), "w")
                 for l in remove_links:
                     f.write('%d %d\n' % (l[0], l[1]))
                 f.close()

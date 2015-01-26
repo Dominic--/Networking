@@ -69,7 +69,7 @@ In this paper, we propose a different approach that finds one energy-aware routi
 matrices, particularly to arbitrary traffic demands. Such a routing without energy consideration is known as 
 the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy 
 conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance 
-ratio (OPR) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
+ratio (OPRE) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
 certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
 and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve 
 the problem in two phases. REAR select sleeping links based on extended robust link utilization (ERLU) or algebraic 
@@ -612,7 +612,7 @@ on other topology.
 
 \section{Experiments and Results}
 We simulated our algorithm on real world topology, including Abilene, Geant and Cernet2, whose number of nodes and links are listed in Table \Rmnum{1}.
-Then we generate 1000 random traffic matrix with Gravity Model \cite{networking:gravity}, which assume that the traffic demand between nodes is proportional
+Then we generate random traffic matrix with Gravity Model \cite{networking:gravity}, which assume that the traffic demand between nodes is proportional
 to their combined capacity of connecting links. To extrapolate a complete TM, we take an attribute $w$ to scale the traffic range from $1/w$ to $w$
 base on the basic traffic demand. Particularly, when the $w$ limit extremity, we say the traffic matrix is really arbitrary, and our 
 algorithm is irrelevant with traffic.
@@ -640,27 +640,30 @@ Cernet2 & 20 & 22 & 3 \\
 \vspace*{0.1in}
 \subfloat{\includegraphics[width=4cm]{opr_with_remove_links}}
 \subfloat{\includegraphics[width=4cm]{opr_with_power_saving}}
-\caption{OPR with Power Saving}
+\caption{OPRE with Power Saving}
 \vspace*{0.1in}
 \end{figure}
 
 
-\subsection{OPR versus Power Saving}
-In Figure 4(a), we see that the value of OPR is at least 1 even in the origin topology, particularly in Geant the value is 1.24,
+\subsection{OPRE versus Power Saving}
+In Figure 4 (a), we see that the value of OPRE is at least 1 even in the origin topology, particularly in Geant the value is 1.24,
 it means the robust routing always not be the optimal for all TMs even no links removed from topology. It is reasonable because
 our robust routing is used for a range of traffic rather than a specific TM.
 
+
 When we switch off links, the topology lose connectivity and some routing paths will be failed, traffic on those paths will be 
-adjusted to others, which result in the value of OPR increased. We take margin as 1.5 and observe this phenomena from Figure 4(a).
-And all the curves can split in two phases according to the growth speed of OPR, for example in Abilene, the OPR rise geantly 
+adjusted to others, which result in the value of OPRE increased. We take margin as 1.5 and observe this phenomena from Figure 4 (a).
+And all the curves can split in two phases according to the growth speed of OPRE, for example in Abilene, the OPRE rise geantly 
 before 4 links are removed, and rise rapidly since then. It is revelatory for implementing our algorithm in real life, controlling
-the number of removed links less than the turning point is more efficient. The another reason for avoiding removeing too much links
-is that the robust routing will be less `robust', because there is only one path between two vertices in the minimum connected topology.
+the number of removed links less than the turning point is more efficient. The another reason for avoiding removing too much links
+is that the robust routing will be less `robust' or induce network congestions easily, because there is only one path between two
+vertices in the minimum connected topology.
 
 
-On the other hand, we concern more about how is the OPR varifying when achived specific power saving target. Obviously, the more 
+On the other hand, we concern more about how is the OPRE varifying when achived specific power saving target. Obviously, the more 
 links we removed, the more power we saved, but how to quantify the power of one link is difficult. Green TE \cite{networking:greente} 
-proposed a simple power model, which can be represented in Table \Rmnum{2}. In which, the total energy of topology is dominant by  
+proposed a simple power model, which can be represented in Table \Rmnum{2}. In which, the total energy of topology is dominant by line
+cards of routers or switches, when saying switch off the links we mean put down the according line cards.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1}
@@ -682,10 +685,11 @@ proposed a simple power model, which can be represented in Table \Rmnum{2}. In w
 \end{tabular}
 \end{table}
 
-We compute the power saving ratio as the total power of the removed links over the total power of all the links. And we can
-save 19\% power with only 34\% worse than the worst case for all the traffic in Abilene topology. In Geant and Cernet2, 
-the OPR is little higher. Also we can see that two ways for removing links perform almost the same at the begin in Geant,
-and varified at the end. It shows that we may find another better way for removing the links in the future.
+We compute the power saving ratio as the total power of the removed links over the total power of all the links. 
+In Figure 4 (b), it shows we can save 19\% energy only with an OPRE of 1.34 in Abilene topology, and in Geant and Cernet2, 
+the OPRE is little higher. We also can see that two ways for removing links perform differently in different topologies,
+or perform differently in different phases of the same topology. For example, ERLU is better than AC in Abilene and AC is
+better in Cernet2, particularly in Geant, ERLU peform better at begining time.
 
 
 For computing the worst case, we generate 1000 traffic matrix for every topoloy and the $w$ with the Gravity Model.
@@ -694,20 +698,20 @@ is more tighter than Geant. Comparsion in two ways, we can see that in Abilene t
 and the downmost zone is the same in two ways, because the robust routing is same in the origin topology.
 
 
-From Figure xx and Figure xx, we sort the 1000 TMs by their OPR value, and see that most of the TMs are quite average. 
-It is said that, our metric OPR is always not be achived for most traffic matrix.
+From Figure xx and Figure xx, we sort the 1000 TMs by their OPRE value, and see that most of the TMs are quite average. 
+It is said that, our metric OPRE is always not be achived for most traffic matrix.
 
 
 We know when we compute the robust routing for specific topology, the $w$ is very important. When the $w$ limit extremely,
-our robust routing is said without knowledge of traffic matrix. Figure xx, show the OPR varified when $w$ changes. The greater
-the $w$ is, the greater the OPR is. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider 
-range, and our OPR is the worst case of all the traffic matrix.
+our robust routing is said without knowledge of traffic matrix. Figure xx, show the OPRE varified when $w$ changes. The greater
+the $w$ is, the greater the OPRE is. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider 
+range, and our OPRE is the worst case of all the traffic matrix.
 
 \begin{figure}
 \centering
 \vspace*{0.1in}
 \includegraphics[width=8cm,height=4cm]{exp3_w}
-\caption{OPR with w relationship}
+\caption{OPRE with w relationship}
 \vspace*{0.1in}
 \end{figure}
 
