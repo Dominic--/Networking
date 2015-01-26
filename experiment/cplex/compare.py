@@ -71,7 +71,9 @@ for t in ['abilene', 'geant', 'cernet2']:
 
         max_utilization = 0
         max_utilization_base = 0
-        f_optimal = open(optimal_file, "r")
+        f_optimal = None
+        if alpha != 0:
+            f_optimal = open(optimal_file, "r")
 
         for num in range(files):
             print("Round %d" % num)
