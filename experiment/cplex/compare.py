@@ -136,7 +136,8 @@ for t in ['abilene', 'geant', 'cernet2']:
                 max_utilization = global_utilization / optimal_utilization
 
         
-        f_optimal.close()
+        if alpha != 0:
+            f_optimal.close()
         f = open(result_file, 'a')
         print("%d %.4f %.4f\n" % (alpha, max_utilization_base, max_utilization))
         f.write("%d %.4f %.4f\n" % (alpha, max_utilization_base, max_utilization))
