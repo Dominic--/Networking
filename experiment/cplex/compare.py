@@ -18,6 +18,7 @@ solution_template = "%s-cplex-%0.1f.xml"
 demand_file_template = "../demand/%s-%s/%0.1f/%d.txt"
 result_file_template = "result-compare-%s-%0.1f"
 middle_file_template = "middle-compare-%s-%0.1f"
+optimal_file_template = "optimal-compare-%s-%0.1f"
 solution_default = "global_opt_cplex_output.sol"
 files = 1000
 
@@ -31,6 +32,7 @@ for t in ['abilene', 'geant', 'cernet2']:
     solution = solution_template % (t, w)
     result_file = result_file_template % (t, w)
     middle_file = middle_file_template % (t, w)
+    optimal_file = optimal_file_template % (t, w)
 
     global_routes = xml.get_route(solution)
     link_order = xml.get_link_order_with_attr(solution, connected_topology)
@@ -81,7 +83,17 @@ for t in ['abilene', 'geant', 'cernet2']:
 
             #f = open(result_file,"a")
             # Calculate the optimal maximum utilization for specific traffic matrix
-            optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
+            optimal_utilization = 0
+            if alpha == 0:
+                optimal_utilization = optimal.optimal_utilization(connected_topology, demand_file, loop)
+                f_optimal.write("%d %f\n" % (num, optimal_utilization))
+            else:
+                optimal_line = f_optimal.readline().strip().split(' ')
+                if int(optimal_line[0]) != num:
+                    print 'wrong'
+                else:
+                    optimal_utilization = float(optimal_line[1])
+
             print optimal_utilization
             #print('Optimal Utilization is %f\n' % optimal_utilization)
             #f.write('%10.4f\t' % optimal_utilization)
