@@ -48,8 +48,7 @@ for name in files:
     remove_links = []
     remove_n = 0
     while True:
-        cplex.generate_sol(temporary_topology, [0, w], True)  
-        link_order = xml.get_link_order("global_opt_cplex_output.sol", temporary_topology)
+        link_order = xml.get_link_order("%s-cplex-%0.1f.xml" % (name, w), temporary_topology)
 
         have_remove = False
         for l in link_order:
