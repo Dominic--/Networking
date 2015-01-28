@@ -43,7 +43,7 @@ for name in files:
         links[d][s] = c
     f.close()
 
-    w = 2.0
+    w = 4.0
     temporary_topology = topology
     remove_links = []
     remove_n = 0

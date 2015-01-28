@@ -1,6 +1,10 @@
+from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.pyplot as plt
 
-result_file_template = "middle-compare-cernet2-1.5"
+fig1, ax1 = plt.subplots()
+
+t = 'abilene'
+result_file_template = "middle-compare-%s-1.5" % t
 count = 1000
 remove = 4
 
@@ -24,7 +28,7 @@ while line:
 f.close()
 
 line1 = None
-for i in range(2, remove):
+for i in range(0, remove):
     for j in range(count):
         for k in range(j, count):
             if (base[i][j] > base[i][k]):
@@ -34,7 +38,7 @@ for i in range(2, remove):
     line1, = plt.plot(x, base[i], 'r--')
 
 line2 = None
-for i in range(2, remove):
+for i in range(0, remove):
     for j in range(count):
         for k in range(j, count):
             if (new[i][j] > new[i][k]):
@@ -47,8 +51,12 @@ for i in range(2, remove):
 
 plt.xlabel('Random Traffic Matrix')
 plt.ylabel('Oblivious Performance Ratio')
-plt.legend([line1, line2], ['AC', 'ERLU'], loc=2)
+plt.legend([line1, line2], ['TMP', 'ERLU'], loc=2)
 
-#plt.show()
-plt.savefig('exp2_sort_cernet2.png', bbox_inches='tight')
+pp = PdfPages('exp2_sort_%s.pdf' % t)
+pp.savefig(fig1)
+pp.close()
+
+plt.show()
+#plt.savefig('exp2_sort_cernet2.png', bbox_inches='tight')
 

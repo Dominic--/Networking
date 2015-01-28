@@ -13,7 +13,7 @@
    \graphicspath{{./png/}}
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
-   \DeclareGraphicsExtensions{.png}
+   \DeclareGraphicsExtensions{.pdf,.png}
 \else
   % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
   % will default to the driver specified in the system graphics.cfg if no
@@ -36,6 +36,7 @@
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
+\newcommand{\ignore}[1]{{}}
 
 \begin{document}
 
@@ -58,23 +59,23 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Energy conservation has become a major challenge to the Internet. In existing approaches, a part of line cards 
-are switched into sleep mode for energy conservation, and the routing is configured carefully to balance energy saving 
-and traffic engineering goals, such as the maximum link utilization ratio (MLUR). Typically, traffic demands are 
-used as inputs, and routing is computed accordingly. However, accurate traffic matrices are difficult to obtain and 
-are changing frequently. This makes the approaches difficult to implement. Further, the routing may shift 
+Energy conservation has become a major challenge to the Internet. In existing approaches, a part of line cards
+are switched into sleep mode for energy conservation, and the routing is configured carefully to balance energy saving
+and traffic engineering goals, such as the maximum link utilization ratio (MLUR). Typically, traffic demands are
+used as inputs, and routing is computed accordingly. However, accurate traffic matrices are difficult to obtain and
+are changing frequently. This makes the approaches difficult to implement. Further, the routing may shift
 frequently, and is not robust to sudden traffic changes.
 
-In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic 
-matrices, particularly to arbitrary traffic demands. Such a routing without energy consideration is known as 
-the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy 
-conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance 
-ratio (OPRE) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when 
-certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio, 
-and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve 
-the problem in two phases. REAR select sleeping links based on extended robust link utilization (ERLU) or algebraic 
-connectivity, and compute the routing based on a classical demand-oblivious routing algorithm. 
-We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save 
+In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic
+matrices, particularly to arbitrary traffic demands. Such a routing without energy consideration is known as
+the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy
+conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance
+ratio (OPR) with energy constraint, which reflects the MLUR distance from a routing to the optimal routing when
+certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio,
+and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve
+the problem in two phases. REAR select sleeping links based on extended robust link utilization (ERLU) or algebraic
+connectivity, and compute the routing based on a classical demand-oblivious routing algorithm.
+We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save
 19\% of line card power while the performance ratio is less than 34\%.
 \end{abstract}
 
@@ -88,118 +89,95 @@ An important issue for energy efficient routing is to avoid network congestion a
 
 Specifically, we study the energy efficient routing when traffic matrices cannot be obtained or predicted precisely, i.e., with uncertain traffic demands. To achieve robustness, we need to find a routing, which can perform near optimally under a range of traffic matrices. The key technique that makes this possible is the advanced \emph{demand-oblivious routing}. A seminal work \cite{networking:oblivious} find that, the distance between the maximum link utilization ratio (MLUR) of a demand-oblivious routing and the MLUR of the optimal routing is bounded. Thus, no matter how the traffic demand changes, the demand-oblivious routing can guarantee certain performance. We note that this conclusion is in a network without off/sleep components, and we need to consider the situation when energy conservation is required.
 
-However, existing demand-oblivious routing algorithms cannot be directly applied to energy efficient routing. There are several challenges. First, we need to define a metric that can effectively measure the distance between a robust energy efficient routing and the optimal routing, because the existing metric for demand-oblivious routing fails in the situation when some components are switched into off/sleep mode. Second, we need to analyze whether the metric can be bounded, just like for demand-oblivious routing. If there exists no bound, then it is not feasible to find a robust energy efficient routing. Third, we need practical algorithms to compute the robust energy efficient routing. Specifically, we need to determine: 1) which routers or line cards should be switched into off/sleep node; and 2) in which path to forward the traffic.
+However, existing demand-oblivious routing algorithms cannot be directly applied to energy efficient routing. There are several challenges. First, we need to define a metric that can effectively measure the distance between a robust energy efficient routing and the optimal routing, because the existing metric for demand-oblivious routing fails in the situation when some components are switched into off/sleep mode. Second, we need to analyze whether the metric can be bounded, just like for demand-oblivious routing. If there exists no bound, then it is not feasible to find a robust energy efficient routing. Third, we need practical algorithms to compute the robust energy efficient routing. Specifically, we need to determine: 1) which routers or line cards should be switched into off/sleep mode, to achieve energy efficiency; and 2) in which path to forward the traffic for robustness, while the path does not traverse the off/sleep components.
 
-In this paper, we overcome the aforementioned challenges. First, we define a new metric, namely the Oblivious Performance Ratio with Energy constraint (OPRE). The OPRE reflects the MLUR distance from a routing to the optimal one when certain energy conservation requirement is satisfied. We model the problem of minimizing the OPRE. Second, we prove that there exists a robust energy efficient routing with the minimum OPRE, which has an upper bound given a network. Then, we propose Robust Energy-Aware Routing (REAR) scheme, which uses heuristic algorithms to solve the problem. We develop algorithm XXX, which chooses off/sleep line cards in a way that the OPRE can be minimized potentially. We then develop algorithm XXX to compute the routing in the remaining topology, by extending existing optimal demand-oblivious routing algorithm. We evaluate our algorithms by simulations on real topologies and synthetic traffic demands with random fluctuations. The results show that REAR can achieve an OPRE of 1.34 while 19\% of line card power is saved.
+In this paper, we overcome the aforementioned challenges. First, we define a new metric, namely the oblivious performance ratio with energy constraint (OPRE). The OPRE reflects the MLUR distance from a routing to the optimal one when certain energy conservation requirement is satisfied. We model the problem of minimizing the OPRE. Second, we prove that there exists a robust energy efficient routing with the minimum OPRE, which has an upper bound given a network. Then, we propose Robust Energy-Aware Routing (REAR) scheme, which uses heuristic algorithms to solve the problem. We develop algorithm XXX, which chooses off/sleep line cards in a way that the OPRE can be minimized potentially. We then develop algorithm XXX to compute the routing in the remaining topology, by extending existing optimal demand-oblivious routing algorithm. We evaluate our algorithms by simulations on real topologies and synthetic traffic demands with random fluctuations. The results show that REAR can achieve an OPRE of 1.34 while 19\% of line card power is saved.
 
 The rest of the paper is organized as follows. Section \Rmnum{2} shows the related work. Section \Rmnum{3} presents metric OPRE and formally models the problem. We presents the bounds on OPRE in Section \Rmnum{4}, and propose our algorithms in Section \Rmnum{5}. Section \Rmnum{6} shows our simulation setup and results, and Section \Rmnum{7} concludes our work.
 
+\ignore{
+Usually, We compute routing to stipulate how is the traffic going, to achieve some traffic engineering goals such as
+the maximum link utilization ratio (MLUR). In details, we use traffic demands and network topology as input for
+computation, then combine routing and traffic demands to get the traffic on each link, based on which we determind
+which link can be put to sleep. However, measuring and predicting accurate traffic demands are difficult, so does its dynamic
+natrue. Although we have obtained all knowledge about traffic demands, the corresponding routing may shift frequently
+when the traffic demands change. It means that we should change the link (line cards) working mode frequently as well,
+of course it is unpractical. So we need the routing be robust to sudden traffic changes, and based on the approximate traffic demands.
+Such a routing is known as the demand-oblivious routing and is well studied in \cite{networking:oblivious}, which proposes
+the algorithm for computing robust routing with uncertain traffic demands on specific topology.
+
+
+Unfortunately, there is no metric in such robust routing to measure the importance of links, in another word, we have no
+idea to put which link to sleep mode. Furthermore, when some links are switched off and the topology changed actually, but we
+still have no idea for how to adjust the routing in result topology. Another challenge is that, to achieve the power saving
+goals we may should switch off not only one link, and it is a classical NP-Hard problem. To overcome the challenges,
+we define a metric namely extended robust link utilization (ERLU) to measure the traffic engineering natrue of link without real traffic
+demands, and define oblivious performance ratio (OPR) to reflect the MLUR distance from a routing to the optimal one
+when certain energy conservation requirement is satisfied. In our algorithm, we use algebraic connectivity \cite{networking:algebraic} and
+ERLU as criterion to switch off links, and use OPR to adjust routing.
+
+
+Our main contribution in this paper is three-fold. Firstly, we model the problem of minimizing the OPR, then
+analyze the lower and the upper bounds. Secondly, we propose an heuristic algorithm named Robust Energy-Aware Routing (REAR)
+to solve the problem in two phases, includes choosing links to sleep and adjusting routing. Thirdly, we implement our
+algorithm on real topology and arbitrary traffic demands to observe the relationship between energy conservation and OPR. The
+simulation results show that REAR can save 19\% power of line cards while OPR is less than 34\% in some topology. Also
+we investigate the path stretching problem.
+
+
+The rest of the paper is organized as follows. Section \Rmnum{2} reviews the related work and Section \Rmnum{3}
+defines two metric and models our problem. Following we propose our algorithm in Section \Rmnum{4}. For clearer understanding
+on our problem, we give two simple samples and prove the bounds in Section \Rmnum{5}. Experiments are discribed
+and result are showed in Section \Rmnum{6}. We discuss issues and future work in Section \Rmnum{7}, then conclude our wok in
+Section \Rmnum{8}}
 
 \section{Related Work}
 related work
 
+\section{Problem Statement}
 
-\section{Model}
-The network is modeled as a undirected graph $G = (V, E)$, where $V$ is the set of vertices (i.e., routers, switches 
-and end hosts), and $E$ is the set of links. In graph $G$, two vertices $u$ and $v$
-are called connected if $G$ contains a path between $u$ and $v$. Then We say graph $G$ is connected, if and only if 
-arbitrary pair of vertices in the graph is connected.
+\subsection{Background of Demand-Oblivious Routing}
 
-Let $\theta(G) = \{ (V, E - \{ e \}) | e \in E \}$ denote the network set after removing the link $e$ from
-$G$. Then, choosing the connected graph from $\theta(G)$ to consist of a new set, denoted by 
-$\Theta(G) = \{G | G \in \theta(G) \ \&\& \ G\ is\ connected\}$. We call $\Theta(G)$ as successor of $G$.
+As mentioned above, demand-oblivious routing aims at finding one routing that performs near optimally under a range of traffic demands. In traffic engineering, a typical metric to evaluate routing performance is the maximum link utilization ratio (MLUR). Clearly, the MLUR is corresponded with a specified traffic matrix (TM). Demand-oblivious routing defines oblivious performance ratio (OPR) to evaluate the routing performance without the knowledge of TM. We briefly present the background.
 
-A traffic matrix (abbreviation as TM below) is the set of traffic demands between each Origin-Destination(OD) pair in 
-network $G$, and the $routing$ specifies how traffic of each OD pair is routed across the network. Usually, there are 
-multiple paths for each OD pair and each path routes a fraction of the traffic.
-TM can be represented by a set of trinary group like $(a, b, d_{ab})$, where $a$ and $b$ is the origin and 
-destination node respectively, $d_{ab}$ is the traffic demand between the OD pair. 
-
-Let $r$ denote the $routing$ mentioned above, which is specified by a set of values $f_{ab}(i,j)$ that specifies the 
-fraction of demand from $a$ to $b$ that is routed on the link $(i,j)$. So an OD pair contribute to the traffic of 
-link $(i,j)$ is $d_{ab}f_{ab}(i,j)$, and all the traffic across link $(i,j)$ can be calculated as :
+Given a TM, the distance between a routing to the optimal one is defined as the ratio between their MLURs. Formally, a network is modeled as undirected graph $G(V, E)$, where $V$ is the set of vertices (nodes), and $E$ is the set of edges (links). Let $cap_{ij}$ denote the capacity of the link $(i, j) \in E$. Let $d_{ab}$ denote the traffic demand from origin node $a$ and destination node $b$, and $m$ denote the TM that contains $d_{ab}$ for all $a, b \in V$. Let $f_{ab}(i,j)$ be the fraction of $d_{ab}$ that is routed on link $(i, j)$ $(0 \leq f_{ab}(i,j) \leq 1)$. Routing $r$ is specified by $f_{ab}(i,j)$ for all $a, b \in V$ and $(i, j) \in E$, and we will formally define routing consistency later in Section III.C. Let $U_{r, m, G}$ be the MLUR of routing $r$ under TM $m$. We have
 \begin{equation}
-	\sum_{(a,b,d_{ab})\in TM} d_{ab}f_{ab}(i,j)
+	U_{r, m, G} = \max_{(i,j)\in E} \frac{\sum_{a,b} d_{ab}f_{ab}(i,j)}{cap_{ij}}.
+\end{equation}
+Let $P(\{ r \},\{ m \}, G)$ be the \emph{performance ratio} of routing $r$ under TM $m$, which reflects how far from the routing to the optimal one, and is defined as
+\begin{equation}
+	P(\{ r \},\{ m \}, G) = \frac{U_{r,m,G}}{\min_{r'} U_{r', m, G}}.
 \end{equation}
 
-Futhermore, we define the utilization of link as traffic acorss the link divide the capacity of link, as ;
+The \emph{oblivious performance ratio} (OPR) for routing $r$ is defined by extending TM $m$ to a set of TMs $M$, where $M$ can be the set of any TMs. We have
 \begin{equation}
-	u_{ij} = \frac{\sum_{a,b} d_{ab}f_{ab}(i,j)}{cap_{ij}}
+	P(\{ r \}, M, G) = \max_{m\in M} P(\{ r \}, \{ m \}, G).
 \end{equation}
-where $cap_{ij}$ is the capacity of the link $(i,j)$.
+The target of demand-oblivious routing is to find routing $r$ that minimizes OPR $P(\{ r \}, M, G)$. Such a ``robust'' routing is independent of a specific TM, but can perform near optimally. A seminal work \cite{networking:oblivious} uses linear programming to find the routing that minimizes the OPR, and finds that the optimal solution exists, which means that the OPR is bounded.
 
-A common metric of the performance for a given routing respect to a certain TM is the maximum link utilization ratio (MLUR).
-This is the maximum one of all links, Formally, the maximum link utilization ratio of a routing $r$ on 
-TM $m$ in network $G(V,E)$ is 
+\subsection{Oblivious Performance Ratio with Energy Constraint}
+
+With energy constraint, a network may have to switch part of line cards into off/sleep mode to save the total energy consumption. This changes the network topology and makes metric OPR fail to evaluate the robustness of a routing. We use an example to show this. Assume that $G$ is a cycle with $n$ unit capacity links. Then, the minimal OPR of $G$ is $2-2/n$ \cite{networking:oblivious}. Now we pruning one link from $G$ to save energy, and the topology changes to $G^*$. Because there is only one routing feasible in $G^*$, OPR $P(\{ r \}, M, G^*)$ equals 1. Since 1 is less than $2-2/n$ for $n > 2$, it means that the routing after pruning one link is more robust than before. However, it is false because there are less links and the network is more likely to be congested.
+
+The intrinsic reason for such a ``fake robust'' is that the topology is not changing when performance ratio is computed in Eq. (2). To address this issue, we extend the definition of OPR. Formally, let $G^*$ be a sub-graph of $G$ that satisfies the energy constraint (We will formally give the model in Section III.C). The extended performance ratio is defined as
 \begin{equation}
-	U_{r, m, G} = \max_{(i,j)\in E} u_{ij}
+	P(\{ r \},\{ m \}, G, G^*) = \frac{U_{r,m,G^*}}{\min_{r'} U_{r', m, G}}.
 \end{equation}
-
-The optimal routing in all possible routes $R$ for network $G$ is a routing which minimize the MLUR,
-the minimum maximum link utilization ratio is called optimal utilization, can be represented by :
+Let $P^*(\{ r \}, M, G)$ be the \emph{oblivious performance ratio with energy constraint} (OPRE) for routing $r$. We define $P^*(\{ r \}, M, G)$ by extending $m$ to $M$, and finding $G^*$ that satisfies the energy constraint and has the minimum performance ratio. We have
 \begin{equation}
-	OptU_{m, G} = \min_{r\in R} U_{r, m, G}
+	P^*(\{ r \}, M, G) = \min_{G^*} \max_{m\in M} P(\{ r \}, \{ m \}, G, G^*)
 \end{equation}
+Note that when there is no energy constraint, $G$ is the sub-graph that has the minimum performance ratio, and Eq. (5) naturally reduces to Eq. (3).
 
-The performance ratio of a given routing $r$ on a given TM $m$ and a given network $G$ meaures how far from the routing to
-the optimal one, it is defined as the MLUR divided by optimal utilization, as following : 
-\begin{equation}
-	P(\{ r \},\{ m \}, G) = \frac{U_{r,m,G}}{OptU_{m,G}}
-\end{equation}
+\subsection{Problem Formulation}
 
-We now extend the definition of performance ratio of a routing, from the specific TM $m$ to TM set $M$. 
-\begin{equation}
-	P(\{ r \}, M, G) = \max_{m\in M} P(\{ r \}, \{ m \}, G)
-\end{equation}
 
-Obviously, the optimal routing in routing set $R$ is the routing which minimize the extended performance ratio, such as :
-\begin{equation}
-	P(R, M, G) = \min_{r\in R} P(\{ r \}, M, G)
-\end{equation}
-
-I.E. the routing $r$ which arrive at the value of $P(R,M,G)$ is the most ``robust'' routing for the TM set $M$ 
-in the network $G$, and if the $M$ range enough, we say that the ``robust'' routing is independent of specific TM.
-
-But definition of ``robust'' above will not work well for next situation. Let us take a cycle network topology $C$ as 
-an simple example, in which we should choose one link to close. Before link cutting, the $P(R, M, C)$ is 
-approximate to 2, but no matter which link is chosen to close, the cycle network will change to a line network $L$. 
-Obviously, the $P(R, M, L)$ will always equal to 1. It means that there is no difference from removing which link,
-But the contradiction here is that, the choice for which link should be removed is really different because the 
-links are not always the same with each other, such as their capacity.
-
-The reason for the ``fake robust'' is that, the routing in the successor graph (i.e. $L$ in above example) become 
-unique, the current routing always be the optimal routing. More generally, we should make a little modification
-for the performance ratio when the network self changes.
-
-Let $G$ be the origin network, and the $G^* \in \Theta(G)$ be the successor network from $G$ after removing
-some links, we define extended performance ratio between different graphs as the MLUR of successor graph divide 
-the optimal utilization of origin graph, and get the minimum value of all routings, like :
-\begin{equation}
-	P(R^*, \{ m\}, G, G^*) = \min_{r \in R^*} \frac{U_{r,m,G^*}}{OptU_{m,G}}
-\end{equation}
-where $R^*$ is the routing set on network $G^*$.
-
-And question is that how to meaure a successor network topology is ``robust'' enough for the TM set $M$ when 
-pruning is proceeding. We consider the worst situation, namely the successor network topology has its maximum
-performance ratio when the TM is $m \in M$, described as following :
-\begin{equation}
-	P(R^*, M, G, G^*) = \max_{m \in M} P(R^*, \{ m \}, G, G^*)
-\end{equation}
-
-Now we can say that, if a successor network arrive the minimum performance ratio, it is the ``robust'' successor 
-network graph. Formally, we define the performance ratio as optimal successor performance ratio :
-\begin{equation}
-	P^{*}(M, G) = \min_{G^* \in \Theta(G)} P(R^*, M, G, G^*)
-\end{equation}
-where $M$ is the TM set, and $R^*$ is routing set. 
-
-If the scope of $M$ is large engouh, the optimal successor network graph is also independent from specific TM. 
 
 \subsection{Model Example}
 We will take an example to explain how to choose the link to close in our algorithm.
-Three hostes include : A, B, C, three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose 
-there are two TM : ${(A,B,2M), (A,C,1M)}$ and ${(A,B,1M), (A,C,1M)}$. For each traffic matrix, the optimal route is 
-obvious, we will trace 2M from A to B across the lower link and trace the 1M from A to C across the upper one 
+Three hostes include : A, B, C, three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose
+there are two TM : ${(A,B,2M), (A,C,1M)}$ and ${(A,B,1M), (A,C,1M)}$. For each traffic matrix, the optimal route is
+obvious, we will trace 2M from A to B across the lower link and trace the 1M from A to C across the upper one
 for the first traffic matrix, whose maximum link utilization is 0.5. we will trace all the traffic acorss the
 lower link for the second traffic matrix, whose maximum link utilization is 0.5 as well.
 
@@ -214,11 +192,11 @@ lower link for the second traffic matrix, whose maximum link utilization is 0.5 
 \end{figure}
 
 
-Now for some reason, we will choose one link to shut down for power saving without lose connection of the network. 
-There are two choice, remove either the upper link or the lower link. Let us take a little calculation: when 
-remove the upper one, we should change all the traffic acorss the lower link, as a result, in the first  
-TM the maximum link utilization is 0.75 and the second is 0.5; when close the lower link, we should trace all the 
-traffic acorss the upper link, in the first TM the link utilization is 1 and the other is 0.667. 
+Now for some reason, we will choose one link to shut down for power saving without lose connection of the network.
+There are two choice, remove either the upper link or the lower link. Let us take a little calculation: when
+remove the upper one, we should change all the traffic acorss the lower link, as a result, in the first
+TM the maximum link utilization is 0.75 and the second is 0.5; when close the lower link, we should trace all the
+traffic acorss the upper link, in the first TM the link utilization is 1 and the other is 0.667.
 So according to our theory, the $P^{*}(M, G)$ should be 1.5 and the optimal successor network topology will be
 the one which 3M link is closed.
 
@@ -635,15 +613,25 @@ Cernet2 & 20 & 22 & 3 \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
 \vspace*{0.1in}
-\subfloat{\includegraphics[width=4cm]{opr_with_remove_links}}
-\subfloat{\includegraphics[width=4cm]{opr_with_power_saving}}
+\subfloat{\includegraphics[width=6cm]{opr_with_power_abilene}}
+\subfloat{\includegraphics[width=6cm]{opr_with_power_geant}}
+\subfloat{\includegraphics[width=6cm]{opr_with_power_cernet2}}
 \caption{OPRE with Power Saving}
 \vspace*{0.1in}
-\end{figure}
+\end{figure*}
 
+\begin{figure*}[!t]
+\centering
+\vspace*{0.1in}
+\subfloat{\includegraphics[width=6cm]{exp4_path_geant}}
+\subfloat{\includegraphics[width=6cm]{exp4_path_abilene}}
+\subfloat{\includegraphics[width=6cm]{exp4_path_cernet2}}
+\caption{Sort: (a). Abilene (b).Geant}
+\vspace*{0.1in}
+\end{figure*}
 
 \subsection{OPRE versus Power Saving}
 In Figure 4 (a), we see that the value of OPRE is at least 1 even in the origin topology, particularly in Geant the value is 1.24,
@@ -692,20 +680,52 @@ or perform differently in different phases of the same topology. For example, ER
 better in Cernet2, particularly in Geant, ERLU peform better at begining time.
 
 
-For computing the worst case, we generate 1000 traffic matrix for every topoloy and the $w$ with the Gravity Model.
-We show the each result in the Figure x and x when we remove the first 4 links in each topology. In Abilene, the result 
-is more tighter than Geant. Comparsion in two ways, we can see that in Abilene the AC method is worse than the ERLU one,
-and the downmost zone is the same in two ways, because the robust routing is same in the origin topology.
+\subsection{OPRE versus TMs}
+To simulate the worst case, we generate 1000 traffic matrices for every topoloy with margin attribute $w$. Figure 5 shows
+the OPRE distribution in the process of experiment. For avoiding mess result from too many lines, we just show the first 
+three lines and the base line, which shows the distribution when no links is removed, i.e. seven lines in each figure.
 
 
-From Figure xx and Figure xx, we sort the 1000 TMs by their OPRE value, and see that most of the TMs are quite average. 
-It is said that, our metric OPRE is always not be achived for most traffic matrix.
+In Figure 3 (a), we can only observe five lines because there are two overlapping lines, which means that when removing 
+links the worst case for the robust routing does not change. Maybe the random traffic matrices is not bad enough, or the 
+removed link really do not affect the MLUR. And from Figure 3, we see that the OPRE is not always be achived for most
+traffic matrices, the common value is much less than OPRE. 
 
 
-We know when we compute the robust routing for specific topology, the $w$ is very important. When the $w$ limit extremely,
-our robust routing is said without knowledge of traffic matrix. Figure xx, show the OPRE varified when $w$ changes. The greater
-the $w$ is, the greater the OPRE is. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider 
-range, and our OPRE is the worst case of all the traffic matrix.
+Comparing two ways in first phase of REAR algorithm, in Abilene and Geant ERLU is always better than AC, furthermore in
+some time, although more links are removed from topology the result of ERLU is still better. For most TMs, after switching 
+off three links the OPRE is 1.2 and 1.6 respectively in Abilene and Geant. However, the ERLU is less optimal than ERLU in 
+Cernet2, when we investigate the Cernet2 topology and find the crucial reason is the link between vertex Hangzhou and 
+vertex Xiamen, which is least important in the meaning of algebraic connectivity rather ERLU.
+
+
+\subsection{OPRE versus Margin}
+We take the margin $w$ as one of the input for computing robust routing, and margin identify a range of TMs the routing is 
+robust for. Once the $w$ limit extremely, our robust routing is said without knowledge of traffic matrix. Figure 5 shows the 
+OPRE increased as $w$ increased. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider
+range, and our OPRE may achieve worse case with more probability.
+
+
+And we find when the margin increases from 1.5 to 2.0, the OPER increases much less, particularly in the begining of removing,
+the difference almost can not be observed. It is a good phenomena for us, the variation of margin, i.e. the range of traffic
+matrices affect little on the OPRE when the energy conservation is limited within 12\% in Geant.
+
+
+\subsection{Path Stretching}
+Path stretching must be careful concerned in routing problem. Suppose two vertices connect directly each other in the origin topology,
+if we remove the connected link then they can connect by another path which is composed by multi links. However we argue path stretching
+between these situation may be unjust, because path stretching result from the difference of topologies rather than routing selection.
+So we obtain the shortest path by Dijkstra Algorithm in the final topology, and compare it with robust routings generated by 
+our REAR algorithm. Futher, we show the difference between two ways of removing link, and see the tendency when margin increased.
+
+In Figure 5, we see every line ends with path stretching ratio of 1, because topology become a tree structure when lose too much links,
+every path between vertices come to be unique, namely each path is the shortest path. Another conclusion is that, even in the origin 
+topology, our robust routing is 17\% longer than the shortest one, it is beacuse our algorithm not only consider the MLUR but also 
+the robust performance. However the Dijkstra just take the path length as metric.
+
+We can observe that, ERLU is always shorter than AC, althoungh in Geant, the worst case is 36\% than the shortest path when margin 
+equal to 1.5. And in the first removed links, the path stretching ratio is near 20\%. 
+
 
 \begin{figure}
 \centering
@@ -714,10 +734,6 @@ range, and our OPRE is the worst case of all the traffic matrix.
 \caption{OPRE with w relationship}
 \vspace*{0.1in}
 \end{figure}
-
-
-\section{Future and Issue}
-Future and Issue
 
 
 \section{Conclusion}

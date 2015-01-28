@@ -1,14 +1,20 @@
+from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.pyplot as plt
+import matplotlib.ticker as tic
 
-topology_x_range = {'abilene':5, 'geant':12, 'cernet2':4}
+fig1, ax1 = plt.subplots()
+
+topology_x_range = {'abilene':5, 'geant':13, 'cernet2':4}
 remove_links = {'abilene':4, 'geant':15, 'cernet2':3}
-topology_line_type = {'abilene':'o', 'geant':'s', 'cernet2':'^'}
-color_type = {'base':'r--', 'new':'b-'}
-remove_type = {'base':'AC', 'new':'ERLU'}
-result_file_template = "result-compare-%s-1.5"
+w_line_type = {'1.5':'o', '2.0':'s', '2.5':'^'}
+color_type = {'base':'r-', 'new':'b-'}
+remove_type = {'base':'TMP', 'new':'ERLU'}
+result_file_template = "result-compare-%s-%s"
 topology_file_template = "../topology/connected/%s-connected-topology"
 remove_file_template = "../topology/remove/%s-remove-%d-links"
-remove_base_file_template = "../topology/remove/%s-remove-%d-links-base"
+remove_base_file_template = "../topology/remove/%s-remove-%d-links-power"
+
+y_lim = {'abilene':9, 'geant':200, 'cernet2':4}
 
 
 power_models = {155.0:60, 1240.0:100, 2480.0:140, 9920:174}
@@ -17,7 +23,9 @@ power_model = [60, 100, 140, 174]
 
 line_list = []
 label_list = []
-for t in ['abilene', 'geant', 'cernet2']:
+#for t in ['abilene', 'geant', 'cernet2']:
+t = 'geant'
+for w in ['1.5', '2.0']:
     # compute the total power of topology
     f = open(topology_file_template % t)
     line = f.readline()
@@ -103,7 +111,7 @@ for t in ['abilene', 'geant', 'cernet2']:
     print power_base_saving_ratio
 
 
-    f = open(result_file_template % t)
+    f = open(result_file_template % (t, w))
     line = f.readline()
 
     base = []
@@ -120,20 +128,29 @@ for t in ['abilene', 'geant', 'cernet2']:
 
     f.close()
 
-    l1, = plt.plot(power_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+topology_line_type[t])
-    l2, = plt.plot(power_base_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+topology_line_type[t])
+    l1, = ax1.plot(power_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+w_line_type[w])
+    l2, = ax1.plot(power_base_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+w_line_type[w])
 
-    label_list.append(t + '-' + remove_type['base'])
-    label_list.append(t + '-' + remove_type['new'])
+    label_list.append(remove_type['base'] + '-' + w)
+    label_list.append(remove_type['new'] + '-' + w)
     
     line_list.append(l1)
     line_list.append(l2)
 
 plt.xlabel('Power Saving')
 plt.ylabel('Oblivious Performance Ratio')
+#plt.legend([l1, l2], ['TMP, w=1.5, 2.0, 2.5...', 'ERLU, w=1.5, 2.0, 2.5...'], loc=2)
 plt.legend(line_list, label_list, loc=2)
 
-#plt.show()
-plt.savefig('exp1_power.png', bbox_inches='tight')
+ax1.set_yscale('log')
+ax1.set_ylim([1,y_lim[t]])
+ax1.get_yaxis().set_major_formatter(tic.ScalarFormatter())
+
+pp = PdfPages('opr_with_power_%s.pdf' % t)
+pp.savefig(fig1)
+pp.close()
+
+plt.show()
+#plt.savefig('opr_with_power_%s.png' % t, bbox_inches='tight')
 
 

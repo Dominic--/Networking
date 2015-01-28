@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-topology_x_range = {'abilene':5, 'geant':12, 'cernet2':4}
+topology_x_range = {'abilene':5, 'geant':10, 'cernet2':4}
 topology_line_type = {'abilene':'o', 'geant':'s', 'cernet2':'^'}
 color_type = {'base':'r--', 'new':'b-'}
 remove_type = {'base':'AC', 'new':'ERLU'}
@@ -8,7 +8,8 @@ result_file_template = "result-compare-%s-1.5"
 
 line_list = []
 label_list = []
-for t in ['abilene', 'geant', 'cernet2']:
+#for t in ['abilene', 'geant', 'cernet2']:
+for t in ['geant']:
     f = open(result_file_template % t)
     line = f.readline()
 
@@ -39,7 +40,7 @@ plt.xlabel('Remove Links')
 plt.ylabel('oblivious performance ratio')
 plt.legend(line_list, label_list, loc=2)
 
-#plt.show()
-plt.savefig('exp1_link.png', bbox_inches='tight')
+plt.show()
+#plt.savefig('exp1_link.png', bbox_inches='tight')
 
 

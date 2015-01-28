@@ -12,8 +12,8 @@ type_random = "bimodal"
 connected_topology_template = "../topology/connected/%s-connected-topology"
 final_topology_template = "../topology/final/%s-final-topology-%d"
 remove_links_template = "../topology/remove/%s-remove-%d-links"
-final_topology_base_template = "../topology/final/%s-final-topology-%d-base"
-remove_links_base_template = "../topology/remove/%s-remove-%d-links-base"
+final_topology_base_template = "../topology/final/%s-final-topology-%d-power"
+remove_links_base_template = "../topology/remove/%s-remove-%d-links-power"
 solution_template = "%s-cplex-%0.1f.xml"
 demand_file_template = "../demand/%s-%s/%0.1f/%d.txt"
 result_file_template = "result-compare-%s-%0.1f"
@@ -23,7 +23,7 @@ solution_default = "global_opt_cplex_output.sol"
 files = 1000
 
 loop = 1
-w = 1.5
+w = 2.5
 
 remove_links_n = {'abilene':5, 'geant':16, 'cernet2':4}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  26 JAN 2015 19:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  28 JAN 2015 20:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -161,18 +161,18 @@ Package caption Info: Unknown document class (or package),
 (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
-LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
 
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -227,7 +227,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.eps]
+(grfext)             [.pdf,.png,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
@@ -238,100 +238,147 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-
-LaTeX Warning: Citation `networking:oblivious' on page 1 undefined on input lin
-e 89.
-
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 103.
+(Font)              <7> on input line 143.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 103.
+(Font)              <5> on input line 143.
 
-[2] <./png/3-nodes-example.png, id=22, 377.41pt x 62.2325pt>
+Underfull \hbox (badness 2689) in paragraph at lines 165--167
+\OT1/ptm/m/n/10 Let $\OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OMS/cmsy/m/n/10 f\OM
+L/cmm/m/it/10 r\OMS/cmsy/m/n/10 g\OML/cmm/m/it/10 ; M; G\OT1/cmr/m/n/10 )$ \OT1
+/ptm/m/n/10 be the \OT1/ptm/m/it/10 obliv-i-ous per-for-mance ra-tio
+ []
+
+<./png/3-nodes-example.png, id=10, 348.30125pt x 72.27pt>
 File: ./png/3-nodes-example.png Graphic file (type png)
 
 <use ./png/3-nodes-example.png>
-Package pdftex.def Info: ./png/3-nodes-example.png used on input line 210.
-(pdftex.def)             Requested size: 227.62204pt x 37.5335pt.
- [3 <./png/3-nodes-example.png>]
-
-LaTeX Warning: Citation `networking:greente' on page 4 undefined on input line 
-325.
-
+Package pdftex.def Info: ./png/3-nodes-example.png used on input line 188.
+(pdftex.def)             Requested size: 227.62204pt x 47.22966pt.
+ [2] [3 <./png/3-nodes-example.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 341.
+(Font)              <8> on input line 319.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 341.
-[4] <./png/circle.png, id=35, 335.2525pt x 306.14375pt>
+(Font)              <6> on input line 319.
+
+<./png/circle.png, id=26, 335.2525pt x 306.14375pt>
 File: ./png/circle.png Graphic file (type png)
  <use ./png/circle.png>
-Package pdftex.def Info: ./png/circle.png used on input line 460.
+Package pdftex.def Info: ./png/circle.png used on input line 438.
 (pdftex.def)             Requested size: 113.81102pt x 103.92867pt.
 
-<./png/clique.png, id=36, 335.2525pt x 298.11375pt>
+<./png/clique.png, id=27, 335.2525pt x 298.11375pt>
 File: ./png/clique.png Graphic file (type png)
  <use ./png/clique.png>
-Package pdftex.def Info: ./png/clique.png used on input line 463.
+Package pdftex.def Info: ./png/clique.png used on input line 441.
 (pdftex.def)             Requested size: 113.81102pt x 101.20267pt.
 
-[5 <./png/circle.png> <./png/clique.png>]
-<./png/exp2_sort_cernet2.png, id=40, 516.0078pt x 402.5439pt>
-File: ./png/exp2_sort_cernet2.png Graphic file (type png)
+[4] [5 <./png/circle.png> <./png/clique.png>]
+<./png/exp2_sort_cernet2.pdf, id=40, 578.16pt x 433.62pt>
+File: ./png/exp2_sort_cernet2.pdf Graphic file (type pdf)
 
-<use ./png/exp2_sort_cernet2.png>
-Package pdftex.def Info: ./png/exp2_sort_cernet2.png used on input line 605.
-(pdftex.def)             Requested size: 170.71652pt x 133.17772pt.
+<use ./png/exp2_sort_cernet2.pdf>
+Package pdftex.def Info: ./png/exp2_sort_cernet2.pdf used on input line 583.
+(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
 
-<./png/exp2_sort_abilene.png, id=42, 516.0078pt x 402.5439pt>
-File: ./png/exp2_sort_abilene.png Graphic file (type png)
+<./png/exp2_sort_abilene.pdf, id=41, 578.16pt x 433.62pt>
+File: ./png/exp2_sort_abilene.pdf Graphic file (type pdf)
 
-<use ./png/exp2_sort_abilene.png>
-Package pdftex.def Info: ./png/exp2_sort_abilene.png used on input line 606.
-(pdftex.def)             Requested size: 170.71652pt x 133.17772pt.
+<use ./png/exp2_sort_abilene.pdf>
+Package pdftex.def Info: ./png/exp2_sort_abilene.pdf used on input line 584.
+(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
 
-<./png/exp2_sort_geant.png, id=43, 516.0078pt x 402.5439pt>
-File: ./png/exp2_sort_geant.png Graphic file (type png)
+<./png/exp2_sort_geant.pdf, id=42, 578.16pt x 433.62pt>
+File: ./png/exp2_sort_geant.pdf Graphic file (type pdf)
 
-<use ./png/exp2_sort_geant.png>
-Package pdftex.def Info: ./png/exp2_sort_geant.png used on input line 607.
-(pdftex.def)             Requested size: 170.71652pt x 133.17772pt.
+<use ./png/exp2_sort_geant.pdf>
+Package pdftex.def Info: ./png/exp2_sort_geant.pdf used on input line 585.
+(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+
+<./png/opr_with_power_abilene.pdf, id=43, 578.16pt x 433.62pt>
+File: ./png/opr_with_power_abilene.pdf Graphic file (type pdf)
+
+<use ./png/opr_with_power_abilene.pdf>
+Package pdftex.def Info: ./png/opr_with_power_abilene.pdf used on input line 61
+9.
+(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+
+<./png/opr_with_power_geant.pdf, id=44, 578.16pt x 433.62pt>
+File: ./png/opr_with_power_geant.pdf Graphic file (type pdf)
+
+<use ./png/opr_with_power_geant.pdf>
+Package pdftex.def Info: ./png/opr_with_power_geant.pdf used on input line 620.
+
+(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+
+<./png/opr_with_power_cernet2.pdf, id=45, 578.16pt x 433.62pt>
+File: ./png/opr_with_power_cernet2.pdf Graphic file (type pdf)
+
+<use ./png/opr_with_power_cernet2.pdf>
+Package pdftex.def Info: ./png/opr_with_power_cernet2.pdf used on input line 62
+1.
+(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+
+<./png/exp4_path_geant.png, id=46, 508.0581pt x 402.5439pt>
+File: ./png/exp4_path_geant.png Graphic file (type png)
+
+<use ./png/exp4_path_geant.png>
+Package pdftex.def Info: ./png/exp4_path_geant.png used on input line 629.
+(pdftex.def)             Requested size: 170.71652pt x 135.25996pt.
+
+<./png/exp4_path_abilene.png, id=48, 517.4532pt x 402.5439pt>
+File: ./png/exp4_path_abilene.png Graphic file (type png)
+
+<use ./png/exp4_path_abilene.png>
+Package pdftex.def Info: ./png/exp4_path_abilene.png used on input line 630.
+(pdftex.def)             Requested size: 170.71652pt x 132.80917pt.
+
+<./png/exp4_path_cernet2.png, id=49, 517.4532pt x 402.5439pt>
+File: ./png/exp4_path_cernet2.png Graphic file (type png)
+
+<use ./png/exp4_path_cernet2.png>
+Package pdftex.def Info: ./png/exp4_path_cernet2.png used on input line 631.
+(pdftex.def)             Requested size: 170.71652pt x 132.80917pt.
+ [6]
+
+LaTeX Warning: Text page 7 contains only floats.
 
 
-LaTeX Warning: Citation `networking:gravity' on page 6 undefined on input line 
-615.
+Overfull \vbox (4.04166pt too high) has occurred while \output is active []
 
-<./png/opr_with_remove_links.png, id=44, 497.2176pt x 402.5439pt>
-File: ./png/opr_with_remove_links.png Graphic file (type png)
 
-<use ./png/opr_with_remove_links.png>
-Package pdftex.def Info: ./png/opr_with_remove_links.png used on input line 641
-.
-(pdftex.def)             Requested size: 113.81102pt x 92.1409pt.
+[7 <./png/exp2_sort_cernet2.pdf> <./png/exp2_sort_abilene.pdf
 
-<./png/opr_with_power_saving.png, id=45, 502.9992pt x 402.5439pt>
-File: ./png/opr_with_power_saving.png Graphic file (type png)
+pdfTeX warning: pdflatex (file ./png/exp2_sort_abilene.pdf): PDF inclusion: mul
+tiple pdfs with page group included in a single page
+> <./png/exp2_sort_geant.pdf
 
-<use ./png/opr_with_power_saving.png>
-Package pdftex.def Info: ./png/opr_with_power_saving.png used on input line 642
-.
-(pdftex.def)             Requested size: 113.81102pt x 91.07828pt.
- [6 <./png/opr_with_remove_links.png> <./png/opr_with_power_saving.png>]
+pdfTeX warning: pdflatex (file ./png/exp2_sort_geant.pdf): PDF inclusion: multi
+ple pdfs with page group included in a single page
+> <./png/opr_with_power_abilene.pdf
 
-LaTeX Warning: Citation `networking:greente' on page 7 undefined on input line 
-662.
+pdfTeX warning: pdflatex (file ./png/opr_with_power_abilene.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+> <./png/opr_with_power_geant.pdf
 
-<./png/exp3_w.png, id=51, 502.9992pt x 402.5439pt>
+pdfTeX warning: pdflatex (file ./png/opr_with_power_geant.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
+> <./png/opr_with_power_cernet2.pdf
+
+pdfTeX warning: pdflatex (file ./png/opr_with_power_cernet2.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+> <./png/exp4_path_geant.png> <./png/exp4_path_abilene.png> <./png/exp4_path_ce
+rnet2.png>] <./png/exp3_w.png, id=305, 502.9992pt x 402.5439pt>
 File: ./png/exp3_w.png Graphic file (type png)
- <use ./png/exp3_w.png>
-Package pdftex.def Info: ./png/exp3_w.png used on input line 709.
+
+<use ./png/exp3_w.png>
+Package pdftex.def Info: ./png/exp3_w.png used on input line 733.
 (pdftex.def)             Requested size: 227.62161pt x 113.81099pt.
 
-[7 <./png/exp2_sort_cernet2.png> <./png/exp2_sort_abilene.png> <./png/exp2_sort
-_geant.png> <./png/exp3_w.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -343,47 +390,39 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8
-
-] (./paper.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[8 <./png/exp3_w.png>] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 3063 strings out of 493315
- 50843 string characters out of 6137903
- 117402 words of memory out of 5000000
- 6492 multiletter control sequences out of 15000+600000
- 38768 words of font info for 72 fonts, out of 8000000 for 9000
+ 3083 strings out of 493315
+ 51450 string characters out of 6137903
+ 122494 words of memory out of 5000000
+ 6509 multiletter control sequences out of 15000+600000
+ 37661 words of font info for 71 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
  38i,12n,47p,1064b,314s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2
-013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/201
-3/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
-ype1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/t
-imes/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr
-8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (8 pages, 491313 bytes).
+{/usr/local/texlive/2013/texmf-dist/fonts
+/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi5.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7
+.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
+b></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr
+/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texli
+ve/2013/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (8 pages, 500117 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
+ 372 PDF objects out of 1000 (max. 8388607)
+ 110 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
