@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 fig1, ax1 = plt.subplots()
 
-t = 'abilene'
+t = 'cernet2'
 result_file_template = "middle-compare-%s-1.5" % t
 count = 1000
 remove = 4
@@ -13,7 +13,7 @@ line = f.readline();
 
 base = [([0] * count) for i in range(remove)]
 new = [([0] * count) for i in range(remove)]
-x = [i for i in range(count)]
+x = [i/10 for i in range(count)]
 while line:
     tokens = line.strip().split()
     r = int(tokens[0])
@@ -49,8 +49,8 @@ for i in range(0, remove):
 
 #plt.axis([0, 6, 0, 20])
 
-plt.xlabel('Random Traffic Matrix')
-plt.ylabel('Oblivious Performance Ratio')
+plt.xlabel('Random Traffic Matrix (%)', fontsize=22)
+plt.ylabel('Oblivious Performance Ratio', fontsize=22)
 plt.legend([line1, line2], ['TMP', 'ERLU'], loc=2)
 
 pp = PdfPages('exp2_sort_%s.pdf' % t)

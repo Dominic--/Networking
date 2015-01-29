@@ -6,7 +6,7 @@ fig1, ax1 = plt.subplots()
 
 topology_x_range = {'abilene':5, 'geant':13, 'cernet2':4}
 remove_links = {'abilene':4, 'geant':15, 'cernet2':3}
-w_line_type = {'1.5':'o', '2.0':'s', '2.5':'^'}
+w_line_type = {'1.5':'o', '2.5':'s', '3.5':'^'}
 color_type = {'base':'r-', 'new':'b-'}
 remove_type = {'base':'TMP', 'new':'ERLU'}
 result_file_template = "result-compare-%s-%s"
@@ -25,7 +25,7 @@ line_list = []
 label_list = []
 #for t in ['abilene', 'geant', 'cernet2']:
 t = 'geant'
-for w in ['1.5', '2.0']:
+for w in ['1.5', '2.5', '3.5']:
     # compute the total power of topology
     f = open(topology_file_template % t)
     line = f.readline()
@@ -73,7 +73,7 @@ for w in ['1.5', '2.0']:
         elif topo[s,d] <= 9920.0:
             saving = saving + power_model[3]
         
-        power_saving_ratio.append(saving / total)
+        power_saving_ratio.append(saving / total * 100)
         removes[num] = [s,d]
         num = num + 1
 
@@ -102,7 +102,7 @@ for w in ['1.5', '2.0']:
         elif topo[s,d] <= 9920.0:
             saving = saving + power_model[3]
         
-        power_base_saving_ratio.append(saving / total)
+        power_base_saving_ratio.append(saving / total * 100)
         removes_base[num] = [s,d]
         num = num + 1
 
@@ -128,8 +128,8 @@ for w in ['1.5', '2.0']:
 
     f.close()
 
-    l1, = ax1.plot(power_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+w_line_type[w])
-    l2, = ax1.plot(power_base_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+w_line_type[w])
+    l1, = ax1.plot(power_base_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+w_line_type[w])
+    l2, = ax1.plot(power_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+w_line_type[w])
 
     label_list.append(remove_type['base'] + '-' + w)
     label_list.append(remove_type['new'] + '-' + w)
@@ -137,8 +137,8 @@ for w in ['1.5', '2.0']:
     line_list.append(l1)
     line_list.append(l2)
 
-plt.xlabel('Power Saving')
-plt.ylabel('Oblivious Performance Ratio')
+plt.xlabel('Power Saving Ratio (%)', fontsize=22)
+plt.ylabel('Oblivious Performance Ratio', fontsize=22)
 #plt.legend([l1, l2], ['TMP, w=1.5, 2.0, 2.5...', 'ERLU, w=1.5, 2.0, 2.5...'], loc=2)
 plt.legend(line_list, label_list, loc=2)
 

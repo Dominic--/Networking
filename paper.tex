@@ -6,6 +6,7 @@
 \makeatother
 
 \usepackage{cite}
+\usepackage{amsmath}
 
 \ifCLASSINFOpdf
    \usepackage[pdftex]{graphicx}
@@ -170,14 +171,48 @@ Let $P^*(\{ r \}, M, G)$ be the \emph{oblivious performance ratio with energy co
 Note that when there is no energy constraint, $G$ is the sub-graph that has the minimum performance ratio, and Eq. (5) naturally reduces to Eq. (3).
 
 \subsection{Problem Formulation}
+We formulate our problem as following:
 
+\begin{equation}
+Minimize \max_{m \in M} \frac{U_{r,m,G^*}} {min_{r'} U_{r', m, G}}
+\end{equation}
 
+\begin{equation}
+    G^* = (V,E^*), E^* \subset E
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+    \forall (\epsilon, \gamma) \in \{ (E, r'), (E^*, r)\} \\
+    \sum_{(i,j) \in \epsilon}f_{ab}(i,j)O_{(i,j)}^i - \sum_{(i,j) \in \epsilon}f_{ab}(i,j)I_{(i,j)}^i = \\
+    \left\{
+        \begin{array}{c}
+        1, i = b \\
+        -1, i = a \\
+        0, i \neq a,b \\
+        \end{array}
+    \right.
+    , \ \ \ \ a,b,i \in V, a \neq b, f_{ab}(i,j) \in \gamma
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \sum_{l \in E^*} p(l) / \sum_{l \in E} p(l) < 1 - \theta
+\end{equation}
+
+Eq. (6) is our target, which minimize the value of OPRE defined in \Rmnum{3}.B. Eq. (7) say $G^*$ be a sub-graph of $G$, which means remove/sleep
+some links from $G$, and keep vertices the same. Eq. (8) ensures the graph is connected and define the routing. In details, $O_{(i,j)}^i$ equal to
+1 if $i$ is the tail node of link $(i,j)$, and $I_(i,j)^i$ equal to 1 if $i$ is the head node of link $(i,j)$, this equation states the flow 
+conservation constraints. In the other hand, $f_{ab}(i,j)$ is specified by routing $\gamma$, if the graph is not connected it will be unavailable
+for some origin and destination pair. And from Eq. (8) we know that routing $r$ is corresponded with $G^*$, and $r'$ with $G$. We calculate the 
+power constraints in Eq. (9), it ensure that we can save more than $\theta$ energy consumption. The function $p$ which maps link to power consumption
+is proposed in \cite{networking:greente}.
 
 \subsection{Model Example}
 We will take an example to explain how to choose the link to close in our algorithm.
-Three hostes include : A, B, C, three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose
-there are two TM : ${(A,B,2M), (A,C,1M)}$ and ${(A,B,1M), (A,C,1M)}$. For each traffic matrix, the optimal route is
-obvious, we will trace 2M from A to B across the lower link and trace the 1M from A to C across the upper one
+Three hostes include : a, b, c, three links are with repectively capacity of 3M, 4M and 2M. For simpleness, we suppose
+there are two TM : ${(a,b,2M), (a,c,1M)}$ and ${(a,b,1M), (a,c,1M)}$. For each traffic matrix, the optimal route is
+obvious, we will trace 2M from a to b across the lower link and trace the 1M from a to c across the upper one
 for the first traffic matrix, whose maximum link utilization is 0.5. we will trace all the traffic acorss the
 lower link for the second traffic matrix, whose maximum link utilization is 0.5 as well.
 
@@ -186,7 +221,7 @@ lower link for the second traffic matrix, whose maximum link utilization is 0.5 
 \centering
 \vspace*{0.1in}
 \includegraphics[width=8cm]{3-nodes-example}
-\caption{Model Example}
+\caption{Model Example, TM \Rmnum{1} : (a, b, 2M), (a, c, 1M); TM \Rmnum{2} : (a, b, 1M), (a, c, 1M).}
 \label{label}
 \vspace*{0.1in}
 \end{figure}
@@ -580,10 +615,20 @@ on other topology.
 \begin{figure*}[!t]
 \centering
 \vspace*{0.1in}
-\subfloat{\includegraphics[width=6cm]{exp2_sort_cernet2}}
+\subfloat{\includegraphics[width=6cm]{opr_with_power_abilene}}
+\subfloat{\includegraphics[width=6cm]{opr_with_power_geant}}
+\subfloat{\includegraphics[width=6cm]{opr_with_power_cernet2}}
+\caption{OPRE versus Power Saving: (1). Abilene, (b). Geant, (c). Cernet2}
+\vspace*{0.1in}
+\end{figure*}
+
+\begin{figure*}[!t]
+\centering
+\vspace*{0.1in}
 \subfloat{\includegraphics[width=6cm]{exp2_sort_abilene}}
 \subfloat{\includegraphics[width=6cm]{exp2_sort_geant}}
-\caption{Sort: (a). Abilene (b).Geant}
+\subfloat{\includegraphics[width=6cm]{exp2_sort_cernet2}}
+\caption{OPRE versus TMs: (a). Abilene, (b). Geant, (c). Cernet2}
 \vspace*{0.1in}
 \end{figure*}
 
@@ -591,7 +636,7 @@ on other topology.
 \section{Experiments and Results}
 We simulated our algorithm on real world topology, including Abilene, Geant and Cernet2, whose number of nodes and links are listed in Table \Rmnum{1}.
 Then we generate random traffic matrix with Gravity Model \cite{networking:gravity}, which assume that the traffic demand between nodes is proportional
-to their combined capacity of connecting links. To extrapolate a complete TM, we take an attribute $w$ to scale the traffic range from $1/w$ to $w$
+to their combined capacity of connecting links. To extrapolate a complete TM, we take an attribute margin $w$ to scale the traffic range from $1/w$ to $w$
 base on the basic traffic demand. Particularly, when the $w$ limit extremity, we say the traffic matrix is really arbitrary, and our 
 algorithm is irrelevant with traffic.
 
@@ -613,45 +658,35 @@ Cernet2 & 20 & 22 & 3 \\
 \end{tabular}
 \end{table}
 
-\begin{figure*}[!t]
-\centering
-\vspace*{0.1in}
-\subfloat{\includegraphics[width=6cm]{opr_with_power_abilene}}
-\subfloat{\includegraphics[width=6cm]{opr_with_power_geant}}
-\subfloat{\includegraphics[width=6cm]{opr_with_power_cernet2}}
-\caption{OPRE with Power Saving}
-\vspace*{0.1in}
-\end{figure*}
 
 \begin{figure*}[!t]
 \centering
 \vspace*{0.1in}
-\subfloat{\includegraphics[width=6cm]{exp4_path_geant}}
 \subfloat{\includegraphics[width=6cm]{exp4_path_abilene}}
+\subfloat{\includegraphics[width=6cm]{exp4_path_geant}}
 \subfloat{\includegraphics[width=6cm]{exp4_path_cernet2}}
-\caption{Sort: (a). Abilene (b).Geant}
+\caption{Path Stretching: (a). Abilene, (b). Geant, (c). Cernet2}
 \vspace*{0.1in}
 \end{figure*}
 
 \subsection{OPRE versus Power Saving}
-In Figure 4 (a), we see that the value of OPRE is at least 1 even in the origin topology, particularly in Geant the value is 1.24,
-it means the robust routing always not be the optimal for all TMs even no links removed from topology. It is reasonable because
-our robust routing is used for a range of traffic rather than a specific TM.
+In Figure 3, we see that the value of OPRE is at least 1 for all topologies even no links removed, particularly in Geant the value is 1.24,
+it means the robust routing always not be the optimal for all TMs. It is reasonable because our robust routing is used for a range of traffic 
+rather than a specific TM.
 
 
 When we switch off links, the topology lose connectivity and some routing paths will be failed, traffic on those paths will be 
-adjusted to others, which result in the value of OPRE increased. We take margin as 1.5 and observe this phenomena from Figure 4 (a).
-And all the curves can split in two phases according to the growth speed of OPRE, for example in Abilene, the OPRE rise geantly 
-before 4 links are removed, and rise rapidly since then. It is revelatory for implementing our algorithm in real life, controlling
-the number of removed links less than the turning point is more efficient. The another reason for avoiding removing too much links
-is that the robust routing will be less `robust' or induce network congestions easily, because there is only one path between two
-vertices in the minimum connected topology.
+adjusted to others, which result in the value of OPRE increased. We take margin from 1.5 to 3.5 and observe this phenomena from Figure.
+Pay attention that we scale the y-axis as logarithm for comparing TMP and ERLU in one figure. Intuitively, we can see ERLU is always
+better than TMP whatever margin or power saving target is, because ERLU consider much more than TMP, such as capacity and robust traffic 
+flows. Another information from Figure 4 is that, we should carefully set the value of power saving for avoiding removing too much
+links, which result in the OPRE increases rapidly, induce network congestions easily and make the robust routing be less `robust'.
 
 
-On the other hand, we concern more about how is the OPRE varifying when achived specific power saving target. Obviously, the more 
-links we removed, the more power we saved, but how to quantify the power of one link is difficult. Green TE \cite{networking:greente} 
-proposed a simple power model, which can be represented in Table \Rmnum{2}. In which, the total energy of topology is dominant by line
-cards of routers or switches, when saying switch off the links we mean put down the according line cards.
+we concern more about how is the OPRE varifying when achived specific power saving target. Obviously, the more links we removed, 
+the more power we saved, but how to quantify the power of one link is difficult. Green TE proposed a simple power model \cite{networking:greente}, 
+which can be represented in Table \Rmnum{2}. In which, the total energy of topology is dominant by line cards of routers or switches, 
+when saying switch off the links we mean put down the according line cards.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1}
@@ -674,42 +709,32 @@ cards of routers or switches, when saying switch off the links we mean put down 
 \end{table}
 
 We compute the power saving ratio as the total power of the removed links over the total power of all the links. 
-In Figure 4 (b), it shows we can save 19\% energy only with an OPRE of 1.34 in Abilene topology, and in Geant and Cernet2, 
-the OPRE is little higher. We also can see that two ways for removing links perform differently in different topologies,
-or perform differently in different phases of the same topology. For example, ERLU is better than AC in Abilene and AC is
-better in Cernet2, particularly in Geant, ERLU peform better at begining time.
-
-
-\subsection{OPRE versus TMs}
-To simulate the worst case, we generate 1000 traffic matrices for every topoloy with margin attribute $w$. Figure 5 shows
-the OPRE distribution in the process of experiment. For avoiding mess result from too many lines, we just show the first 
-three lines and the base line, which shows the distribution when no links is removed, i.e. seven lines in each figure.
-
-
-In Figure 3 (a), we can only observe five lines because there are two overlapping lines, which means that when removing 
-links the worst case for the robust routing does not change. Maybe the random traffic matrices is not bad enough, or the 
-removed link really do not affect the MLUR. And from Figure 3, we see that the OPRE is not always be achived for most
-traffic matrices, the common value is much less than OPRE. 
-
-
-Comparing two ways in first phase of REAR algorithm, in Abilene and Geant ERLU is always better than AC, furthermore in
-some time, although more links are removed from topology the result of ERLU is still better. For most TMs, after switching 
-off three links the OPRE is 1.2 and 1.6 respectively in Abilene and Geant. However, the ERLU is less optimal than ERLU in 
-Cernet2, when we investigate the Cernet2 topology and find the crucial reason is the link between vertex Hangzhou and 
-vertex Xiamen, which is least important in the meaning of algebraic connectivity rather ERLU.
+In Figure 3 (a), it shows we can save 19\% energy only with an OPRE of 1.30 in Abilene topology, and in Geant and Cernet2, 
+the OPRE is little higher. Curves present some scalariform, it means that in some range of power saving, the OPRE rise slowly,
+and in the end of range, the energy conservation is efficient.
 
 
 \subsection{OPRE versus Margin}
 We take the margin $w$ as one of the input for computing robust routing, and margin identify a range of TMs the routing is 
-robust for. Once the $w$ limit extremely, our robust routing is said without knowledge of traffic matrix. Figure 5 shows the 
-OPRE increased as $w$ increased. It is obvious because when the $w$ is greater, the traffic matrix is random in more wider
-range, and our OPRE may achieve worse case with more probability.
+robust for. Once the $w$ limit extremely, our robust routing is said without knowledge of traffic matrix. Figure 3 shows the 
+OPRE increases little as $w$ increases, particularly in Geant, the difference almost can not be observed. It is obvious because
+when the $w$ is greater, the traffic matrix is random in more wider range, and our OPRE may achieve worse case with more probability.
 
 
-And we find when the margin increases from 1.5 to 2.0, the OPER increases much less, particularly in the begining of removing,
-the difference almost can not be observed. It is a good phenomena for us, the variation of margin, i.e. the range of traffic
-matrices affect little on the OPRE when the energy conservation is limited within 12\% in Geant.
+\subsection{OPRE versus TMs}
+To simulate the worst case, we generate 1000 traffic matrices for every topoloy with margin attribute $w$. Figure 4 shows
+the OPRE distribution in the process of experiment. For avoiding mess result from too many lines, we just show the first 
+three lines and the base line, which shows the distribution when no links is removed, i.e. seven lines in each figure.
 
+
+In Figure 4 (a), we can only observe five lines because there are two overlapping lines, which means that when removing 
+links the worst case for the robust routing does not change. Maybe the random traffic matrices is not bad enough, or the 
+removed link really do not affect the MLUR. And from Figure 4, we see that the OPRE is not always be achived for most
+traffic matrices, the common value is much less than OPRE. 
+
+
+Comparing TMP and ERLU, the conclusion is similar to Figure 3, the latter is always better than the former. Even in some 
+time, ERLU obtains more power saving but with a lower OPRE.
 
 \subsection{Path Stretching}
 Path stretching must be careful concerned in routing problem. Suppose two vertices connect directly each other in the origin topology,
@@ -723,17 +748,8 @@ every path between vertices come to be unique, namely each path is the shortest 
 topology, our robust routing is 17\% longer than the shortest one, it is beacuse our algorithm not only consider the MLUR but also 
 the robust performance. However the Dijkstra just take the path length as metric.
 
-We can observe that, ERLU is always shorter than AC, althoungh in Geant, the worst case is 36\% than the shortest path when margin 
+We can observe that, ERLU is always shorter than TMP, althoungh in Geant, the worst case is 36\% than the shortest path when margin 
 equal to 1.5. And in the first removed links, the path stretching ratio is near 20\%. 
-
-
-\begin{figure}
-\centering
-\vspace*{0.1in}
-\includegraphics[width=8cm,height=4cm]{exp3_w}
-\caption{OPRE with w relationship}
-\vspace*{0.1in}
-\end{figure}
 
 
 \section{Conclusion}

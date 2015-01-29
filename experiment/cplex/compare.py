@@ -23,7 +23,7 @@ solution_default = "global_opt_cplex_output.sol"
 files = 1000
 
 loop = 1
-w = 2.5
+w = 4.0
 
 remove_links_n = {'abilene':5, 'geant':16, 'cernet2':4}
 

@@ -1,8 +1,11 @@
+from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.pyplot as plt
+
+fig1, ax1 = plt.subplots()
 
 topology_x_range = {'abilene':5, 'geant':12, 'cernet2':4}
 remove_links = {'abilene':4, 'geant':15, 'cernet2':3}
-topology_line_type = {1.5:'o', 2.0:'s'}
+topology_line_type = {1.5:'o', 2.0:'s', 2.5:'^', 3.0:'o', 3.5:'s', 4.0:'^'}
 color_type = {'base':'r--', 'new':'b-'}
 remove_type = {'base':'AC', 'new':'ERLU'}
 result_file_template = "result-compare-%s-%0.1f"
@@ -103,7 +106,7 @@ for t in ['geant']:
     print power_base_saving_ratio
 
 
-    for w in [1.5, 2.0]:
+    for w in [1.5, 2.0, 2.5, 3.0, 3.5, 4.0]:
         f = open(result_file_template % (t, w))
         line = f.readline()
 
@@ -121,20 +124,23 @@ for t in ['geant']:
 
         f.close()
 
-        l1, = plt.plot(power_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+topology_line_type[w])
+        #l1, = plt.plot(power_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+topology_line_type[w])
         l2, = plt.plot(power_base_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+topology_line_type[w])
 
-        label_list.append(t + '-' + remove_type['base'] + '-%0.1f' % w)  
+        #label_list.append(t + '-' + remove_type['base'] + '-%0.1f' % w)  
         label_list.append(t + '-' + remove_type['new'] + '-%0.1f' % w)
         
-        line_list.append(l1)
+        #line_list.append(l1)
         line_list.append(l2)
 
 plt.xlabel('Power Saving')
 plt.ylabel('Oblivious Performance Ratio')
 plt.legend(line_list, label_list, loc=2)
 
-#plt.show()
-plt.savefig('exp3_w.png', bbox_inches='tight')
+pp = PdfPages('exp3_w.pdf')
+pp.savefig(fig1)
+pp.close()
+
+plt.show()
 
 
