@@ -6,7 +6,7 @@ fig1, ax1 = plt.subplots()
 topology_x_range = {'abilene':5, 'geant':16, 'cernet2':4}
 topology_line_type = {'1.5':'o', '2.5':'s', '3.5':'^'}
 color_type = {'base':'r--', 'new':'b-'}
-remove_type = {'base':'TMP', 'new':'ERLU'}
+remove_type = {'base':'DMP', 'new':'ERLU'}
 result_file_template = "path_stretch_%s_%s.txt"
 
 line_list = []
@@ -39,8 +39,8 @@ for t in ['geant']:
 
         #l1, = plt.plot(x[:topology_x_range[t]], m_mine[:topology_x_range[t]], color_type['new']+topology_line_type[t])
         #l2, = plt.plot(x[:topology_x_range[t]], m_base[:topology_x_range[t]], color_type['base']+topology_line_type[t])
-        l1, = plt.plot(x[:topology_x_range[t]], a_mine[:topology_x_range[t]], color_type['new']+topology_line_type[w])
-        l2, = plt.plot(x[:topology_x_range[t]], a_base[:topology_x_range[t]], color_type['base']+topology_line_type[w])
+        l1, = plt.plot(x[:topology_x_range[t]], a_mine[:topology_x_range[t]], color_type['new']+topology_line_type[w], ms=8)
+        l2, = plt.plot(x[:topology_x_range[t]], a_base[:topology_x_range[t]], color_type['base']+topology_line_type[w], ms=8)
 
         label_list.append(w + '-' + remove_type['base'])
         label_list.append(w + '-' + remove_type['new'])
@@ -56,6 +56,6 @@ for t in ['geant']:
     pp.savefig(fig1)
     pp.close()
 
-    plt.show()
+    #plt.show()
 
 
