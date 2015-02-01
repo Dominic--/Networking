@@ -1,4 +1,5 @@
 from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib.ticker import FormatStrFormatter
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tic
 
@@ -24,7 +25,7 @@ power_model = [60, 100, 140, 174]
 line_list = []
 label_list = []
 #for t in ['abilene', 'geant', 'cernet2']:
-t = 'cernet2'
+t = 'abilene'
 for w in ['1.5', '2.5', '3.5']:
     # compute the total power of topology
     f = open(topology_file_template % t)
@@ -128,8 +129,8 @@ for w in ['1.5', '2.5', '3.5']:
 
     f.close()
 
-    l1, = ax1.plot(power_base_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+w_line_type[w], ms=8)
-    l2, = ax1.plot(power_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+w_line_type[w], ms=8)
+    l1, = ax1.plot(power_base_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+w_line_type[w], ms=10)
+    l2, = ax1.plot(power_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+w_line_type[w], ms=10)
 
     label_list.append(remove_type['base'] + '-' + w)
     label_list.append(remove_type['new'] + '-' + w)
@@ -138,19 +139,20 @@ for w in ['1.5', '2.5', '3.5']:
     line_list.append(l2)
 
 plt.xlabel('Power Saving Ratio (%)', fontsize=22)
-plt.ylabel('Oblivious Performance Ratio', fontsize=22)
+plt.ylabel('OPRE', fontsize=22)
 #plt.legend([l1, l2], ['TMP, w=1.5, 2.0, 2.5...', 'ERLU, w=1.5, 2.0, 2.5...'], loc=2)
 plt.legend(line_list, label_list, loc=2)
 
 ax1.set_yscale('log')
 ax1.set_ylim([1,y_lim[t]])
 ax1.get_yaxis().set_major_formatter(tic.ScalarFormatter())
+ax1.yaxis.set_minor_formatter(FormatStrFormatter("%0.1f"))
 
 pp = PdfPages('opr_with_power_%s.pdf' % t)
 pp.savefig(fig1)
 pp.close()
 
-#plt.show()
+plt.show()
 #plt.savefig('opr_with_power_%s.png' % t, bbox_inches='tight')
 
 

@@ -11,9 +11,7 @@ result_file_template = "path_stretch_%s_%s.txt"
 
 line_list = []
 label_list = []
-#for t in ['geant']:
-#for t in ['abilene']:
-for t in ['geant']:
+for t in ['abilene']:
     for w in ['1.5', '2.5', '3.5']:
         f = open(result_file_template % (t, w))
         line = f.readline()
@@ -39,8 +37,8 @@ for t in ['geant']:
 
         #l1, = plt.plot(x[:topology_x_range[t]], m_mine[:topology_x_range[t]], color_type['new']+topology_line_type[t])
         #l2, = plt.plot(x[:topology_x_range[t]], m_base[:topology_x_range[t]], color_type['base']+topology_line_type[t])
-        l1, = plt.plot(x[:topology_x_range[t]], a_mine[:topology_x_range[t]], color_type['new']+topology_line_type[w], ms=8)
-        l2, = plt.plot(x[:topology_x_range[t]], a_base[:topology_x_range[t]], color_type['base']+topology_line_type[w], ms=8)
+        l1, = plt.plot(x[:topology_x_range[t]], a_mine[:topology_x_range[t]], color_type['new']+topology_line_type[w], ms=10)
+        l2, = plt.plot(x[:topology_x_range[t]], a_base[:topology_x_range[t]], color_type['base']+topology_line_type[w], ms=10)
 
         label_list.append(w + '-' + remove_type['base'])
         label_list.append(w + '-' + remove_type['new'])

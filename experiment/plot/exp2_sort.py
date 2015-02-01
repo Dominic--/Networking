@@ -35,7 +35,7 @@ for i in range(0, remove):
                 tmp = base[i][j]
                 base[i][j] = base[i][k]
                 base[i][k] = tmp
-    line1, = plt.plot(x, base[i], 'r--', ms=8)
+    line1, = plt.plot(base[i], x, 'r--', ms=8)
 
 line2 = None
 for i in range(0, remove):
@@ -45,18 +45,18 @@ for i in range(0, remove):
                 tmp = new[i][j]
                 new[i][j] = new[i][k]
                 new[i][k] = tmp
-    line2, = plt.plot(x, new[i], 'b-', ms=8)
+    line2, = plt.plot(new[i], x, 'b-', ms=8)
 
 #plt.axis([0, 6, 0, 20])
 
-plt.xlabel('Random Traffic Matrix (%)', fontsize=22)
-plt.ylabel('Oblivious Performance Ratio', fontsize=22)
-plt.legend([line1, line2], ['DMP', 'ERLU'], loc=2)
+plt.ylabel('CDF (%)', fontsize=22)
+plt.xlabel('OPRE', fontsize=22)
+plt.legend([line1, line2], ['DMP', 'ERLU'], loc=4)
 
 pp = PdfPages('exp2_sort_%s.pdf' % t)
 pp.savefig(fig1)
 pp.close()
 
-#plt.show()
+plt.show()
 #plt.savefig('exp2_sort_cernet2.png', bbox_inches='tight')
 

@@ -1,0 +1,57 @@
+\documentclass{standalone}
+\usepackage[x11names, rgb]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+%
+%
+
+%
+
+%
+
+\begin{document}
+\pagestyle{empty}
+%
+%
+%
+
+% Start of code
+% \begin{tikzpicture}[anchor=mid,>=latex',line join=bevel,]
+\begin{tikzpicture}[>=latex',line join=bevel,]
+  \pgfsetlinewidth{1bp}
+%%
+\pgfsetcolor{black}
+  % Edge: N0 -- N1
+  \draw [] (35.352bp,28.256bp) .. controls (55.506bp,30.438bp) and (88.555bp,30.437bp)  .. (108.69bp,28.252bp);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (70.102bp,38.783bp) node {$l_1: 3Mbps$};
+  % Edge: N0 -- N1
+  \draw [] (35.352bp,18.027bp) .. controls (55.506bp,15.845bp) and (88.555bp,15.846bp)  .. (108.69bp,18.031bp);
+  \draw (70.102bp,7.5bp) node {$l_2: 4Mbps$};
+  % Node: N0
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (18.0bp,23.0bp) ellipse (18.0bp and 18.0bp);
+  \draw (18.0bp,23.141bp) node {$a$};
+\end{scope}
+  % Node: N1
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (126.0bp,23.0bp) ellipse (18.0bp and 18.0bp);
+  \draw (126.0bp,23.141bp) node {$b$};
+\end{scope}
+%
+\end{tikzpicture}
+% End of code
+
+%
+\end{document}
+%
+
+
+

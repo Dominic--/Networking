@@ -4,8 +4,6 @@ graph g1 {
     rankdir="LR";
     N0 [ label = "a" ]
     N1 [ label = "b" ]
-    N2 [ label = "c" ]
-    N0 -- N1 [ headlabel = "3Mbps" labeldistance=4 labelangle=-10 ];
-    N0 -- N1 [ headlabel = "4Mbps" labeldistance=4 labelangle=10 ];
-    N1 -- N2 [ headlabel = "2Mbps" labeldistance=4 labelangle=-20 ];
+    N0 -- N1 [ headlabel = "l_1: 3Mbps" labeldistance=4 labelangle=-10 ];
+    N0 -- N1 [ headlabel = "l_2: 4Mbps" labeldistance=4 labelangle=10 ];
 }
