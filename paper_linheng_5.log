@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  1 FEB 2015 20:37
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.14)  4 FEB 2015 17:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper_linheng_4.tex
-(./paper_linheng_4.tex
+**paper_linheng_5.tex
+(./paper_linheng_5.tex
 LaTeX2e <2011/06/27>
 Babel <3.9f> and hyphenation patterns for 78 languages loaded.
 (./IEEEtran.cls
@@ -230,8 +230,8 @@ Package caption Info: Unknown document class (or package),
 \sf@top=\skip53
 \sf@bottom=\skip54
 )
-No file paper_linheng_4.aux.
-\openout1 = `paper_linheng_4.aux'.
+(./paper_linheng_5.aux)
+\openout1 = `paper_linheng_5.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
 LaTeX Font Info:    ... okay on input line 46.
@@ -245,6 +245,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
 LaTeX Font Info:    ... okay on input line 46.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
 LaTeX Font Info:    ... okay on input line 46.
+
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count113
@@ -309,134 +310,82 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-
-LaTeX Warning: Citation `networking:oblivious' on page 1 undefined on input lin
-e 95.
-
 [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-
-LaTeX Warning: Citation `networking:oblivious' on page 2 undefined on input lin
-e 161.
-
-
-LaTeX Warning: Citation `networking:oblivious' on page 2 undefined on input lin
-e 165.
-
-<./png/3-nodes-example.pdf, id=10, 148.8772pt x 46.95543pt>
+[2] <./png/3-nodes-example.pdf, id=21, 128.0374pt x 71.1319pt>
 File: ./png/3-nodes-example.pdf Graphic file (type pdf)
 
 <use ./png/3-nodes-example.pdf>
-Package pdftex.def Info: ./png/3-nodes-example.pdf used on input line 184.
-(pdftex.def)             Requested size: 170.71652pt x 53.84354pt.
- [2]
-
-LaTeX Warning: Citation `networking:hopbyhop' on page 3 undefined on input line
- 255.
-
-
-LaTeX Warning: Citation `networking:oblivious' on page 3 undefined on input lin
-e 257.
-
-
-LaTeX Warning: Citation `networking:oblivious' on page 3 undefined on input lin
-e 263.
-
-
-LaTeX Warning: Citation `networking:oblivious' on page 3 undefined on input lin
-e 280.
-
-[3 <./png/3-nodes-example.pdf>]
-
-LaTeX Warning: Citation `networking:greente' on page 4 undefined on input line 
-367.
-
-[4] <./png/opr_with_power_abilene.pdf, id=49, 578.16pt x 433.62pt>
+Package pdftex.def Info: ./png/3-nodes-example.pdf used on input line 174.
+(pdftex.def)             Requested size: 93.95122pt x 52.19719pt.
+ [3 <./png/3-nodes-example.pdf>] [4]
+<./png/opr_with_power_abilene.pdf, id=67, 533.8648pt x 445.64148pt>
 File: ./png/opr_with_power_abilene.pdf Graphic file (type pdf)
 
 <use ./png/opr_with_power_abilene.pdf>
-Package pdftex.def Info: ./png/opr_with_power_abilene.pdf used on input line 49
-4.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+Package pdftex.def Info: ./png/opr_with_power_abilene.pdf used on input line 39
+0.
+(pdftex.def)             Requested size: 170.71652pt x 142.49937pt.
 
-<./png/opr_with_power_geant.pdf, id=50, 578.16pt x 433.62pt>
+<./png/opr_with_power_geant.pdf, id=68, 539.29918pt x 435.92549pt>
 File: ./png/opr_with_power_geant.pdf Graphic file (type pdf)
 
 <use ./png/opr_with_power_geant.pdf>
-Package pdftex.def Info: ./png/opr_with_power_geant.pdf used on input line 495.
+Package pdftex.def Info: ./png/opr_with_power_geant.pdf used on input line 391.
 
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+(pdftex.def)             Requested size: 170.71652pt x 137.98907pt.
 
-<./png/opr_with_power_cernet2.pdf, id=51, 578.16pt x 433.62pt>
+<./png/opr_with_power_cernet2.pdf, id=69, 533.51193pt x 445.64148pt>
 File: ./png/opr_with_power_cernet2.pdf Graphic file (type pdf)
 
 <use ./png/opr_with_power_cernet2.pdf>
-Package pdftex.def Info: ./png/opr_with_power_cernet2.pdf used on input line 49
-6.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+Package pdftex.def Info: ./png/opr_with_power_cernet2.pdf used on input line 39
+2.
+(pdftex.def)             Requested size: 170.71652pt x 142.60138pt.
 
-<./png/exp2_sort_abilene.pdf, id=52, 578.16pt x 433.62pt>
+<./png/exp2_sort_abilene.pdf, id=70, 542.0046pt x 445.64148pt>
 File: ./png/exp2_sort_abilene.pdf Graphic file (type pdf)
 
 <use ./png/exp2_sort_abilene.pdf>
-Package pdftex.def Info: ./png/exp2_sort_abilene.pdf used on input line 504.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+Package pdftex.def Info: ./png/exp2_sort_abilene.pdf used on input line 401.
+(pdftex.def)             Requested size: 170.71652pt x 140.3642pt.
 
-<./png/exp2_sort_geant.pdf, id=53, 578.16pt x 433.62pt>
+<./png/exp2_sort_geant.pdf, id=71, 542.0046pt x 445.64148pt>
 File: ./png/exp2_sort_geant.pdf Graphic file (type pdf)
 
 <use ./png/exp2_sort_geant.pdf>
-Package pdftex.def Info: ./png/exp2_sort_geant.pdf used on input line 505.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+Package pdftex.def Info: ./png/exp2_sort_geant.pdf used on input line 402.
+(pdftex.def)             Requested size: 170.71652pt x 140.3642pt.
 
-<./png/exp2_sort_cernet2.pdf, id=54, 578.16pt x 433.62pt>
+<./png/exp2_sort_cernet2.pdf, id=72, 542.28691pt x 445.64148pt>
 File: ./png/exp2_sort_cernet2.pdf Graphic file (type pdf)
 
 <use ./png/exp2_sort_cernet2.pdf>
-Package pdftex.def Info: ./png/exp2_sort_cernet2.pdf used on input line 506.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
-
-
-LaTeX Warning: Citation `networking:gravity' on page 5 undefined on input line 
-514.
-
-<./png/exp4_path_abilene.pdf, id=55, 578.16pt x 433.62pt>
+Package pdftex.def Info: ./png/exp2_sort_cernet2.pdf used on input line 403.
+(pdftex.def)             Requested size: 170.71652pt x 140.2894pt.
+ [5]
+<./png/exp4_path_abilene.pdf, id=80, 548.87401pt x 445.64148pt>
 File: ./png/exp4_path_abilene.pdf Graphic file (type pdf)
 
 <use ./png/exp4_path_abilene.pdf>
-Package pdftex.def Info: ./png/exp4_path_abilene.pdf used on input line 541.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+Package pdftex.def Info: ./png/exp4_path_abilene.pdf used on input line 460.
+(pdftex.def)             Requested size: 170.71652pt x 138.60982pt.
 
-<./png/exp4_path_geant.pdf, id=56, 578.16pt x 433.62pt>
+<./png/exp4_path_geant.pdf, id=81, 532.56308pt x 445.64148pt>
 File: ./png/exp4_path_geant.pdf Graphic file (type pdf)
 
 <use ./png/exp4_path_geant.pdf>
-Package pdftex.def Info: ./png/exp4_path_geant.pdf used on input line 542.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
+Package pdftex.def Info: ./png/exp4_path_geant.pdf used on input line 461.
+(pdftex.def)             Requested size: 170.71652pt x 142.85298pt.
 
-<./png/exp4_path_cernet2.pdf, id=57, 578.16pt x 433.62pt>
+<./png/exp4_path_cernet2.pdf, id=82, 548.59955pt x 445.64148pt>
 File: ./png/exp4_path_cernet2.pdf Graphic file (type pdf)
 
 <use ./png/exp4_path_cernet2.pdf>
-Package pdftex.def Info: ./png/exp4_path_cernet2.pdf used on input line 543.
-(pdftex.def)             Requested size: 170.71652pt x 128.03589pt.
-
-
-LaTeX Warning: Citation `networking:greente' on page 5 undefined on input line 
-563.
-
-[5]
-
-LaTeX Warning: Text page 6 contains only floats.
-
-
-Underfull \vbox (badness 1092) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+Package pdftex.def Info: ./png/exp4_path_cernet2.pdf used on input line 462.
+(pdftex.def)             Requested size: 170.71652pt x 138.67781pt.
  [6 <./png/opr_with_power_abilene.pdf> <./png/opr_with_power_geant.pdf
 
 pdfTeX warning: pdflatex (file ./png/opr_with_power_geant.pdf): PDF inclusion: 
@@ -457,11 +406,11 @@ ple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./png/exp2_sort_cernet2.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
-> <./png/exp4_path_abilene.pdf
-
-pdfTeX warning: pdflatex (file ./png/exp4_path_abilene.pdf): PDF inclusion: mul
-tiple pdfs with page group included in a single page
-> <./png/exp4_path_geant.pdf
+>]
+Missing character: There is no ‚ in font ptmr7t!
+Missing character: There is no Ä in font ptmr7t!
+Missing character: There is no ô in font ptmr7t!
+ [7 <./png/exp4_path_abilene.pdf> <./png/exp4_path_geant.pdf
 
 pdfTeX warning: pdflatex (file ./png/exp4_path_geant.pdf): PDF inclusion: multi
 ple pdfs with page group included in a single page
@@ -470,25 +419,27 @@ ple pdfs with page group included in a single page
 pdfTeX warning: pdflatex (file ./png/exp4_path_cernet2.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
 >]
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ú in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
- <./png/circle.pdf, id=396, 247.2447pt x 219.34647pt>
+Missing character: There is no Ã in font ptmr7t!
+Missing character: There is no à in font ptmr7t!
+
+Underfull \hbox (badness 6396) in paragraph at lines 575--577
+[]\OT1/ptm/m/n/8 ``Network Topol-ogy," [On-line], Avail-able: http://geant3.arc
+hive.ge
+ []
+
+<./png/circle.pdf, id=436, 247.2447pt x 219.34647pt>
 File: ./png/circle.pdf Graphic file (type pdf)
  <use ./png/circle.pdf>
-Package pdftex.def Info: ./png/circle.pdf used on input line 675.
+Package pdftex.def Info: ./png/circle.pdf used on input line 606.
 (pdftex.def)             Requested size: 113.81102pt x 100.96753pt.
 
-<./png/clique.pdf, id=397, 247.2447pt x 219.34647pt>
+<./png/clique.pdf, id=437, 247.2447pt x 219.34647pt>
 File: ./png/clique.pdf Graphic file (type pdf)
  <use ./png/clique.pdf>
-Package pdftex.def Info: ./png/clique.pdf used on input line 678.
+Package pdftex.def Info: ./png/clique.pdf used on input line 609.
 (pdftex.def)             Requested size: 113.81102pt x 100.96753pt.
 
-[7]
+[8 <./png/circle.pdf> <./png/clique.pdf>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -500,48 +451,44 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8 <./png/circle.pdf> <./png/clique.pdf>] (./paper_linheng_4.aux)
+[9
 
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./paper_linheng_5.aux) ) 
 Here is how much of TeX's memory you used:
- 3759 strings out of 493315
- 59226 string characters out of 6137903
- 134988 words of memory out of 5000000
- 7164 multiletter control sequences out of 15000+600000
+ 3816 strings out of 493315
+ 60401 string characters out of 6137903
+ 134465 words of memory out of 5000000
+ 7219 multiletter control sequences out of 15000+600000
  42335 words of font info for 79 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
- 38i,21n,47p,1093b,381s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/loc
-al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/t
-exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2013/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/f
-onts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
-/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/time
-s/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.
-pfb>
-Output written on paper_linheng_4.pdf (8 pages, 379709 bytes).
+ 38i,21n,47p,1326b,381s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/
+base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cmex
+tra/cmex7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/c
+mextra/cmex8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi5.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.p
+fb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local
+/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/t
+exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/tex
+live/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/
+texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dis
+t/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
+pe1/urw/times/utmri8a.pfb>
+Output written on paper_linheng_5.pdf (9 pages, 423760 bytes).
 PDF statistics:
- 486 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
+ 532 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

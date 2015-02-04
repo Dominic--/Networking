@@ -1,17 +1,22 @@
 from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.pyplot as plt
+from matplotlib import rc
+
+font = {'size':20}
+rc('font', **font)
 
 fig1, ax1 = plt.subplots()
 
+topology_letter = {'abilene':'a', 'geant':'b', 'cernet2':'c'}
 topology_x_range = {'abilene':5, 'geant':16, 'cernet2':4}
 topology_line_type = {'1.5':'o', '2.5':'s', '3.5':'^'}
 color_type = {'base':'r--', 'new':'b-'}
-remove_type = {'base':'DMP', 'new':'ERLU'}
+remove_type = {'base':'DMP', 'new':'REAR'}
 result_file_template = "path_stretch_%s_%s.txt"
 
 line_list = []
 label_list = []
-for t in ['abilene']:
+for t in ['cernet2']:
     for w in ['1.5', '2.5', '3.5']:
         f = open(result_file_template % (t, w))
         line = f.readline()
@@ -46,12 +51,12 @@ for t in ['abilene']:
         line_list.append(l1)
         line_list.append(l2)
 
-    plt.legend(line_list, label_list, loc=1)
-    plt.xlabel('Removing Links', fontsize=22)
+    plt.legend(line_list, label_list, loc=1, fontsize=15)
+    plt.xlabel('Removing Links\n(%s)' % topology_letter[t], fontsize=22)
     plt.ylabel('Path Stretching Ratio', fontsize=22)
     
     pp = PdfPages('exp4_path_%s.pdf' % t)
-    pp.savefig(fig1)
+    pp.savefig(fig1, bbox_inches='tight')
     pp.close()
 
     #plt.show()
