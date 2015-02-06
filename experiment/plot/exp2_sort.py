@@ -2,7 +2,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib import rc
 import matplotlib.pyplot as plt
 
-t = 'geant'
+t = 'cernet2'
 
 font = {'size':20}
 rc('font', **font)
@@ -56,7 +56,7 @@ for i in ['1.5', '2.5', '3.5']:
     l1, = plt.plot([base[i][ii*10] for ii in xx], xx, 'r--'+label[i], ms=10)
 
     line_list.append(l1)
-    line_label.append('DMP-%s' % i)
+    line_label.append(r'$DMP\ \omega=%s$' % i)
 
 line2 = None
 for i in ['1.5', '2.5', '3.5']:
@@ -71,20 +71,20 @@ for i in ['1.5', '2.5', '3.5']:
     l1, = plt.plot([new[i][ii*10] for ii in xx], xx, 'b-'+label[i], ms=10)
 
     line_list.append(l1)
-    line_label.append('REAR-%s' % i)
+    line_label.append(r'$REAR\ \omega=%s$' % i)
 
 #plt.axis([0, 6, 0, 20])
 
 print (base['3.5'][500] - base['2.5'][500]) / (new['3.5'][1000] - new['2.5'][0])
 
 plt.ylabel('CDF (%)', fontsize=22)
-plt.xlabel("OPRE\n(%s)" % topology_letter[t], fontsize=22)
-plt.legend(line_list, line_label, loc=4, fontsize=16)
+plt.xlabel("Performance Ratio\n(%s)" % topology_letter[t], fontsize=22)
+plt.legend(line_list, line_label, loc=4, fontsize=15)
 
 pp = PdfPages('exp2_sort_%s.pdf' % t)
 pp.savefig(fig1, bbox_inches='tight')
 pp.close()
 
-#plt.show()
+plt.show()
 #plt.savefig('exp2_sort_cernet2.png', bbox_inches='tight')
 

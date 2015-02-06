@@ -64,24 +64,9 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Energy conservation has become a major challenge to the Internet. In existing approaches, a part of line cards
-are switched into sleep mode for energy conservation, and the routing is configured carefully to balance energy saving
-and traffic engineering goals, such as the maximum link utilization ratio (MLUR). Typically, traffic demands are
-used as inputs, and routing is computed accordingly. However, accurate traffic matrices are difficult to obtain and
-are changing frequently. This makes the approaches difficult to implement. Further, the routing may shift
-frequently, and is not robust to sudden traffic changes.
+Energy conservation has become a major challenge to the Internet. Switching part of components into sleep mode is an effective way for energy conservation. Many existing approaches compute routing based on traffic matrices, to balance energy saving and traffic engineering goals, e.g., the maximum link utilization ratio (MLUR). However, accurate traffic matrices are difficult to obtain and change frequently, resulting in lack of routing stability and robustness.
 
-In this paper, we propose a different approach that finds one energy-aware routing robust to a set of traffic
-matrices, particularly to arbitrary traffic demands. Such a routing without energy consideration is known as
-the demand-oblivious routing, and is well studied. However, the problem becomes much more challenging when energy
-conservation is involved. To overcome the challenges, we first define a new metric, namely oblivious performance
-ratio with energy constraint (OPRE), which reflects the MLUR distance from a routing to the optimal routing when
-certain energy conservation requirement is satisfied. We model the problem of minimizing the performance ratio,
-and analyze the lower and the upper bounds. Then, we propose Robust Energy-Aware Routing (REAR) to solve
-the problem in two phases. REAR select sleeping links based on extended robust link utilization (ERLU)
-and compute the routing based on a classical demand-oblivious routing algorithm.
-We evaluate our algorithms on real and synthetic topologies. The simulation results show that REAR can save
-19\% of line card power while the performance ratio is less than 34\%.
+We propose to find one energy-aware routing robust to a set of traffic matrices. Such demand-oblivious routing problem has been studied without energy conservation, but it becomes more challenging when energy is considered. To overcome the challenges, we define a metric that reflects the MLUR distance from a routing to the optimal routing under certain energy conservation requirement. We model the problem of minimizing the metric, and analyze the upper bounds. Then, we propose a robust energy-aware routing scheme to solve the problem by selecting sleeping links and computing the routing, based on a classical demand-oblivious routing algorithm. We evaluate our algorithms by simulations on real topologies. The results show that REAR is much more robust than existing approaches while more than 35\% line card power can be saved.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -97,30 +82,16 @@ Specifically, we study the energy efficient routing when traffic matrices cannot
 
 However, existing demand-oblivious routing algorithms cannot be directly applied to energy efficient routing. There are several challenges. First, we need to define a metric that can effectively measure the distance between a robust energy efficient routing and the optimal routing, because the existing metric for demand-oblivious routing fails in the situation when some components are switched into off/sleep mode. Second, we need to analyze whether the metric can be bounded, just like for demand-oblivious routing. If there exists no bound, then it is not feasible to find a robust energy efficient routing. Third, we need practical algorithms to compute the robust energy efficient routing. Specifically, we need to determine: 1) which routers or line cards should be switched into off/sleep mode, to achieve energy efficiency; and 2) in which path to forward the traffic for robustness, while the path does not traverse the sleeping components.
 
-In this paper, we overcome the aforementioned challenges. First, we define a new metric, namely the oblivious performance ratio with energy constraint (OPRE). The OPRE reflects the MLUR distance from a routing to the optimal one when certain energy conservation requirement is satisfied. We model the problem of minimizing the OPRE. Second, we prove that there exists a robust energy efficient routing with the minimum OPRE, which has an upper bound given a network. Then, we propose Robust Energy-Aware Routing (REAR) scheme, which uses heuristic algorithms to solve the problem. We develop algorithm RLP, which chooses sleeping line cards in a way that the OPRE can be minimized potentially. We then develop algorithm RRA to compute the routing in the remaining topology, by extending existing optimal demand-oblivious routing algorithm. We evaluate our algorithms by simulations on real topologies and synthetic traffic demands with random fluctuations. The results show that REAR can achieve an OPRE of 1.34 while 19\% of line card power is saved.
+In this paper, we overcome the aforementioned challenges. First, we define a new metric, namely the oblivious performance ratio with energy constraint (OPRE). The OPRE reflects the MLUR distance from a routing to the optimal one when certain energy conservation requirement is satisfied. We model the problem of minimizing the OPRE. Second, we prove that there exists a robust energy efficient routing with the minimum OPRE, which has an upper bound given a network. Then, we propose Robust Energy-Aware Routing (REAR) scheme, which uses heuristic algorithms to solve the problem. We develop algorithm RLP, which chooses sleeping line cards in a way that the OPRE can be minimized potentially. We then develop algorithm RRA to compute the routing in the remaining topology, by extending existing optimal demand-oblivious routing algorithm. We evaluate our algorithms by simulations on real topologies and synthetic traffic demands with random fluctuations. The results show that REAR can achieve an OPRE of 2.32 while 25\% of line card power is saved.
 
 The rest of the paper is organized as follows. Section \ref{related_work} shows the related work. Section \ref{problem_statement} presents metric OPRE and formally models the problem. We presents the bounds on OPRE in Section \ref{upper_bounds_of_the_minimum_opre}, and propose our algorithms in Section \ref{robust_energy_aware_routing_algorithms}. Section \ref{performance_evaluation} shows our simulation setup and results, and Section \ref{conclusion} concludes our work.
 
 
 \section{Related Work}
 \label{related_work}
-Green routing is studied because we can not use as much of a resource as we need \cite{networking:designing}, such as line cards always work in full mode even with 
-low traffic fraction. So there are many studies to save energy consumption by put some links in sleep mode, for example GreenTE \cite{networking:greente} is 
-proposed for maximuming the sleeping links while $E^2$-MCRA \cite{networking:active} is proposed for minimizing the active links and nodes by a depth-first search approach.
-Besides these centralized algorithms, EAR \cite{networking:car} and GRiDA \cite{networking:grida} are proposed for distributed deployment, both of them are compatible 
-with OSPF sharing additional information between nodes. For addressing the problem of routing convergence when traffic changes frequently, GreenFRR 
-\cite{networking:greenfrr} is proposed by leveraging the technique of fast rerouting.
+There have been a number of studies on energy conservation in the Internet using energy efficient routing. Many approaches take link utilization as a key factor to avoid network congestions. GreenTE \cite{networking:greente} is proposed to find a routing that can maximize the power saving by off/sleeping components, while the link utilization must be less than a given threshold. $E^2$-MCRA \cite{networking:active} is proposed to find routing for new incoming flows, such that the number of active links and nodes are minimized while the unpredictable traffic increment is considered. ROD \cite{ROD2012Networking} computes the link weights using a Lagrange multiplier method, so as to balance the number of sleeping links and the link utilization under an OSPF-like routing. These approaches have to obtain the traffic matrix/demands in real-time. REsPoNse \cite{Response11Conext} uses MPLS tunnels to aggregate traffic and saves energy by switching under-utilized links into sleep mode; the sleeping links are activated when some link has an utilization ratio larger than a given threshold. This method of activating sleeping links is used in some other approaches \cite{networking:car}\cite{networking:dmp}\cite{networking:grida}\cite{networking:greenfrr}\cite{SPEED14TON}. Although these approaches do not need a traffic matrix, they still need the traffic volume on each link in the network, and the routing may shift frequently with the traffic change. Our study in this paper is different from the above approaches, because we assume the traffic can be uncertain, and we try to find a static routing that minimizes the distance to the optimal routing with respect to link utilization.
 
-Network may suffer from bad performance because of both frequent traffic demand and routing changes. There are studies to estimate traffic matrices in the context
-of Internet traffic, such as LP approach \cite{networking:lp}, Bayesian Infereence techniques \cite{networking:bayesian} and Time-Varying Network Tomography
-\cite{networking:time}. All the estimatation for traffic matrices result in the changes of routing, \cite{networking:minimize} proposed an oblivious routing algorithm with a polylog 
-competitive ratio with respect to congestion and \cite{networking:polynomial} give a polynomial time algorithm based on applying the Ellipsoid algorithm to an exponential-size LP model.
-To be practical for large networks, the oblivious-demand routing based on polynomial-size LP formulation is investigated in \cite{networking:oblivious}.
-
-In this paper, we proposed robust energy-aware routing based on the oblivious-demand \cite{networking:oblivious}, which is both green for the energy consumption by pruning
-some links based on ERLU, and also robust for uncertain traffic demands. It is more practical than existing green routing algorihtm because it almost do not need changes when 
-real traffic varifies.
-
+Great efforts have been made to optimize the network performance of delivering traffic. Generally, there are two types of approaches for such traffic engineering targets. The first type assumes the awareness of the traffic matrix/demands, while the other deals with uncertain traffic demands \cite{DynamicVSOblivious11Algorithmica}. In this paper, we are interested in the second category, which is called the oblivious routing. R\"{a}cke \cite{networking:minimize} proposes an oblivious routing algorithm with a polylog competitive ratio with respect to congestion. Azar et al. \cite{networking:polynomial} propose a polynomial time algorithm to solve the oblivious routing based on the ellipsoid method. Applegate \cite{networking:oblivious} et al. further simplify the problem into a polynomial-size linear programming model. Li et al. \cite{ASimpleMethodBalancing05ICCCN} propose a penalty method to improve the quality of oblivious routing with respect to path dispersion and path variation. Kodialam et al. \cite{TrafficOblivious07CommuMagazine} study the problem of providing bandwidth guarantee in VPN using oblivious routing. They further extend the application to a set of networking scenarios \cite{ObliviousHighVariable08TON}, and to provide resiliency against link failures \cite{ObliviousHoseModel11TON}. Our work in this paper applies oblivious routing in the scenario of energy conservation. We need a new metric that is suitable for our scenario, and new routing algorithms as well.
 
 \section{Problem Statement}
 \label{problem_statement}
@@ -153,7 +124,7 @@ The target of demand-oblivious routing is to find routing $r$ that minimizes OPR
 
 With energy constraint, a network may have to switch part of line cards into off/sleep mode to save the total energy consumption. This changes the network topology and makes metric OPR fail to evaluate the robustness of a routing. We use an example to show this. Assume that $G$ is a cycle with $n$ unit capacity links. Then, the minimal OPR of $G$ is $2-2/n$ \cite{networking:oblivious}. Now we pruning one link from $G$ to save energy, and the topology changes to $G^*$. Because there is only one routing feasible in $G^*$, OPR $P(\{ r \}, M, G^*)$ equals 1. Since 1 is less than $2-2/n$ for $n > 2$, it means that the routing after pruning one link is more robust than before. However, it is false because there are less links and the network is more likely to be congested.
 
-The intrinsic reason for such a ``fake robust'' is that the topology is not changing when performance ratio is computed in Eq. (\ref{equation_P_rmG}). To address this issue, we extend the definition of OPR. Formally, let $G^*$ be a sub-graph of $G$ that satisfies the energy constraint (We will formally define the energy constraint in Section III.C, i.e., Eq. (\ref{inequation_power_threshold})). Note that in this case, a path cannot traverse a sleeping link, so routing $r$ is limited by $G^*$ (Eq. (\ref{equation_flow_for_routing}) in Section III.C). The extended performance ratio is defined as
+The intrinsic reason for such a ``fake robust'' is that the topology is not changing when performance ratio is computed in Eq. (\ref{equation_P_rmG}). To address this issue, we extend the definition of OPR. Formally, let $G^*$ be a sub-graph of $G$ that satisfies the energy constraint (We will formally define the energy constraint in Section III.C, i.e., Ineq. (\ref{inequation_power_threshold})). Note that in this case, a path cannot traverse a sleeping link, so routing $r$ is limited by $G^*$ (Eq. (\ref{equation_flow_for_routing}) in Section III.C). The extended performance ratio is defined as
 \begin{equation}
 \label{equation_P_rmGG}
 	P(r, \{ m \}, G, G^*) = \frac{U_{r,m,G^*}}{\min_{r'} U_{r', m, G}}.
@@ -246,7 +217,7 @@ s.t. (1),\ (4),\ (5)
     \sum_{l \in E^*} p(l) / \sum_{l \in E} p(l) \leq 1 - \theta
 \end{equation}
 
-Constraints (\ref{equation_U_rmG}), (\ref{equation_P_rmGG}), and (\ref{equation_P_rMGG}) follow our definition of the OPRE. Eq. (\ref{equation_flow_for_routing_second}) means that the optimal routing $r'$ in $G$ must be a valid routing, i.e. with routing consistency. Specifically, for the source/destination node, all traffic must be routed/received; and for an intermediate node, the traffic flowing out must equal the traffic flowing in. Similarly, Eq. (\ref{equation_flow_for_routing}) means that the robust routing $r$ in $G^*$ must be a valid routing. Ineq. (\ref{inequation_traffic_fraction}) means that the range of $f^r_{ab}(i,j)$ and $f^{r'}_{ab}(i,j)$ is from 0 to 1. Ineq. (\ref{inequation_power_threshold}) means that the power consumption of links in $G^*$ must be less than a given threshold. In Ineq. (\ref{inequation_power_threshold}), $\theta$ denotes the power saving ratio we must achieve by using $G^*$. Here, we use $p(l)$ to denote the power consumption of link $l$, which is mainly drawn by the line cards at the two ends of the link. Note that $p(l)$ is independent of the traffic volume, and this assumption is based on the fact that in current stage, the power of a line card changes little with the traffic volume \cite{networking:hopbyhop}.
+Constraints (\ref{equation_U_rmG}), (\ref{equation_P_rmGG}), and (\ref{equation_P_rMGG}) follow our definition of the OPRE. Eq. (\ref{equation_flow_for_routing_second}) means that the optimal routing $r'$ in $G$ must be a valid routing, i.e. with routing consistency. Specifically, for the source/destination node, all traffic must be routed/received; and for an intermediate node, the traffic flowing out must equal the traffic flowing in. Similarly, Eq. (\ref{equation_flow_for_routing}) means that the robust routing $r$ in $G^*$ must be a valid routing. Ineq. (\ref{inequation_traffic_fraction}) means that the range of $f^r_{ab}(i,j)$ and $f^{r'}_{ab}(i,j)$ is from 0 to 1. Ineq. (\ref{inequation_power_threshold}) means that the power consumption of links in $G^*$ must be less than a given threshold. In Ineq. (\ref{inequation_power_threshold}), $\theta$ denotes the power saving ratio we must achieve by using $G^*$. Here, we use $p(l)$ to denote the power consumption of link $l$, which is mainly drawn by the line cards at the two ends of the link. Note that $p(l)$ is independent of the traffic volume, and this assumption is based on the fact that in current stage, the power of a line card changes little with the traffic volume \cite{PowerAware08Infocom}.
 
 Note that if $G^* = G$ satisfy the energy constraint Ineq. (\ref{inequation_power_threshold}) and $M$ is the set of all TMs, the Min-OPRE problem reduces to the demand-oblivious routing problem, and can be transformed into a linear program and solved in polynomial time \cite{networking:oblivious}. However, we must find the optimal $G^*$ to achieve the required power saving ratio in other cases, and Min-OPRE is an MILP and is NP-hard in general.
 
@@ -284,7 +255,7 @@ The upper bound of the minimum OPRE for a cycle/complete graph on $n$ nodes is $
 See Appendix A.
 \end{proof}
 
-Theorem 3 tells us that the minimum OPRE is related to the link capacity difference in the network. The above results are for $\theta = 0$. Now let us see the results for a large $\theta$. Since there is not much difference between the power consumptions for links with different capacities \cite{networking:hopbyhop}, we consider the spanning trees of a graph, which can achieve a near-optimal $\theta$. We have
+Theorem 3 tells us that the minimum OPRE is related to the link capacity difference in the network. The above results are for $\theta = 0$. Now let us see the results for a large $\theta$. Since there is not much difference between the power consumptions for links with different capacities \cite{networking:greenfrr}, we consider the spanning trees of a graph, which can achieve a near-optimal $\theta$. We have
 \begin{theorem}
 Let $G^*$ be a spanning tree of a cycle on $n$ nodes, and then the upper bound of the OPRE is $1 + \frac{\max cap_{ij}}{\min cap_{ij}}$.
 \end{theorem}
@@ -308,7 +279,7 @@ In this section, we present our REAR approach to solve the Min-OPRE problem. We 
 
 \subsection{Algorithm RLP}
 
-Several heuristics have been proposed to select sleeping links without the knowledge of a specific TM, with various considerations \cite{}\cite{}\cite{}. However, we need a algorithm that can potentially minimize the OPRE. To this end, we first find the demand-oblivious routing that minimizes the OPR, using the linear programming approach in \cite{networking:oblivious}. Bases on the routing, we define the extended robust link utilization (ERLU), to evaluate the contribution of a link to the OPRE.
+Several heuristics have been proposed to select sleeping links without the knowledge of a specific TM, with various considerations \cite{networking:car}\cite{networking:dmp}\cite{networking:grida}\cite{ESACON11InfocomWs}. However, we need a algorithm that can potentially minimize the OPRE. To this end, we first find the demand-oblivious routing that minimizes the OPR, using the linear programming approach in \cite{networking:oblivious}. Bases on the routing, we define the extended robust link utilization (ERLU), to evaluate the contribution of a link to the OPRE.
 
 Intuitively, a link is less preferred to be pruned if there are more flows traversing the link. Though we are not aware of the TM, the traffic volume is likely to fluctuate largely if there are many flows. This means that if we prune this link, these flows have to be carried by other links in the network, and the OPRE may increase largely. On the other hand, a link is less preferred to be pruned if the link has a less capacity. This is because in the optimal demand-oblivious routing where the OPR is minimized, such a link is not likely to be heavy-loaded, and we should keep the link to maintain the robustness. Formally, let $r_0$ be the optimal demand-oblivious routing, and $u^e_{ij}$ be the ERLU of link $(i, j)$, we have
 \begin{equation}
@@ -348,7 +319,7 @@ The inputs of RLP include graph $G(V, E)$ and required power saving ratio $\thet
 
 After pruning the links, we get graph $G^*$ (if exists) that satisfies the energy conservation requirement. Now we should compute the robust routing that minimizes the OPRE. Note that we cannot simply apply the algorithm in \cite{networking:oblivious} on $G^*$, because the algorithm minimizes OPR but not OPRE. We observe that the optimal demand-oblivious routing $r_0$ minimizes the OPR in $G$, and minimizes OPRE when $G^* = G$ according to Theorem 2. Thus, to obtain a robust routing in $G^*$, we take a heuristic that adjusts routing $r_0$ to detour the traffic around the sleeping links in $G^*$.
 
-Note that there may be multiple paths in $r_0$ between a source-destination pair. We first decompose the paths by a standard procedure given in \cite{}. Formally, let $p^h_{ab}$ denote the $h$-th path between nodes $a$ and $b$, and $t^h_{ab}$ be the fraction of the traffic that is routed on $p^h_{ab}$. For each $p^h_{ab}$ that traverses a sleeping link, we must find some detour paths to absorb $t^h_{ab}$. Such detour paths should not increase the OPRE too much. Recall that ERLU $u^e_{ij}(r)$ reflects the link utilization ratio without the knowledge of the TM, under routing $r$. Thus, we prefer a path whose maximum $u^e_{ij}(r)$ is small. On the other hand, the detour paths should not be too long, in order to limit the path stretch. To this end, we use YEN's algorithm \cite{networking:yens} to compute the $k$-th shortest path in graph $G^*$. We develop Algorithm RRA.
+Note that there may be multiple paths in $r_0$ between a source-destination pair. We first decompose the paths by a standard procedure given in \cite{networkflow93book}. Formally, let $p^h_{ab}$ denote the $h$-th path between nodes $a$ and $b$, and $t^h_{ab}$ be the fraction of the traffic that is routed on $p^h_{ab}$. For each $p^h_{ab}$ that traverses a sleeping link, we must find some detour paths to absorb $t^h_{ab}$. Such detour paths should not increase the OPRE too much. Recall that ERLU $u^e_{ij}(r)$ reflects the link utilization ratio without the knowledge of the TM, under routing $r$. Thus, we prefer a path whose maximum $u^e_{ij}(r)$ is small. On the other hand, the detour paths should not be too long, in order to limit the path stretch. To this end, we use YEN's algorithm \cite{networking:yens} to compute the $k$-th shortest path in graph $G^*$. We develop Algorithm RRA.
 
 \begin{table}[!th]
 \begin{tabular}{ll}
@@ -378,45 +349,44 @@ $\:\:$16:\ \textbf{return} $r$;\\
 \end{tabular}
 \end{table}
 
-The inputs of RRA include graph $G(V,E)$, sleeping link set $S$, optimal demand-oblivious routing $r_0$ in $G$, and $N$ which will be used latter. The output is the robust energy efficient routing $r$. $G^*$ and $r$ are initialized in Step 1. The main loop from Step 2 to Step 14 finds the detour paths for each sleeping link in $S$, and for each source-destination pair. The traffic fraction that should be detoured is denoted by $t$ (Step 4), and the original paths are extracted and removed from routing $r$ (Steps 5 to 8). Then, the $k$-th shortest paths are computed in Step 9. The traffic fraction of $t$ is detoured by $N$ times evenly (Steps 10 to 14), and the detour path with the minimum value of the ERLU is selected (Steps 11 and 12). In Step 15, the duplicate paths are merges and new routing $r$ that does not traverse link $l$ is obtained. The computation complexity of the RRA algorithm is 
+The inputs of RRA include graph $G(V,E)$, sleeping link set $S$, optimal demand-oblivious routing $r_0$ in $G$, and $N$ which will be used latter. The output is the robust energy efficient routing $r$. $G^*$ and $r$ are initialized in Step 1. The main loop from Step 2 to Step 14 finds the detour paths for each sleeping link in $S$, and for each source-destination pair. The traffic fraction that should be detoured is denoted by $t$ (Step 4), and the original paths are extracted and removed from routing $r$ (Steps 5 to 8). Then, the $k$-th shortest paths are computed in Step 9. The traffic fraction of $t$ is detoured by $N$ times evenly (Steps 10 to 14), and the detour path with the minimum value of the ERLU is selected (Steps 11 and 12). In Step 15, the duplicate paths are merges and new routing $r$ that does not traverse link $l$ is obtained. The computation complexity of the RRA algorithm is polynomial. We omit the detail due to the space limitation.
+\ignore{
 $O((|E|-|V|)|V|^2(|R||E| + K|V|(|E| + |V|\log|V|) + N(|E||V|^2 + K|E|) + |R||E|))$ in the worst case, where $O(|E|-|V|)$ is the maximum number of sleeping links, $O(|V|^2)$ is the maximum
-number of OD pairs, $O(|R||E|)$ is for computing detoured traffic and remove failed paths where $O(|R|)$ is the number of input routings, $O(K|V|(|E| + |V|\log|V|))$ is for solving the 
-yens algorithm where $K$ is the number of shortest paths, $O(N(|E||V|^2 + K|E|))$ is for detouring traffic fraction by $N$ times, and $O(|R||E|)$ is for merging routings.
-
+number of OD pairs, $O(|R||E|)$ is for computing detoured traffic and remove failed paths where $O(|R|)$ is the number of input routings, $O(K|V|(|E| + |V|\log|V|))$ is for solving the
+yens algorithm where $K$ is the number of shortest paths, $O(N(|E||V|^2 + K|E|))$ is for detouring traffic fraction by $N$ times, and $O(|R||E|)$ is for merging routings.}
 
 \begin{figure*}[!t]
 \centering
-\vspace*{0.1in}
 \subfloat{\includegraphics[width=6cm]{opr_with_power_abilene}}
 \subfloat{\includegraphics[width=6cm]{opr_with_power_geant}}
 \subfloat{\includegraphics[width=6cm]{opr_with_power_cernet2}}
-\caption{OPRE versus TMs: (a). Abilene, (b). Geant, (c). Cernet2}
+\vspace{-0.1in}
+\caption{OPRE in (a) Abilene. (b) Geant. (c) CERNET2.}
 \label{figure_opr_with_power}
-\vspace*{0.1in}
+\vspace{-0.1in}
 \end{figure*}
 
 \begin{figure*}[!t]
 \centering
-\vspace*{0.1in}
 \subfloat{\includegraphics[width=6cm]{exp2_sort_abilene}}
 \subfloat{\includegraphics[width=6cm]{exp2_sort_geant}}
 \subfloat{\includegraphics[width=6cm]{exp2_sort_cernet2}}
-\caption{OPRE versus Power Saving: (a). Abilene with 4 links removed (b). Geant with 6 links removed (c). Cernet2 with 2 links removed}
+\vspace{-0.1in}
+\caption{Performance ratio in (a) Abilene with 4 links pruned. (b) Geant with 6 links pruned. (c) CERNET2 with 2 links pruned.}
 \label{figure_exp2_sort}
-\vspace*{0.1in}
+\vspace{-0.1in}
 \end{figure*}
 
 
 \section{Performance Evaluation}
 \label{performance_evaluation}
 
-We evaluate the REAR approach by simulations on three real-world network topologies, including Abilene \cite{networking:abilene}, Geant \cite{networking:geant}, and CERNET2 \cite{networking:cernet2}. The numbers of nodes and links of the topologies are listed in Table \ref{table_topology}. The traffic matrices we used in our simulations are generated as follows. We first generate a baseline traffic matrix using the gravity model \cite{networking:gravity}, where the baseline traffic demand $d_{ab}$ is proportional to their total capacity. Then, the traffic demand is generated randomly in the range from $d_{ab}/\omega$ to $d_{ab}\omega$, where $\omega \geq 1$ is a margin factor used to control the fluctuation range of the traffic. We generate 1000 random TMs for each topology with each $\omega$. The power consumption of different line cards is set as constant in the simulations, as shown in Table \ref{table_line_card_power_consumption}, following \cite{networking:greente}.
+We evaluate the REAR approach by simulations on three real-world network topologies, including Abilene \cite{networking:abilene}, Geant \cite{networking:geant}, and CERNET2 \cite{networking:cernet2}. The numbers of nodes and links of the topologies are listed in Table \ref{three_topologies}. The traffic matrices we used in our simulations are generated as follows. We first generate a baseline traffic matrix using the gravity model \cite{networking:gravity}, where the baseline traffic demand $d_{ab}$ is proportional to the total capacity of nodes $a$ and $b$. Then, the traffic demand is generated randomly in the range from $d_{ab}/\omega$ to $d_{ab}\omega$, where $\omega \geq 1$ is a margin factor used to control the fluctuation range of the traffic. We generate 1000 random TMs for each topology with each $\omega$. The power consumption of different line cards is set as constant in the simulations, as shown in Table \ref{table_line_card_power_consumption}, following \cite{networking:greente}.
 
 \begin{table}[h]
-\label{table_topology}
 \renewcommand{\arraystretch}{1}
 \caption{Topologies}
-\label{three topologies}
+\label{three_topologies}
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -426,18 +396,17 @@ Abilene & 12 & 15 & 4 \\
 \hline
 Geant & 23 & 37 & 15 \\
 \hline
-Cernet2 & 20 & 22 & 3 \\
+CERNET2 & 20 & 22 & 3 \\
 \hline
 \end{tabular}
 \end{table}
 
-For comparison, we simulate a recent energy efficient routing approach, namely DMP \cite{networking:dmp}, which also does not use the TMs as inputs. DMP always selects the most power-hungry links to switch into off/sleep mode, and can achieve a large power saving ratio, but does not consider routing robustness. We evaluate the OPRE and its distribution, the power saving ratio, and the path stretch of the approaches.
+For comparison, we simulate a recent energy efficient routing approach, namely DMP \cite{networking:dmp}, which also does not use the TMs as inputs. DMP always selects the most power-hungry links to switch into off/sleep mode, and can achieve a large power saving ratio, but does not consider routing robustness. For the approaches, we evaluate the OPRE, the power saving ratio, the distribution of the performance ratio, and the path stretch.
 
 \begin{table}[h]
-\label{table_line_card_power_consumption}
 \renewcommand{\arraystretch}{1}
 \caption{Line Card Power Consumption}
-\label{power model}
+\label{table_line_card_power_consumption}
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
@@ -456,128 +425,127 @@ For comparison, we simulate a recent energy efficient routing approach, namely D
 
 \begin{figure*}[!t]
 \centering
-\vspace*{0.1in}
 \subfloat{\includegraphics[width=6cm]{exp4_path_abilene}}
 \subfloat{\includegraphics[width=6cm]{exp4_path_geant}}
 \subfloat{\includegraphics[width=6cm]{exp4_path_cernet2}}
-\caption{Path Stretching: (a). Abilene, (b). Geant, (c). Cernet2}
+\vspace{-0.1in}
+\caption{Path Stretch in (a) Abilene. (b) Geant. (c) CERNET2.}
 \label{figure_exp4_path}
-\vspace*{0.1in}
+\vspace{-0.1in}
 \end{figure*}
 
 \subsection{OPRE versus Power Saving}
-Fig. \ref{figure_opr_with_power} (a) shows the OPRE as a function of power saving ratio $\theta$, in the Abilene topology. We see that the OPRE increases when more power is saved.
-This is not surprising because the routing becomes less robust when more links are switched into off/sleep mode. Our REAR has an OPRE ranging from 
-1.06 to 2.32, which is much less than the results of DMP. This is because REAR takes routing robustness into consideration when it prunes 
-links and computes routing. For instance, when $\omega = 3.5$ and 25\% power is saved, the OPRE of REAR is 2.32, while the OPRE of DMP is 5.09. 
-This implies that REAR is more robust against traffic uncertainty. We also see that a larger $\omega$ results in a larger OPRE, because 
-the traffic volume fluctuates in a wider range. For instance, when $\omega$ increases from 1.5 to 3.5, the OPRE of REAR increases about 
+Fig. \ref{figure_opr_with_power} (a) shows the OPRE (evaluated by the maximum performance ratio under all 1000 TMs), as a function of power saving ratio $\theta$, in the Abilene topology. We see that the OPRE increases when more power is saved. This is not surprising because the routing becomes less robust when more links are switched into off/sleep mode. Our REAR has an OPRE ranging from 1.06 to 2.32, which is much less than the results of DMP. This is because REAR takes routing robustness into consideration when it prunes
+links and computes routing. For instance, when $\omega = 3.5$ and 25\% power is saved, the OPRE of REAR is 2.32, while the OPRE of DMP is 5.09.
+This implies that REAR is more robust against traffic uncertainty. We also see that a larger $\omega$ results in a larger OPRE, because
+the traffic volume fluctuates in a wider range. For instance, when $\omega$ increases from 1.5 to 3.5, the OPRE of REAR increases about
 0.17, while the OPRE of DMP increases about 0.53.
 
-Similar results are showed in Fig. \ref{figure_opr_with_power} (b) and (c), namely in Geant and Cernet2 topology. In Geant, we see that OPRE sacle with a wider range both
-in DMP and REAR, it is because Geant is much larger than other topologies, when removing too much links, the network will suffer from more 
-serious congestion. In Cernet2, Although REAR is better than DMP, the difference is marginal when achieved a large $\theta$. It can be explained
-by the density of links, REAR obtains a better performance in dense topology because it will have more choices.
+Fig. \ref{figure_opr_with_power} (b) shows the OPRE as a function of power saving ratio $\theta$ in Geant. We find that the results are similar to that in Abilene. However, the OPRE is larger in Geant than in Abilene for both REAR and DMP. One reason for this result is that Geant has a larger link density ($\frac{37}{23} = 1.61$) than Abilene ($\frac{15}{12} = 1.25$). Another reason is that the link capacity difference is large in Geant. The maximum link capacity is 9920 Mbps while the minimum link capacity is 155 Mbps. Such results are consistent with our analysis in Section IV.
+
+Fig. \ref{figure_opr_with_power} (c) shows the results in CERNET2. We observe that the difference between REAR and DMP is small. This is because the CERNET2 topology has a small link density, and only a small number of links can be pruned.
+
+\subsection{Performance Ratio Distribution}
+Fig. \ref{figure_exp2_sort} (a) shows the CDF of random TMs as a function of the performance ratio, in Abilene with 4 links pruned. The curves of REAR are on the left of DMP, which means that REAR has a lower performance ratio under all TMs. We observe that the performance ratio has a larger range with a larger $\omega$, but the performance ratio of REAR has a small range in total (e.g., from 1.74 to 2.32 when $\omega = 3.5$), unlike DMP (e.g., from 2.97 to 5.09 when $\omega = 3.5$). This implies that REAR is more robust.
+
+Fig. \ref{figure_exp2_sort} (b) shows the results in Geant with 6 links pruned, and Fig. \ref{figure_exp2_sort} (c) shows the results in CERNET2 with 2 links pruned. The results are similar to that in Abilene.
+
+\subsection{Path Stretch}
+
+Now we evaluate the path stretch of the approaches, which reflects the end-to-end delay increment due to link pruning and robust routing. Here, path stretch is the ratio of the path length of a routing to the shortest path length, in the topology after pruning links. Note that there may be multiple paths in the robust routing for a source-destination pair. In such a case, we compute the weighted path stretch of these paths according to the traffic fraction they carry.
+
+Fig. \ref{figure_exp4_path} (a) shows the path stretch as a function of pruned link number in Abilene. Generally, the path stretch decreases when more links are pruned, and equals 1 when 4 links are pruned. This is because the topology becomes less connected when more links are pruned, and reduces to a spanning tree when 4 links are pruned. The path stretch of REAR is less than 1.32, because we use YEN's algorithm to find the $k$-th shortest path when searching for paths to detour the traffic. We think this path stretch is small and will not induce large end-to-end delay increment. The path stretch of REAR is a little larger than that of DMP in some cases. This is because most links in Abilene has the same capacity and consumes the same power, and in such a case, DMP randomly selects sleeping links, which may result in less path stretch. We also observe that the path stretch increases with $\omega$, because the demand-oblivious routing is computed based on $\omega$, and when $\omega$ increases, the routing will use more paths to increase the robustness.
+
+Fig. \ref{figure_exp4_path} (b) and (c) show the path stretch in Geant and CERNET2, respectively. We see that our REAR has a less path stretch than DMP. For instance, REAR has the largest path stretch of 1.35 in Geant when $\omega = 1.5$, while the result of DMP is 1.54.
 
 
-\subsection{OPRE versus Margin}
-Fig. \ref{figure_exp2_sort} (a) shows the amount of TMs as a cumulative distribution function (CDF) of OPRE, when remove 4 links in Abilene topology. We see that the curves of
-DMP are right of REAR, means REAR always have lower OPRE whatever TMs is. It is consistent with Fig. \ref{figure_opr_with_power} (a). We also observe that our REAR has
-more concentrated curves, means REAR have the almost same performance when TM changes, it is because REAR remove the less `important' link from 
-topology and the left topology is more robust for TMs than DMP. For instance, REAR ranges from 1.74 to 2.32 while DMP range from 2.97 to 5.09 
-when $\omega = 3.5$. Also we can see that curve become smooth when $\omega$ increases, it is because the TMs range from wider scope, and the OPRE
-may achieved wider scope too. However we see that whatever $\omega$ is, the center of the curve are almost the same postion. It is because 
-we only change the margin $\omega$ rather than the base TM, so the medial value will not changes apparently.
-
-
-Fig. \ref{figure_exp2_sort} (b) shows the amount of TMs as a CDF of OPRE when remove 6 links in Geant, and Fig. \ref{figure_exp2_sort} (c) shows the situation when remove 2 links in Cernet2.
-Similar results are showed in them, however both the centers of REAR curve in Fig. \ref{figure_exp2_sort} (b) and DMP in Fig. \ref{figure_exp2_sort} (c) are not at the same postion 
-when $\omega$ changes. The reasons are two-folds, firstly the curves is drawn by sampling from origin data so the center of curve may not the real 
-center. On the other hand, we calculate the distance of centers over the scope of OPRE, respectively 0.9\% for REAR in Geant and 0.1\% for DMP in Cernet2,
-so it is obvious that from sight of the scope of OPRE, the center of curves are the same `postion'.
-
-
-
-\subsection{Path Stretching}
-Fig. \ref{figure_exp4_path} (a) shows the path stretching ratio (PSR) as a function of the number of removed links in Abilene topology. We see that PSR will 
-equal to 1 when maximum number of links are removed. It is because when the topology reduces to a spanning tree, the routing between two 
-vertices become unique, namely each path is the shortest path. Our REAR has an worst PSR value of 1.30, better than 1.36 in DMP, when 
-remove 1 link and $\omega = 3.5$. We observe that when remove more than 1 link, the DMP is even better than REAR sometimes. This is 
-because both REAR and DMP implement our RRP algorihtm for adjusting routing, and in RRP we always choose the routing path from k-shortest 
-paths for the traffic on the removed link, which make the PSR little as possible. We also see that a larger $\omega$ results in a 
-larger PSR, and reduces to 1 as explained above, because the demand-oblivious routing is computed based on $\omega$, when $\omega$ increases
-the routing will find much more paths for avoiding sudden traffic demand, which makes the PSR increases. For example, when $\omega$ increases
-from 1.5 to 3.5, the PSR of REAR increases about 0.08, while the PSR of DMP increasess about 0.14.
-
-Fig. \ref{figure_exp4_path} (b) and Fig. \ref{figure_exp4_path} (c) show the similar results in Geant and Cernet2, while our REAR is always better than DMP. For instance, REAR
-have the worst PSR of 1.35 and DMP is 1.54 when $\omega = 1.5$ in Geant, REAR have the worst PSR of 1.20 and DMP is 1.27 when $\omega = 3.5$
-
-
-\section{Conclusion}
+\section{Conclusion and Future Work}
 \label{conclusion}
-The conclusion goes here.
+
+In this paper, we studied energy efficient routing under uncertain traffic demands. We proposed metric OPRE, which defines the distance between a routing and the optimal routing with respect to the maximum link utilization ratio under energy conservation requirements. We modeled the problem of minimizing the OPRE and analyzed the upper bounds of the solution. Then, we developed the REAR scheme to solve the problem. We did simulations using real network topologies and showed that REAR can saving energy without knowing traffic matrices, and can achieve a smaller OPRE than existing approaches.
+
+In the future, we plan to improve our algorithms, because solving the linear programming does not scale well to large networks. We are also interested in realizing the robust energy-aware routing in a hop-by-hop fashion, without fractional traffic and MPLS tunnels.
 
 \begin{thebibliography}{1}
-
-\bibitem{networking:designing}
-J. Carter and K. Rajamani, ``Designing Energy-Efficient Servers and Data Centers," Computer, 2010.
-
-\bibitem{networking:active}
-S. Avallone, G. Ventre. ``Energy efficient online routing of flows with additive constraints." Computer Networks, 2012.
 
 \bibitem{networking:greente}
 M. Zhang, C. Yi, B. Liu, et al. ``GreenTE: Power-Aware Traffic Engineering," in Proc. of IEEE ICNP, October 2010.
 
+\bibitem{networking:active}
+S. Avallone, G. Ventre. ``Energy efficient online routing of flows with additive constraints." Computer Networks, vol. 56, 2368--2382, 2012.
+
+\bibitem{ROD2012Networking}
+M. Shen, H. Liu, K. Xu, et al. ``Routing On Demand: Toward the Energy-Aware Traffic Engineering with OSPF." in Proc. of IFIP Networking, 2012, 232--246.
+
+\bibitem{Response11Conext} N.~Vasic, P.~Bhurat, D.~Novakovic,
+    M.~Canini, S.~Shekhar, and D.~Kostic,
+  ``{I}dentifying and using energy-critical paths,'' in Proc. of CoNext'11, 2011.
+
 \bibitem{networking:car}
 A. Cianfrani, V. Eramo, M. Listanti, and M. Polverini, ``An OSPF enhancement for energy saving in IP networks," in IEEE INFOCOM Workshop on Green Communications and Networking, April 2011.
 
+\bibitem{networking:dmp}
+A.P. Bianzino, L. Chiaraviglio, M. Mellia, ``Distributed algorithms for green IP networks," in: IEEE INFOCOM Workshop on Green Networking and Smart Grid, 2012
+
 \bibitem{networking:grida}
-A. P. Bianzino, L. Chiaraviglio, M. Mellia, et al. ``GRiDA: GReen Distributed Algorithm for energy-efficient IP backbone networks," Computer Networks, 2012.
+A. P. Bianzino, L. Chiaraviglio, M. Mellia, et al. ``GRiDA: GReen Distributed Algorithm for energy-efficient IP backbone networks," Computer Networks, vol.~56, 3219-–3232, 2012.
 
 \bibitem{networking:greenfrr}
-Y. Yang, M. Xu, Q. Li. ``Towards fast rerouting-based energy efficient routing," Computer Networks, 2014.
+Y. Yang, M. Xu, Q. Li. ``Towards fast rerouting-based energy efficient routing," Computer Networks, vol.~70(9), 1--15, 2014.
 
-\bibitem{networking:oblivious}
-D. Applegate and E. Cohen, ``Making Intra-Domain Routing Robust to Changing and Uncertain Traffic Demands: Understanding Fundamental Tradeoffs," in Proceedings of ACM SIGCOMM ’03, Karlsruhe, Germany, August 2003.
+\bibitem{SPEED14TON}
+Q. Li, M. Xu, Y. Yang, L. Gao, Y. Cui, and J. Wu. ``Safe and Practical Energy-Efficient Detour Routing in IP Networks,'' IEEE/ACM Transactions on Networking, vol.~22(6), 1925--1937, 2014.
 
-\bibitem{networking:lp}
-O. Goldschmidt. ``ISP Backbone Traffic Inference Methods to Support Traffic Engineering," In Internet Statistics and Metrics Analysis (ISMA) Workshop, San Diego, CA, December 2000.
-
-\bibitem{networking:bayesian}
-C. Tebaldi and M. West. ``Bayesian Inference of Network Traffic Using Link Count Data," J. of the American Statistical Association, June 1998.
-
-\bibitem{networking:time}
-J. Cao, D. Davis, S. Vander Weil, and B. Yu. ``Time-Varying Network Tomography," J. of the American Statistical Association, 2000.
+\bibitem{ESACON11InfocomWs} F.~Cuomo, A.~Abbagnale,
+    A.~Cianfrani, and M.~Polverini, ``{K}eeping the
+  {C}onnectivity and {S}aving the {E}nergy in the {I}nternet,'' in \emph{IEEE INFOCOM Workshop on GCN}, April 2011.
+  
+\bibitem{DynamicVSOblivious11Algorithmica}
+N. Goyal, N. Olver, F. B. Shepherd. ``Dynamic vs. Oblivious Routing in Network Design,'' Algorithmica, vol. 61(1), 161--173, 2011.
 
 \bibitem{networking:minimize}
 Harald R\"{a}cke. ``Minimizing congestion in general networks," In Proceedings of the 43rd IEEE Symposium on Foundations of Computer Science (FOCS), 2002. Co-Winner of Best Paper Award.
 
 \bibitem{networking:polynomial}
-Y. Azar, E. Cohen, A. Fiat, H. Kaplan, and H. R ̈acke. ``Optimal oblivious routing in polynomial time," In Proceedings of the 35th ACM Symposium on the Theory of Computing, 2003.
+Y. Azar, E. Cohen, A. Fiat, H. Kaplan, and H. R acke. ``Optimal oblivious routing in polynomial time," In Proceedings of the 35th ACM Symposium on the Theory of Computing, 2003.
+
+\bibitem{networking:oblivious}
+D. Applegate and E. Cohen, ``Making Intra-Domain Routing Robust to Changing and Uncertain Traffic Demands: Understanding Fundamental Tradeoffs," in Proceedings of ACM SIGCOMM ’03, Karlsruhe, Germany, August 2003.
+
+\bibitem{ASimpleMethodBalancing05ICCCN}
+Y. Li, J. Harms, R. Holte. ``A simple method for balancing network utilization and quality of routing,'' in Proc. of ICCCN, 2005.
+
+\bibitem{TrafficOblivious07CommuMagazine}
+M. Kodialam, T. V. Lakshman, S. Sengupta. ``Traffic-Oblivious Routing for Guaranteed Bandwidth Performance,'' IEEE Communications Magazine, vol. 45(4), 46--51, 2007.
+
+\bibitem{ObliviousHighVariable08TON}
+M. Kodialam, T. V. Lakshman, J. B. Orlin, S. Sengupta. ``Oblivious Routing of Highly Variable Traffic in Service Overlays and IP Backbones,'' IEEE/ACM Trans. on Netw., vol. 17(2), 459--472, 2008.
+
+\bibitem{ObliviousHoseModel11TON}
+M. Kodialam, T. V. Lakshman, J. B. Orlin, S. Sengupta. ``End-to-End Restorable Oblivious Routing of Hose Model Traffic," IEEE/ACM Trans. on Netw., vol. 19(4), 1223--1236, 2011.
 
 \bibitem{networking:gravity}
-M.Roughan, A.Greenberg, C.Kalmanek, M.Rumsewicz, J.Yates, and Y.Zhang. ``Experience in measuring backbone traffic variability: models, metrics, measurements, and meaning," InProceedings of the 2nd Internet Measurement Workshop. ACM, 2002
+M. Roughan, A. Greenberg, C. Kalmanek, M. Rumsewicz, J. Yates, and Y. Zhang. ``Experience in measuring backbone traffic variability: models, metrics, measurements, and meaning," InProceedings of the 2nd Internet Measurement Workshop. ACM, 2002.
 
-\bibitem{networking:dmp}
-A.P. Bianzino, L. Chiaraviglio, M. Mellia, ``Distributed algorithms for green IP networks," in: IEEE INFOCOM Workshop on Green Networking and Smart Grid, 2012
+\bibitem{PowerAware08Infocom} J.~Chabarek, J.~Sommers,
+    P.~Barford, C.~Estan, D.~Tsiang, and S.~Wright,
+  ``{P}ower {A}wareness in {N}etwork {D}esign and {R}outing,'' in \emph{Proc.
+  of IEEE INFOCOM}, 2008, pp. 457--465.
 
-\bibitem{networking:hopbyhop}
-C. Hou, F. Zhang, A. F. Anta, L. Wang, and Z. Liu. ``A Hopby-hop Energy Efficient Distributed Routing Scheme," in Proc. of Greenmetrics Workshop, 2013.
+\bibitem{networkflow93book}
+R. K. Ahuja, T. L. Magnanti, J. B. Orlin. Network flows: theory, algorithms, and applications. Prentice Hall, Feb., 1993.
 
 \bibitem{networking:yens}
-Yen, Jin Y. ``Finding the k Shortest Loopless Paths in a Network," Management Science 17 (11), 1971
+Yen, Jin Y. ``Finding the k Shortest Loopless Paths in a Network," Management Science 17 (11), 1971.
 
 \bibitem{networking:abilene}
-``Abilene Core Topology," [Online], Available: https://itservices.
-stanford.edu/service/network/internet2/abilene
+``Abilene Core Topology," [Online], Available:\\ https://itservices.stanford.edu/service/network/internet2/abilene
 
 \bibitem{networking:geant}
-``Network Topology," [Online], Available: http://geant3.archive.ge
-ant.net/Network/NetworkTopology/pages/home.aspx
+``Geant Topology," [Online], Available:\\ http://geant3.archive.geant.net/Network/NetworkTopology/pages/home.aspx
 
 \bibitem{networking:cernet2}
-``Cernet2 Topology," [Online], Available: http://www.edu.cn/20060111
-/3170220.shtml
+``CERNET2 Topology," [Online], Available:\\ http://www.edu.cn/20060111/3170220.shtml
 
 \end{thebibliography}
 
@@ -585,115 +553,62 @@ ant.net/Network/NetworkTopology/pages/home.aspx
 
 \section{Proof of Theorem 3}
 \begin{proof}
-Fig. \ref{figure_circle_and_clique} shows the 6-nodes cycle and clique topologies. We label three links $l_{ab}$, $l_{cd}$ and $l_{ef}$
-for our proof, let $cap_{ab}$, $cap_{cd}$ and $cap_{ef}$ be their link capacities. Now a arbitrary traffic
-comes, we compute the optimal routing and forward the demand on the topologies, let $dem_{ab}$, $dem_{cd}$
-and $dem_{ef}$ be the traffic on each link. Without loss of generality, we say the link $l_{ab}$ is the
-bottleneck, namely the link with MLUR.
+We compute the optimal routing for some arbitrary TM and forward the demands on the topologies. Let $d_l$ be the 
+traffic on link $l$, and $cap_l$ be the capacity of link $l$. For circles and cliques are highly homomorphic,
+without loss of generality we say the link $l_1$ is the bottleneck, i.e. the link with MLUR.
 
 
-Now let's consider the robust routing. When the routing changes, the traffic on each link also changes.
-We image a simple situation, just forward the traffic from one link to another path base on the optimal
-routing, and the link utilization of links on the path will increase, and accordingly the link
-utilization of former link will reduce to 0. Obviously, the routing must have a worse performance than
-the optimal robust routing, so its upper bound also is the bound of minimum OPRE.
+Routing can be adjusted. We image a simple situation that forward the traffic from one link to another path base
+on the routing computed above. The link utilization of links on the path will increase, while accordingly the 
+link utilization of adjusted link will reduce to 0. Obliviously, the adjusted routing must not be better than
+the optimal robust routing, so its upper bound also is the bound of minimum OPRE. Following proof is according 
+to which the adjusted link is, and which the bottleneck is after adjusting routing.
 
-
-\begin{figure}[!t]
-\centering
-\vspace*{0.1in}
-\subfloat[Circle]{\includegraphics[width=4cm]{circle}
-\label{subfiga}}
-\hfill
-\subfloat[Clique]{\includegraphics[width=4cm]{clique}
-\label{subfigb}}
-\caption{Circle and Clique topology of 6 nodes}
-\label{figure_circle_and_clique}
-\vspace*{0.1in}
-\end{figure}
-
-For Case \Rmnum{1}.\Rmnum{1}, the adjusted link may be $l_{cd}$, the new bottleneck still be $l_{ab}$.
-The traffic on $l_{ab}$ is increased by the origin traffic on link $l_{cd}$, So we compute OPRE by:
+For Case \Rmnum{1}.\Rmnum{1}, the adjusted link is $l_2$, the new bottleneck still be $l_1$. Because $l_1$ is the 
+bottleneck before adjusting, so we have inequation:
 
 \begin{equation}
-\label{equation_A_1_1_1}
-\frac {\frac{dem_{ab} + dem_{cd}}{cap_{ab}}} {\frac{dem_{ab}}{cap_{ab}}} = 1 + \frac{dem_{cd}}{dem_{ab}}
+\label{inequation_A_1_1_1}
+\frac {d_2} {cap_2} \leq \frac {d_1} {cap_1} \Longleftrightarrow \frac {d_2}{d_1} \leq \frac{cap_2}{cap_1}
 \end{equation}
 
-Because the old bottleneck is $l_{ab}$, so we have inequation:
-
-\begin{equation}
-\label{inequation_A_1_1_2}
-\frac {dem_{cd}} {cap_{cd}} < \frac {dem_{ab}} {cap_{ab}}
-\end{equation}
-
-From Ineq. (\ref{inequation_A_1_1_2}) we get:
-
-\begin{equation}
-\label{inequation_A_1_1_3}
-\frac {dem_{cd}} {dem_{ab}} < \frac {cap_{cd}} {cap_{ab}}
-\end{equation}
-
-So we have OPRE in Case \Rmnum{1}.\Rmnum{1} combined by Eq. (\ref{equation_A_1_1_1}) and Ineq. (\ref{inequation_A_1_1_3}):
+we compute OPRE for Case \Rmnum{1}.\Rmnum{1} combined with Ineq. (\ref{inequation_A_1_1_1}):
 
 \begin{equation}
 \label{inequation_A_1_1_result}
-1 + \frac {dem_{cd}} {dem_{ab}} < 1 + \frac {cap_{cd}} {cap_{ab}}
+\frac {\frac{d_1 + d_2}{cap_1}} {\frac{d_1}{cap_1}} = 1 + \frac{d_2}{d_1} \leq 1 + \frac{cap_2}{cap_1}
 \end{equation}
 
-For Case \Rmnum{1}.\Rmnum{2}, the adjusted link also be $l_{cd}$, but the new bottleneck may be $l_{ef}$.
-Computing the OPRE similar as above:
+
+For Case \Rmnum{1}.\Rmnum{2}, the adjusted link also be $l_2$, but the new bottleneck may be $l_3$.
+Because $l_1$ is the bottleneck before adjusting, so we have inequations:
 
 \begin{equation}
-\label{equation_A_1_2_1}
-\frac {\frac{dem_{ef} + dem_{cd}}{cap_{ef}}} {\frac{dem_{ab}}{cap_{ab}}} =
-\frac {dem_{ef} * cap_{ab}}{dem_{ab} * cap_{ef}} + \frac {dem_{cd} * cap_{ab}}{dem_{ab} * cap_{ef}}
+\label{inequation_A_1_2_1}
+\frac {d_3} {cap_3} \leq \frac {d_1} {cap_1} \Longleftrightarrow \frac {d_3 * cap_1}{d_1 * cap_3} \leq 1
 \end{equation}
-
-Because the old bottleneck is $l_{ab}$, so we have Ineq. (\ref{inequation_A_1_1_2}) and :
 
 \begin{equation}
 \label{inequation_A_1_2_2}
-\frac {dem_{ef}} {cap_{ef}} < \frac {dem_{ab}} {cap_{ab}}
+\frac {d_2} {cap_2} \leq \frac {d_1} {cap_1} \Longleftrightarrow \frac {d_2 * cap_1}{d_1} \leq cap_2
 \end{equation}
 
-So we get inequation from Ineq. (\ref{inequation_A_1_2_2}):
-
-\begin{equation}
-\label{inequation_A_1_2_3}
-\frac {dem_{ef} * cap_{ab}} {dem_{ab} * cap_{ef}} < 1
-\end{equation}
-
-Also from Ineq. (\ref{inequation_A_1_1_2}) we have :
-
-\begin{equation}
-\label{inequation_A_1_2_4}
-\frac {dem_{cd} * cap_{ab}} {dem_{ab}} < cap_{cd}
-\end{equation}
-
-Combine Eq. (\ref{equation_A_1_2_1}), Ineq. (\ref{inequation_A_1_2_3}) and Ineq. (\ref{inequation_A_1_2_4}), we have OPRE in Case \Rmnum{1}.\Rmnum{2}:
+We compute OPRE for Case \Rmnum{1}.\Rmnum{2} combined with Ineq. (\ref{inequation_A_1_2_1}) and Ineq. (\ref{inequation_A_1_2_2}):
 
 \begin{equation}
 \label{inequation_A_1_2_result}
-\frac {dem_{ef} * cap_{ab}}{dem_{ab} * cap_{ef}} + \frac {dem_{cd} * cap_{ab}}{dem_{ab} * cap_{ef}}
-< 1 + \frac {cap_{cd}}{cap_{ef}}
+\frac {\frac{d_3 + d_2}{cap_3}} {\frac{d_1}{cap_1}} =
+\frac {d_3 * cap_1}{d_1 * cap_3} + \frac {d_2 * cap_1}{d_1 * cap_3} \leq 1 + \frac{cap_2}{cap_3}
 \end{equation}
 
-For Case \Rmnum{2}, the adjusted link may be $l_{ab}$, namely the old bottleneck link, the new bottleneck
-maybe $l_{ef}$. Computing the OPRE similar as above:
 
-\begin{equation}
-\label{equation_A_2_1}
-\frac {\frac{dem_{ef} + dem_{ab}}{cap_{ef}}} {\frac{dem_{ab}}{cap_{ab}}} =
-\frac {dem_{ef} * cap_{ab}}{dem_{ab} * cap_{ef}} + \frac{cap_{ab}}{cap_{ef}}
-\end{equation}
-
-Becuase the old bottleneck has the maximum link utilization, so combine Ineq. (\ref{inequation_A_1_2_3}) and Eq. (\ref{equation_A_2_1}) we obtain OPRE in Case
-\Rmnum{2}:
+For Case \Rmnum{2}, the adjusted link is $l_1$, namely the old bottleneck link, the new bottleneck
+maybe $l_3$. Computing the OPRE combined with Ineq. (\ref{inequation_A_1_2_1}):
 
 \begin{equation}
 \label{inequation_A_2_result}
-\frac {dem_{ef} * cap_{ab}}{dem_{ab} * cap_{ef}} + \frac{cap_{ab}}{cap_{ef}} < 1 + \frac{cap_{ab}}{cap_{ef}}
+\frac {\frac{d_3 + d_1}{cap_3}} {\frac{d_1}{cap_1a}} =
+\frac {d_3 * cap_1}{d_1 * cap_3} + \frac{cap_1}{cap_3} \leq 1 + \frac{cap_1}{cap_3}
 \end{equation}
 
 
@@ -701,53 +616,46 @@ To sum up, we have inequation from Ineq. (\ref{inequation_A_1_1_result}), Ineq. 
 
 \begin{equation}
 \label{inequation_A_result}
-1 + \max \{\frac{cap_{cd}}{cap_{ab}}, \frac{cap_{cd}}{cap_{ef}}, \frac{cap_{ab}}{cap_{ef}} \} < 1 + \frac{\max_{l \in E} cap_{l}}{\min_{l \in E} cap_{l}}
+1 + \max \{\frac{cap_2}{cap_1}, \frac{cap_2}{cap_3}, \frac{cap_1}{cap_3} \} \leq 1 + \frac{\max_{l \in E} cap_{l}}{\min_{l \in E} cap_{l}}
 \end{equation}
 
 \end{proof}
 
 \section{Proof of Theorem 4}
 \begin{proof}
-The spanning tree of circle is the topology which lose one link. In Appendix. A, when we consider the robust routing, we adjust the traffic
-on one link to another path, it is similar that we switch off the link and forward the traffic to some other path. The complete proof is
-almost the same with Appendix. A.
+The spanning tree of circle is the topology which lose one link. 
+We regard this link as the adjusted link mentioned in Appendix. A. The complete proof is almost the same with Appendix. A.
 \end{proof}
 
 \section{Proof of Theorem 5}
 \begin{proof}
-Every link in the spanning tree will split the graph to two components, the flow between them must need trace this link.
-we say the bottleneck link is $l_{ab}$ for optimal routing on the origin topology, and let $l_{ef}$ be the bottleneck link for
-the robust routing on the spanning tree. Other symbols are consistent with Appendix. A. So we have OPRE:
+Suppose clique has $n$ nodes, every link in the spanning tree will split the tree to two components. 
+Let $l_3$ be the bottleneck in the spanning tree, Let $S$, $D$ be the node sets of two components, and every flow 
+between $S$ and $D$ always trace on $l_3$. Without loss of generality, we say $l_1$ is the bottleneck link for the 
+optimal routing on the original clique.
+
+Because the $l_1$ is the bottleneck link, we have:
 
 \begin{equation}
-\label{equation_C_1}
-    \frac{\frac{\sum_{(i,j) \in E} dem_{ij}}{cap_{ef}}}{\frac{dem_{ab}}{cap_{ab}}} = \frac{cap_{ab}}{cap_{ef}} \sum_{(i,j) \in E} \frac{dem_{ij}}{dem_{ab}}
+\label{ineqaution_C_1}
+    \frac{d_l}{cap_l} \leq \frac{dem_1}{cap_1} \Longleftrightarrow \frac{d_l * cap_1}{d_1} \leq cap_l,  \forall l \in (S,D)
 \end{equation}
 
-Because the $l_{ab}$ is the bottleneck link, we have:
+
+The $l_3$ is the bottleneck finally, we have OPRE combined with Ineq. (\ref{ineqaution_C_1}):
 
 \begin{equation}
 \label{ineqaution_C_2}
-    \frac{dem_{ij}}{cap_{ij}} < \frac{dem_{ab}}{cap_{ab}}, \forall (i,j) \in E
+    \frac{\frac{\sum_{l \in (S,D)} d_l}{cap_3}}{\frac{d_1}{cap_1}} = \frac{cap_1}{cap_3} \sum_{l \in (S,D)} \frac{d_l}{d_1}
+     \leq \sum_{l \in (S,D)} \frac{cap_l}{cap_3}
 \end{equation}
 
-\begin{equation}
-\label{ineqaution_C_3}
-    \frac{dem_{ij} * cap_{ab}}{dem_{ab}} < cap_{ij}, \forall (i,j) \in E
-\end{equation}
-
-So we have OPRE:
-
-\begin{equation}
-\label{ineqaution_C_4}
-    \frac{cap_{ab}}{cap_{ef}} \sum_{(i,j) \in E} \frac{dem_{ij}}{dem_{ab}} < \sum_{(i,j) \in E} \frac{cap_{ij}}{cap_{ef}}
-\end{equation}
-
-And we know that, the amount of $l_{ij}$ between two parts must less than $\frac{n^2}{2}$, so OPRE must lower than:
+And we know that, the amount of $l$ must less than $\frac{n^2}{2}$ (equal to $\frac{n^2}{2}$ if $|S| == |D| == \frac{n}{2}$), 
+so OPRE must lower than:
 
 \begin{equation}
 \label{ineqaution_C_result}
-    \sum_{(i,j) \in E} \frac{cap_{ij}}{cap_{ef}} < \frac{n^2}{2} \frac{\max_{l \in E} cap_l}{\min_{l \in E} cap_l}
+    \sum_{l \in (S,D)} \frac{cap_l}{cap_3} \leq \frac{n^2}{2} \frac{\max_{l \in (S,D)} cap_l}{\min_{l \in (S,D)} cap_l}
 \end{equation}
 
 \end{proof}

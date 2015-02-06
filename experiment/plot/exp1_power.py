@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as tic
 from matplotlib import rc
 
-t = 'cernet2'
+t = 'geant'
 
 
 font = {'size':20}
@@ -29,8 +29,10 @@ power_models = {155.0:60, 1240.0:100, 2480.0:140, 9920:174}
 power_model = [60, 100, 140, 174]
 
 
-line_list = []
-label_list = []
+line_list_1 = []
+line_list_2 = []
+label_list_1 = []
+label_list_2 = []
 #for t in ['abilene', 'geant', 'cernet2']:
 for w in ['1.5', '2.5', '3.5']:
     # compute the total power of topology
@@ -138,21 +140,21 @@ for w in ['1.5', '2.5', '3.5']:
     l1, = ax1.plot(power_base_saving_ratio[:topology_x_range[t]], base[:topology_x_range[t]], color_type['base']+w_line_type[w], ms=10)
     l2, = ax1.plot(power_saving_ratio[:topology_x_range[t]], new[:topology_x_range[t]], color_type['new']+w_line_type[w], ms=10)
 
-    label_list.append(remove_type['base'] + '-' + w)
-    label_list.append(remove_type['new'] + '-' + w)
+    label_list_1.append(r'$%s\ \omega=%s$' % (remove_type['base'], w))
+    label_list_2.append(r'$%s\ \omega=%s$' % (remove_type['new'], w))
     
-    line_list.append(l1)
-    line_list.append(l2)
+    line_list_1.append(l1)
+    line_list_2.append(l2)
 
 plt.xlabel('Power Saving Ratio (%) \n '+'(%s)' % topology_letter[t], fontsize=22)
 plt.ylabel('OPRE', fontsize=22)
 #plt.legend([l1, l2], ['TMP, w=1.5, 2.0, 2.5...', 'ERLU, w=1.5, 2.0, 2.5...'], loc=2)
-plt.legend(line_list, label_list, loc=2, fontsize=16)
+plt.legend(line_list_1+line_list_2, label_list_1+label_list_2, loc=2, fontsize=15)
 
 ax1.set_yscale('log')
 ax1.set_ylim([1,y_lim[t]])
 ax1.get_yaxis().set_major_formatter(tic.ScalarFormatter())
-ax1.yaxis.set_minor_formatter(FormatStrFormatter("%0.1f"))
+#ax1.yaxis.set_minor_formatter(FormatStrFormatter("%0.1f"))
 
 
 pp = PdfPages('opr_with_power_%s.pdf' % t)
